@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="120" id="R2h-jw-IxH" customClass="DataTableCell" customModule="hom" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PatientCell" rowHeight="120" id="R2h-jw-IxH" customClass="DataTableCell" customModule="hom" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R2h-jw-IxH" id="RQV-HV-5QY">
@@ -142,15 +142,104 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQl-Jw-HAu">
-                                <rect key="frame" x="16" y="90" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQl-Jw-HAu">
+                                <rect key="frame" x="16" y="88" width="343" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVIDER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jhg-a3-sVq">
+                                <rect key="frame" x="16" y="133.5" width="64" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.60392156862745094" green="0.60271537303924561" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Thomas Smolko" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zTF-g2-jLW" customClass="InsetableTextField" customModule="hom" customModuleProvider="target">
+                                <rect key="frame" x="-5" y="157.5" width="385" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="9Dr-Hf-qVK"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
+                                        <real key="value" value="21"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Your Provider Name is used in the database. You can update it in Settings." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgD-o7-d7d">
+                                <rect key="frame" x="16" y="210.5" width="343" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PATIENT INFO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Itt-cO-5db">
+                                <rect key="frame" x="16" y="256" width="86.5" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="dkz-w4-IeV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.60392156860000001" green="0.602715373" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="csJ-R9-OkL">
+                                <rect key="frame" x="0.0" y="280" width="375" height="303"/>
+                                <subviews>
+                                    <stackView contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="xc6-BM-Yj2">
+                                        <rect key="frame" x="16" y="8" width="359" height="45"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Clinic name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5B6-vm-M3d" customClass="InsetableTextField" customModule="hom" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="359" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="8p4-Ek-PPV"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bottomBorder" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="5B6-vm-M3d" secondAttribute="trailing" id="LLy-6s-iKT"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="xc6-BM-Yj2" firstAttribute="top" secondItem="csJ-R9-OkL" secondAttribute="top" constant="8" id="1Zu-QE-wVD"/>
+                                    <constraint firstAttribute="trailing" secondItem="xc6-BM-Yj2" secondAttribute="trailing" id="5lC-0g-yEs"/>
+                                    <constraint firstAttribute="height" constant="303" id="ZCK-gq-bjk"/>
+                                    <constraint firstItem="xc6-BM-Yj2" firstAttribute="leading" secondItem="csJ-R9-OkL" secondAttribute="leading" constant="16" id="sJb-Nt-6Ts"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="csJ-R9-OkL" firstAttribute="leading" secondItem="5DL-uW-6jD" secondAttribute="leading" id="05f-BL-Cvl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="HgD-o7-d7d" secondAttribute="trailing" id="4zY-Ag-VuN"/>
+                            <constraint firstAttribute="trailing" secondItem="csJ-R9-OkL" secondAttribute="trailing" id="8ue-oa-p3B"/>
+                            <constraint firstItem="jhg-a3-sVq" firstAttribute="leading" secondItem="RQl-Jw-HAu" secondAttribute="leading" id="ELg-jd-Qkk"/>
+                            <constraint firstItem="Itt-cO-5db" firstAttribute="leading" secondItem="HgD-o7-d7d" secondAttribute="leading" id="Eje-67-yHX"/>
+                            <constraint firstItem="RQl-Jw-HAu" firstAttribute="top" secondItem="MiN-g1-SWQ" secondAttribute="bottom" constant="24" id="I3V-6X-15h"/>
+                            <constraint firstAttribute="trailing" secondItem="zTF-g2-jLW" secondAttribute="trailing" constant="-5" id="U7J-oi-OBN"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jhg-a3-sVq" secondAttribute="trailing" constant="20" symbolic="YES" id="Vdw-cL-Qfq"/>
+                            <constraint firstItem="jhg-a3-sVq" firstAttribute="top" secondItem="RQl-Jw-HAu" secondAttribute="bottom" constant="14" id="b18-wR-aS5"/>
+                            <constraint firstItem="csJ-R9-OkL" firstAttribute="top" secondItem="Itt-cO-5db" secondAttribute="bottom" constant="8" id="j2v-ph-a3s"/>
+                            <constraint firstItem="RQl-Jw-HAu" firstAttribute="leading" secondItem="5DL-uW-6jD" secondAttribute="leadingMargin" id="m5h-ws-4OS"/>
+                            <constraint firstItem="zTF-g2-jLW" firstAttribute="leading" secondItem="5DL-uW-6jD" secondAttribute="leading" constant="-5" id="nAO-PC-fxH"/>
+                            <constraint firstItem="zTF-g2-jLW" firstAttribute="top" secondItem="jhg-a3-sVq" secondAttribute="bottom" constant="8" id="ofw-Jk-f2k"/>
+                            <constraint firstItem="HgD-o7-d7d" firstAttribute="leading" secondItem="5DL-uW-6jD" secondAttribute="leadingMargin" id="tDt-dc-KkY"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Itt-cO-5db" secondAttribute="trailing" constant="20" symbolic="YES" id="vBe-XR-QNZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RQl-Jw-HAu" secondAttribute="trailing" id="vpf-cW-9Si"/>
+                            <constraint firstItem="Itt-cO-5db" firstAttribute="top" secondItem="HgD-o7-d7d" secondAttribute="bottom" constant="14" id="wdK-cI-VgI"/>
+                            <constraint firstItem="HgD-o7-d7d" firstAttribute="top" secondItem="zTF-g2-jLW" secondAttribute="bottom" constant="8" id="ygm-OF-Knv"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add Entry" id="rrI-PP-X0A">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="xxX-x4-1MM"/>

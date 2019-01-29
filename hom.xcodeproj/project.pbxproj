@@ -16,6 +16,7 @@
 		7381B89E21FD520700845384 /* DataTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89D21FD520700845384 /* DataTableCell.swift */; };
 		7381B8A021FD529000845384 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89F21FD529000845384 /* ExportViewController.swift */; };
 		7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B8A121FD52FD00845384 /* SettingsViewController.swift */; };
+		73EE855D21FFEF06005889C6 /* InsetableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EE855C21FFEF06005889C6 /* InsetableTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		7381B89D21FD520700845384 /* DataTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableCell.swift; sourceTree = "<group>"; };
 		7381B89F21FD529000845384 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		7381B8A121FD52FD00845384 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		73EE855C21FFEF06005889C6 /* InsetableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetableTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				7381B89D21FD520700845384 /* DataTableCell.swift */,
 				7381B89F21FD529000845384 /* ExportViewController.swift */,
 				7381B8A121FD52FD00845384 /* SettingsViewController.swift */,
+				73EE855C21FFEF06005889C6 /* InsetableTextField.swift */,
 				320AC89A21FA6C8700F6EA0B /* Main.storyboard */,
 				320AC89D21FA6C8800F6EA0B /* Assets.xcassets */,
 				320AC89F21FA6C8800F6EA0B /* LaunchScreen.storyboard */,
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7381B89C21FD513900845384 /* DataTableController.swift in Sources */,
+				73EE855D21FFEF06005889C6 /* InsetableTextField.swift in Sources */,
 				7381B89E21FD520700845384 /* DataTableCell.swift in Sources */,
 				7381B8A021FD529000845384 /* ExportViewController.swift in Sources */,
 				7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */,
