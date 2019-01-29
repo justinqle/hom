@@ -117,11 +117,49 @@
                             <outlet property="delegate" destination="69c-u1-eDq" id="TK6-ih-BeK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Data Table" id="Ivt-xV-J8x"/>
+                    <navigationItem key="navigationItem" title="Data Table" id="Ivt-xV-J8x">
+                        <barButtonItem key="leftBarButtonItem" title="Sort" id="DkN-6l-ALS"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XGh-Un-adT">
+                            <connections>
+                                <segue destination="QMe-ET-V8y" kind="presentation" identifier="AddItem" id="ZkN-Zp-kRi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H26-EK-EdM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1664.8" y="-460.11994002998506"/>
+        </scene>
+        <!--Add Patient-->
+        <scene sceneID="ZJy-a7-3Lw">
+            <objects>
+                <viewController title="Add Patient" id="1qY-f6-OHt" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MiN-g1-SWQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="zCE-YO-OZh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5DL-uW-6jD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQl-Jw-HAu">
+                                <rect key="frame" x="16" y="90" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Entry" id="rrI-PP-X0A">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="xxX-x4-1MM"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="kTy-g0-7xw"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rjb-3U-mDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3528.8000000000002" y="-460.11994002998506"/>
         </scene>
         <!--Export-->
         <scene sceneID="wg7-f3-ORb">
@@ -264,8 +302,27 @@
             </objects>
             <point key="canvasLocation" x="725.60000000000002" y="301.79910044977515"/>
         </scene>
+        <!--Add Patient Navigation-->
+        <scene sceneID="oDx-fX-oXx">
+            <objects>
+                <navigationController title="Add Patient Navigation" automaticallyAdjustsScrollViewInsets="NO" id="QMe-ET-V8y" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eGY-KW-wrq">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1qY-f6-OHt" kind="relationship" relationship="rootViewController" id="oDv-sh-HEP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9QN-Tf-2S4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2589.5999999999999" y="-460.11994002998506"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ChevronRight" width="15" height="15"/>
     </resources>
+    <color key="tintColor" red="1" green="0.73725490199999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
 </document>
