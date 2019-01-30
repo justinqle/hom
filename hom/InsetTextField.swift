@@ -10,8 +10,11 @@ import UIKit
 
 @IBDesignable
 class InsetTextField: UITextField {
+    
+    // MARK: Properties
     @IBInspectable var inset: CGFloat = 0
     
+    // MARK: Drawing
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: inset, dy: inset)
     }
