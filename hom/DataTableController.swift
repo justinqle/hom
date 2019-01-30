@@ -7,13 +7,28 @@
 //
 
 import UIKit
+import CoreData
 
 private let reuseIdentifier = "Cell"
 
 class DataTableController: UITableViewController {
+    
+    var patients: [NSManagedObject] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tableView.register(DataTableCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return patients.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let patient = patients[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+        cell.textLabel?.text = patient.value(forKeyPath: "diagnosis") as? String
+        return cell
+    }
+    
 }
