@@ -13,7 +13,7 @@ class EntryAdditionController: UIViewController, UIScrollViewDelegate {
     // MARK: Properties
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
-
+    
     override func viewDidLayoutSubviews() {
         scrollView.contentSize = contentView.frame.size
         scrollView.delegate = self
