@@ -4,7 +4,7 @@
         <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="clinic" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="creation" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="deleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="delete" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="diagnosis" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dosage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,6 +14,6 @@
         <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Patient" positionX="-63" positionY="-18" width="128" height="208"/>
+        <element name="Patient" positionX="-63" positionY="-18" width="128" height="210"/>
     </elements>
 </model>
