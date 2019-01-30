@@ -12,11 +12,14 @@
 		320AC89E21FA6C8800F6EA0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 320AC89D21FA6C8800F6EA0B /* Assets.xcassets */; };
 		320AC8A121FA6C8800F6EA0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 320AC89F21FA6C8800F6EA0B /* LaunchScreen.storyboard */; };
 		320AC8AC21FA6C8800F6EA0B /* homTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320AC8AB21FA6C8800F6EA0B /* homTests.swift */; };
+		7329C8402200ED410072DCC8 /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7329C83F2200ED410072DCC8 /* InsetTextField.swift */; };
+		7329C8422200ED5D0072DCC8 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */; };
 		7381B89C21FD513900845384 /* DataTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89B21FD513900845384 /* DataTableController.swift */; };
 		7381B89E21FD520700845384 /* DataTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89D21FD520700845384 /* DataTableCell.swift */; };
 		7381B8A021FD529000845384 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89F21FD529000845384 /* ExportViewController.swift */; };
 		7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B8A121FD52FD00845384 /* SettingsViewController.swift */; };
-		73EE855D21FFEF06005889C6 /* InsetableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EE855C21FFEF06005889C6 /* InsetableTextField.swift */; };
+		73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF968C2200F13700C96354 /* BorderedStackView.swift */; };
+		73CF968F22012F5C00C96354 /* EntryAdditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF968E22012F5C00C96354 /* EntryAdditionController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,11 +42,14 @@
 		320AC8A721FA6C8800F6EA0B /* homTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = homTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		320AC8AB21FA6C8800F6EA0B /* homTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homTests.swift; sourceTree = "<group>"; };
 		320AC8AD21FA6C8800F6EA0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7329C83F2200ED410072DCC8 /* InsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
+		7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		7381B89B21FD513900845384 /* DataTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableController.swift; sourceTree = "<group>"; };
 		7381B89D21FD520700845384 /* DataTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableCell.swift; sourceTree = "<group>"; };
 		7381B89F21FD529000845384 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		7381B8A121FD52FD00845384 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		73EE855C21FFEF06005889C6 /* InsetableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetableTextField.swift; sourceTree = "<group>"; };
+		73CF968C2200F13700C96354 /* BorderedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedStackView.swift; sourceTree = "<group>"; };
+		73CF968E22012F5C00C96354 /* EntryAdditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryAdditionController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +96,10 @@
 				7381B89D21FD520700845384 /* DataTableCell.swift */,
 				7381B89F21FD529000845384 /* ExportViewController.swift */,
 				7381B8A121FD52FD00845384 /* SettingsViewController.swift */,
-				73EE855C21FFEF06005889C6 /* InsetableTextField.swift */,
+				73CF968E22012F5C00C96354 /* EntryAdditionController.swift */,
+				7329C83F2200ED410072DCC8 /* InsetTextField.swift */,
+				7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */,
+				73CF968C2200F13700C96354 /* BorderedStackView.swift */,
 				320AC89A21FA6C8700F6EA0B /* Main.storyboard */,
 				320AC89D21FA6C8800F6EA0B /* Assets.xcassets */,
 				320AC89F21FA6C8800F6EA0B /* LaunchScreen.storyboard */,
@@ -210,11 +219,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7381B89C21FD513900845384 /* DataTableController.swift in Sources */,
-				73EE855D21FFEF06005889C6 /* InsetableTextField.swift in Sources */,
 				7381B89E21FD520700845384 /* DataTableCell.swift in Sources */,
+				73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */,
 				7381B8A021FD529000845384 /* ExportViewController.swift in Sources */,
 				7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */,
 				320AC89521FA6C8700F6EA0B /* AppDelegate.swift in Sources */,
+				7329C8422200ED5D0072DCC8 /* BorderedTextField.swift in Sources */,
+				7329C8402200ED410072DCC8 /* InsetTextField.swift in Sources */,
+				73CF968F22012F5C00C96354 /* EntryAdditionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
