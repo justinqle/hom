@@ -10,7 +10,7 @@ import UIKit
 
 class EntryAdditionController: UIViewController, UIScrollViewDelegate {
     
-    // MARK: - Properties
+    // MARK: Properties
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     
@@ -18,10 +18,4 @@ class EntryAdditionController: UIViewController, UIScrollViewDelegate {
         scrollView.contentSize = contentView.frame.size
         scrollView.delegate = self
     }
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    
 }
