@@ -31,4 +31,9 @@ class DataTableController: UITableViewController {
         return cell
     }
     
+    // MARK: - Actions
+    @IBAction func unwindToDataTable(sender: UIStoryboardSegue) {
+        
+    }
+    
 }
