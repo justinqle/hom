@@ -361,11 +361,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add Entry" id="rrI-PP-X0A">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="xxX-x4-1MM">
-                            <connections>
-                                <action selector="cancel:" destination="1qY-f6-OHt" id="rTr-9l-dkS"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="xxX-x4-1MM"/>
                         <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="kTy-g0-7xw">
                             <connections>
                                 <segue destination="j96-Kh-exJ" kind="unwind" unwindAction="unwindToDataTableWithSender:" id="t8z-rJ-Alb"/>
