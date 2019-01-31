@@ -10,12 +10,26 @@ import UIKit
 
 class EntryAdditionController: UIViewController, UIScrollViewDelegate {
     
-    // MARK: Properties
+    // MARK: - Properties
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
+    
+    // MARK: - Overriden Methods
     
     override func viewDidLayoutSubviews() {
         scrollView.contentSize = contentView.frame.size
         scrollView.delegate = self
     }
+    
+    // MARK: - Navigation
+    
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
+    
 }

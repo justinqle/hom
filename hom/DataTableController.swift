@@ -13,7 +13,11 @@ private let reuseIdentifier = "Cell"
 
 class DataTableController: UITableViewController {
     
+    // MARK: - Properties
+    
     var patients: [NSManagedObject] = []
+    
+    // MARK: - Overriden Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +33,12 @@ class DataTableController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
         cell.textLabel?.text = patient.value(forKeyPath: "diagnosis") as? String
         return cell
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func unwindToDataTable(sender: UIStoryboardSegue) {
+        
     }
     
 }
