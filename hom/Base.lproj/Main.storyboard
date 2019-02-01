@@ -197,7 +197,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="426.33333333333331"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Clinic name" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="FdP-Qq-abU" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="4" width="394" height="84"/>
+                                                                        <rect key="frame" x="20" y="4" width="394" height="52"/>
                                                                         <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
@@ -208,7 +208,7 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </textField>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="ASl-C5-fxT" customClass="BorderedStackView" customModule="hom" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="96" width="394" height="44.333333333333343"/>
+                                                                        <rect key="frame" x="20" y="64" width="394" height="44.333333333333343"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGn-am-yz0">
                                                                                 <rect key="frame" x="15.999999999999996" y="7.9999999999999982" width="56.666666666666657" height="20.333333333333329"/>
@@ -226,7 +226,7 @@
                                                                         <edgeInsets key="layoutMargins" top="8" left="16" bottom="16" right="0.0"/>
                                                                     </stackView>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Patient age" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="L0c-La-69b" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="148.33333333333331" width="394" height="20"/>
+                                                                        <rect key="frame" x="20" y="116.33333333333331" width="394" height="52"/>
                                                                         <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
