@@ -23,6 +23,7 @@
 		7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B8A121FD52FD00845384 /* SettingsViewController.swift */; };
 		73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF968C2200F13700C96354 /* BorderedStackView.swift */; };
 		73CF968F22012F5C00C96354 /* EntryAdditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF968E22012F5C00C96354 /* EntryAdditionController.swift */; };
+		73D81B022206711B0010EA75 /* UIColorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D81B012206711B0010EA75 /* UIColorCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		7381B8A121FD52FD00845384 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		73CF968C2200F13700C96354 /* BorderedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedStackView.swift; sourceTree = "<group>"; };
 		73CF968E22012F5C00C96354 /* EntryAdditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryAdditionController.swift; sourceTree = "<group>"; };
+		73D81B012206711B0010EA75 /* UIColorCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorCollection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				7381B89F21FD529000845384 /* ExportViewController.swift */,
 				7381B8A121FD52FD00845384 /* SettingsViewController.swift */,
 				73CF968E22012F5C00C96354 /* EntryAdditionController.swift */,
+				73D81B012206711B0010EA75 /* UIColorCollection.swift */,
 				7329C83F2200ED410072DCC8 /* InsetTextField.swift */,
 				7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */,
 				73CF968C2200F13700C96354 /* BorderedStackView.swift */,
@@ -228,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7381B89C21FD513900845384 /* DataTableController.swift in Sources */,
+				73D81B022206711B0010EA75 /* UIColorCollection.swift in Sources */,
 				7381B89E21FD520700845384 /* DataTableCell.swift in Sources */,
 				73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */,
 				7381B8A021FD529000845384 /* ExportViewController.swift in Sources */,

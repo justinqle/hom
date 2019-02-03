@@ -14,12 +14,12 @@ class BorderedTextField: InsetTextField {
     // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addBottomBorderWithColor(color: UIColor(red: 209/255, green: 209/255, blue: 214/255, alpha: 1), width: 1)
+        addBottomBorderWithColor(color: UIColorCollection.greyDark, width: 1)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        addBottomBorderWithColor(color: UIColor(red: 209/255, green: 209/255, blue: 214/255, alpha: 1), width: 1)
+        addBottomBorderWithColor(color: UIColorCollection.greyDark, width: 1)
     }
     
     // MARK: Private Methods
