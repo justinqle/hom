@@ -132,22 +132,15 @@ class EntryAdditionController: UIViewController,
         prevOffset = scrollView.contentOffset
         prevHeight = scrollView.contentSize.height
         
+        var difference: CGFloat = 0
+        
         if let textField = activeTextField {
             // Calculate the difference between bottom of active view and top of keyboard
             guard let fieldOrigin = textField.superview?.convert(textField.frame.origin, to: nil) else {
                 return
             }
             let bottomFieldY = fieldOrigin.y + textField.frame.height
-            let difference = bottomFieldY - keyboardFrame.minY
-            
-            if difference < 0 {
-                // View is above keyboard - return
-                return
-            } else {
-                // View is hidden by keyboard, scroll up by difference
-                let contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y + difference)
-                scrollView.setContentOffset(contentOffset, animated: true)
-            }
+            difference = bottomFieldY - keyboardFrame.minY
         }
         else if let textView = activeTextView {
             // Calculate the difference between bottom of active view and top of keyboard
@@ -155,17 +148,16 @@ class EntryAdditionController: UIViewController,
                 return
             }
             let bottomFieldY = viewOrigin.y + textView.frame.height
-            let difference = bottomFieldY - keyboardFrame.minY
-            
-            if difference < 0 {
-                // View is above keyboard - return
-                return
-            } else {
-                // View is hidden by keyboard, scroll up by difference
-                let contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y +
-                    difference + (textView.frame.height / 2))
-                scrollView.setContentOffset(contentOffset, animated: true)
-            }
+            difference = bottomFieldY - keyboardFrame.minY + (textView.frame.height / 2)
+        }
+        
+        if difference < 0 {
+            // View is above keyboard - return
+            return
+        } else {
+            // View is hidden by keyboard, scroll up by difference
+            let contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y + difference)
+            scrollView.setContentOffset(contentOffset, animated: true)
         }
     }
 
