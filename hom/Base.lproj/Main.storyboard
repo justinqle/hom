@@ -449,7 +449,7 @@
                         <outlet property="dosageStackView" destination="NA0-G0-r0X" id="36Q-mM-KTq"/>
                         <outlet property="genderLabel" destination="qCC-RK-6XI" id="xRB-ff-shC"/>
                         <outlet property="genderStackView" destination="ASl-C5-fxT" id="RZQ-xf-uNt"/>
-                        <outlet property="notesTextView" destination="dqO-Pm-Jhd" id="MIM-Z4-8UQ"/>
+                        <outlet property="notesTextView" destination="dqO-Pm-Jhd" id="TLg-gV-ShW"/>
                         <outlet property="patientInfoView" destination="GgJ-vS-tVk" id="SYF-Dz-AT2"/>
                         <outlet property="patientLabel" destination="Pcd-FS-egZ" id="SDC-QE-0U0"/>
                         <outlet property="prescriptionLabel" destination="U88-Zw-hVi" id="Iwq-hx-cNe"/>
