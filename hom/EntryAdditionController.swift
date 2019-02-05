@@ -92,6 +92,7 @@ class EntryAdditionController: UIViewController,
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         activeTextField = nil
+        textField.resignFirstResponder()
         return true
     }
     
@@ -147,8 +148,9 @@ class EntryAdditionController: UIViewController,
             guard let viewOrigin = textView.superview?.convert(textView.frame.origin, to: nil) else {
                 return
             }
+            // Difference + borderedStackView bottom margins set in IB
             let bottomFieldY = viewOrigin.y + textView.frame.height
-            difference = bottomFieldY - keyboardFrame.minY + (textView.frame.height / 2)
+            difference = bottomFieldY - keyboardFrame.minY + 20
         }
         
         if difference < 0 {
