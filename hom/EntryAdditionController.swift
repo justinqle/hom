@@ -9,7 +9,8 @@
 import UIKit
 
 class EntryAdditionController: UIViewController,
-    UIScrollViewDelegate, UITextFieldDelegate, UITextViewDelegate {
+    UIScrollViewDelegate, UITextFieldDelegate, UITextViewDelegate,
+    UIPickerViewDelegate, UIPickerViewDataSource {
     
     // MARK: - Properties
     
@@ -33,10 +34,8 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var deleteButtonView: UIView!
     @IBOutlet weak var deleteButton: UIButton!
     
-    private var activeTextField: UITextField?
-    private var activeTextView: UITextView?
-    private var prevOffset = CGPoint.zero
-    private var prevHeight: CGFloat = 0
+    private let options = Options.shared
+    private var activeView: UIView?
     
     // MARK: - Overriden Methods
     
@@ -83,15 +82,15 @@ class EntryAdditionController: UIViewController,
     // MARK: - UITextFieldDelegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        activeTextField = textField
+        activeView = textField
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        activeTextField = nil
+        activeView = nil
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        activeTextField = nil
+        activeView = nil
         textField.resignFirstResponder()
         return true
     }
@@ -99,11 +98,21 @@ class EntryAdditionController: UIViewController,
     // MARK: - UITextViewDelegate
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        activeTextView = textView
+        activeView = textView
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        activeTextView = nil
+        activeView = nil
+    }
+    
+    // MARK: - UIPickerViewDelegate
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 0
     }
     
     // MARK: - Navigation
@@ -130,12 +139,10 @@ class EntryAdditionController: UIViewController,
         }
         
         let keyboardFrame = keyboardSize.cgRectValue
-        prevOffset = scrollView.contentOffset
-        prevHeight = scrollView.contentSize.height
         
         var difference: CGFloat = 0
         
-        if let textField = activeTextField {
+        if let textField = activeView {
             // Calculate the difference between bottom of active view and top of keyboard
             guard let fieldOrigin = textField.superview?.convert(textField.frame.origin, to: nil) else {
                 return
@@ -143,7 +150,7 @@ class EntryAdditionController: UIViewController,
             let bottomFieldY = fieldOrigin.y + textField.frame.height
             difference = bottomFieldY - keyboardFrame.minY
         }
-        else if let textView = activeTextView {
+        else if let textView = activeView {
             // Calculate the difference between bottom of active view and top of keyboard
             guard let viewOrigin = textView.superview?.convert(textView.frame.origin, to: nil) else {
                 return
