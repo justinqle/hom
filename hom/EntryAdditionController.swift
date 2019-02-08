@@ -25,9 +25,8 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var ageTextField: BorderedTextField!
     @IBOutlet weak var diagnosisStackView: BorderedStackView!
     @IBOutlet weak var diagnosisLabel: UILabel!
-    @IBOutlet weak var prescriptionStackView: BorderedStackView!
-    @IBOutlet weak var prescriptionLabel: UILabel!
     @IBOutlet weak var dosageStackView: BorderedStackView!
+    @IBOutlet weak var prescriptionTextField: SearchTextField!
     @IBOutlet weak var dosageLabel: UILabel!
     @IBOutlet weak var notesTextView: PaddedTextView!
     @IBOutlet weak var creationLabel: PaddedLabel!
@@ -67,6 +66,10 @@ class EntryAdditionController: UIViewController,
         // Button view container borders
         deleteButtonView.layer.borderColor = UIColorCollection.greyDark.cgColor
         deleteButtonView.layer.borderWidth = 1
+        
+        // Customize SearchTextField instance for prescriptions
+        prescriptionTextField.filterStrings(options.medicationList)
+        prescriptionTextField.inlineMode = true
         
         // Dismiss the keyboard on tap of the content
         self.view.addGestureRecognizer(

@@ -17,6 +17,7 @@ class Options {
     let diagnosisList = ["GERD", "HTN", "Arthritis", "Undernourished", "URI",
                                  "Headache", "Anemia", "Vaginitis", "Iron deficiency",
                                  "Rash", "Pain", "Diabetes", "Worried Well", "Cough", "Fever"]
+    let dosageList = ["One time", "One week", "One month", "3 month"]
     private (set) var medicationList: [String] = []
     
     // MARK: - Initializer
@@ -37,12 +38,15 @@ class Options {
     
     // MARK: - Private Methods
     private func fromCSV(data: String) -> [String] {
-        var result: [[String]] = []
-        let rows = data.components(separatedBy: "\n")
+        // Collect the entries in the first column of the CSV
+        var result: [String] = []
+        let rows = data.components(separatedBy: "\r")
         for row in rows {
-            let columns = row.components(separatedBy: ";")
-            result.append(columns)
+            let columns = row.components(separatedBy: ",")
+            let filtered = columns[0].replacingOccurrences(of: "\n", with: "")
+            result.append(filtered)
         }
+        result.removeFirst(1)
         return result
     }
 }
