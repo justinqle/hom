@@ -13,9 +13,9 @@
 		320AC8A121FA6C8800F6EA0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 320AC89F21FA6C8800F6EA0B /* LaunchScreen.storyboard */; };
 		320AC8AC21FA6C8800F6EA0B /* homTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320AC8AB21FA6C8800F6EA0B /* homTests.swift */; };
 		32DEEA14220141E90010332F /* hom.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 32DEEA12220141E90010332F /* hom.xcdatamodeld */; };
+		7308B763220E393C00903577 /* PaddedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7322C64F220380D30075A616 /* PaddedTextView.swift */; };
 		7320C09A220B37F1003BC777 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7320C099220B37F1003BC777 /* Options.swift */; };
 		7320C09C220B45F4003BC777 /* Medications.csv in Resources */ = {isa = PBXBuildFile; fileRef = 7320C09B220B45F4003BC777 /* Medications.csv */; };
-		7322C650220380D30075A616 /* PaddedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7322C64F220380D30075A616 /* PaddedTextView.swift */; };
 		7322C65222038CD90075A616 /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7322C65122038CD90075A616 /* PaddedLabel.swift */; };
 		7329C8402200ED410072DCC8 /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7329C83F2200ED410072DCC8 /* InsetTextField.swift */; };
 		7329C8422200ED5D0072DCC8 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */; };
@@ -248,8 +248,8 @@
 				73AFA353220D259C00E4CD80 /* SearchTextField.swift in Sources */,
 				7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */,
 				7320C09A220B37F1003BC777 /* Options.swift in Sources */,
-				7322C650220380D30075A616 /* PaddedTextView.swift in Sources */,
 				7322C65222038CD90075A616 /* PaddedLabel.swift in Sources */,
+				7308B763220E393C00903577 /* PaddedTextView.swift in Sources */,
 				320AC89521FA6C8700F6EA0B /* AppDelegate.swift in Sources */,
 				7329C8422200ED5D0072DCC8 /* BorderedTextField.swift in Sources */,
 				7329C8402200ED410072DCC8 /* InsetTextField.swift in Sources */,

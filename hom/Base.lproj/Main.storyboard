@@ -221,17 +221,12 @@
                                                                                 <nil key="textColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <textInputTraits key="textInputTraits"/>
-                                                                                <userDefinedRuntimeAttributes>
-                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
-                                                                                        <real key="value" value="0.0"/>
-                                                                                    </userDefinedRuntimeAttribute>
-                                                                                </userDefinedRuntimeAttributes>
                                                                             </textField>
                                                                         </subviews>
                                                                         <gestureRecognizers/>
                                                                         <edgeInsets key="layoutMargins" top="14" left="16" bottom="16" right="0.0"/>
                                                                     </stackView>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Patient age" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="L0c-La-69b" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Patient age" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="L0c-La-69b" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
                                                                         <rect key="frame" x="20" y="154" width="355" height="52"/>
                                                                         <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -256,11 +251,6 @@
                                                                                 <nil key="textColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <textInputTraits key="textInputTraits"/>
-                                                                                <userDefinedRuntimeAttributes>
-                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
-                                                                                        <real key="value" value="0.0"/>
-                                                                                    </userDefinedRuntimeAttribute>
-                                                                                </userDefinedRuntimeAttributes>
                                                                             </textField>
                                                                         </subviews>
                                                                         <gestureRecognizers/>
@@ -292,11 +282,6 @@
                                                                                 <nil key="textColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <textInputTraits key="textInputTraits"/>
-                                                                                <userDefinedRuntimeAttributes>
-                                                                                    <userDefinedRuntimeAttribute type="number" keyPath="inset">
-                                                                                        <real key="value" value="0.0"/>
-                                                                                    </userDefinedRuntimeAttribute>
-                                                                                </userDefinedRuntimeAttributes>
                                                                             </textField>
                                                                         </subviews>
                                                                         <gestureRecognizers/>
@@ -455,9 +440,9 @@
                         <outlet property="creationLabel" destination="4IC-aG-efh" id="7oO-ef-ER9"/>
                         <outlet property="deleteButton" destination="MUm-vu-rwq" id="3Br-pZ-z7e"/>
                         <outlet property="deleteButtonView" destination="Q3K-bs-n3X" id="1rV-0M-IcK"/>
-                        <outlet property="diagnosisStackView" destination="PyA-6b-C1u" id="4Se-FG-PDT"/>
-                        <outlet property="dosageStackView" destination="NA0-G0-r0X" id="36Q-mM-KTq"/>
-                        <outlet property="genderStackView" destination="ASl-C5-fxT" id="RZQ-xf-uNt"/>
+                        <outlet property="diagnosisTextField" destination="rhm-s3-Qzf" id="6Hj-15-EdJ"/>
+                        <outlet property="dosageTextField" destination="LIl-cv-ojd" id="hKZ-T3-Ejb"/>
+                        <outlet property="genderTextField" destination="cED-d1-d6y" id="dXY-yX-612"/>
                         <outlet property="notesTextView" destination="dqO-Pm-Jhd" id="TLg-gV-ShW"/>
                         <outlet property="patientInfoView" destination="GgJ-vS-tVk" id="SYF-Dz-AT2"/>
                         <outlet property="patientLabel" destination="Pcd-FS-egZ" id="SDC-QE-0U0"/>

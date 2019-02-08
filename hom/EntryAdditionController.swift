@@ -20,14 +20,11 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var providerTextField: InsetTextField!
     @IBOutlet weak var patientInfoView: UIView!
     @IBOutlet weak var clinicTextField: BorderedTextField!
-    @IBOutlet weak var genderStackView: BorderedStackView!
-
+    @IBOutlet weak var genderTextField: UITextField!
     @IBOutlet weak var ageTextField: BorderedTextField!
-    @IBOutlet weak var diagnosisStackView: BorderedStackView!
-
-    @IBOutlet weak var dosageStackView: BorderedStackView!
+    @IBOutlet weak var diagnosisTextField: UITextField!
+    @IBOutlet weak var dosageTextField: UITextField!
     @IBOutlet weak var prescriptionTextField: SearchTextField!
-
     @IBOutlet weak var notesTextView: PaddedTextView!
     @IBOutlet weak var creationLabel: PaddedLabel!
     @IBOutlet weak var deleteButtonView: UIView!
@@ -36,12 +33,13 @@ class EntryAdditionController: UIViewController,
     private let options = Options.shared
     private var activeInput: UIView?
     private let pickerView = UIPickerView()
-    private var activePickerTrigger: UIStackView?
+    private var lastKeyboardRect: CGRect?
     
     // MARK: - Overriden Methods
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        print("re-layout")
         
         // ScrollView content size
         scrollView.contentSize = contentView.frame.size
@@ -52,10 +50,12 @@ class EntryAdditionController: UIViewController,
         super.viewDidLoad()
         
         // Assign delegates
-        providerTextField.delegate = self
         clinicTextField.delegate = self
+        genderTextField.delegate = self
         ageTextField.delegate = self
+        diagnosisTextField.delegate = self
         prescriptionTextField.delegate = self
+        dosageTextField.delegate = self
         notesTextView.delegate = self
         pickerView.delegate = self
         
@@ -74,20 +74,29 @@ class EntryAdditionController: UIViewController,
         // Customize SearchTextField instance for prescriptions
         prescriptionTextField.filterStrings(options.medicationList)
         prescriptionTextField.theme.font = UIFont.systemFont(ofSize: 18)
+        prescriptionTextField.maxNumberOfResults = 5
         prescriptionTextField.itemSelectionHandler = { filteredResults, itemPosition in
             let item = filteredResults[itemPosition]
             self.prescriptionTextField.text = item.title
             self.prescriptionTextField.resignFirstResponder()
         }
         
+        // Customize TextFields for PickerView
+        genderTextField.tintColor = UIColor.clear
+        genderTextField.inputView = pickerView
+        diagnosisTextField.tintColor = UIColor.clear
+        diagnosisTextField.inputView = pickerView
+        dosageTextField.tintColor = UIColor.clear
+        dosageTextField.inputView = pickerView
+        
         // Configure UIPickerView
         pickerView.dataSource = self
         pickerView.showsSelectionIndicator = true
         
         // Configure tap recorgnizers to UIStackViews that trigger pickers
-        genderStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
-        diagnosisStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
-        dosageStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
+        genderTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
+        diagnosisTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
+        dosageTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
         
         // Dismiss the keyboard on tap of the content
         self.view.addGestureRecognizer(
@@ -106,6 +115,14 @@ class EntryAdditionController: UIViewController,
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeInput = nil
+        
+        if textField == ageTextField {
+            print("HERE IT IS BOI")
+            if let text = textField.text {
+                let newText = text + " years old"
+                textField.text = newText
+            }
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -131,14 +148,14 @@ class EntryAdditionController: UIViewController,
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let trigger = activePickerTrigger!
+        let trigger = activeInput!
         
         switch trigger {
-        case genderStackView:
+        case genderTextField:
             return options.genderList.count
-        case diagnosisStackView:
+        case diagnosisTextField:
             return options.diagnosisList.count
-        case dosageStackView:
+        case dosageTextField:
             return options.dosageList.count
         default:
             fatalError("Invalid picker trigger: \(trigger)")
@@ -148,16 +165,14 @@ class EntryAdditionController: UIViewController,
     // MARK: - UIPickerViewDelegate
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let trigger = activePickerTrigger else {
-            fatalError("Picker should not have been shown!")
-        }
+        let trigger = activeInput!
         
         switch trigger {
-        case genderStackView:
+        case genderTextField:
             return options.genderList[row]
-        case diagnosisStackView:
+        case diagnosisTextField:
             return options.diagnosisList[row]
-        case dosageStackView:
+        case dosageTextField:
             return options.dosageList[row]
         default:
             fatalError("Invalid picker trigger: \(trigger)")
@@ -165,7 +180,18 @@ class EntryAdditionController: UIViewController,
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("Row selected: \(row)")
+        let trigger = activeInput! as! UITextField
+        
+        switch trigger {
+        case genderTextField:
+            trigger.text = options.genderList[row]
+        case diagnosisTextField:
+            trigger.text = options.diagnosisList[row]
+        case dosageTextField:
+            trigger.text = options.dosageList[row]
+        default:
+            fatalError("Invalid picker trigger: \(trigger)")
+        }
     }
     
     // MARK: - Navigation
@@ -191,7 +217,7 @@ class EntryAdditionController: UIViewController,
             return
         }
         
-        let keyboardFrame = keyboardSize.cgRectValue
+        lastKeyboardRect = keyboardSize.cgRectValue
         
         var difference: CGFloat = 0
         
@@ -202,7 +228,7 @@ class EntryAdditionController: UIViewController,
             }
             // Difference + borderedStackView bottom margins set in IB
             let bottomFieldY = viewOrigin.y + textView.frame.height
-            difference = bottomFieldY - keyboardFrame.minY + 20
+            difference = bottomFieldY - lastKeyboardRect!.minY + 20
         }
         else if var view = activeInput {
             if case let superView as BorderedStackView = view.superview {
@@ -215,7 +241,7 @@ class EntryAdditionController: UIViewController,
                 return
             }
             let bottomFieldY = viewOrigin.y + view.frame.height
-            difference = bottomFieldY - keyboardFrame.minY
+            difference = bottomFieldY - lastKeyboardRect!.minY
         }
         
         if difference < 0 {
@@ -229,16 +255,13 @@ class EntryAdditionController: UIViewController,
     }
     
     @objc private func pickerShouldTrigger(sender: UIGestureRecognizer) {
-        // Set the active trigger
-        activePickerTrigger = sender.view as? UIStackView
         
-        // Display the picker view
-        guard let innerField = activePickerTrigger?.subviews[1] as? UITextField else {
-            fatalError("Trigger does not have inner TextField!")
+        if activeInput == nil {
+            activeInput = sender.view as? UITextField
         }
         
-        innerField.inputView = pickerView
-        innerField.tintColor = UIColor.clear
-        innerField.becomeFirstResponder()
+        // Refresh data and show PickerView if needed
+        pickerView.reloadAllComponents()
+        activeInput!.becomeFirstResponder()
     }
 }
