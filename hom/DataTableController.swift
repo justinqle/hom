@@ -57,9 +57,9 @@ class DataTableController: UITableViewController {
         // Fetches the appropriate patient for the data source layout.
         let patient = patients[indexPath.row]
         
-        cell.patientID?.text = patient.value(forKey: "id") as? String
-        cell.clinicName?.text = patient.value(forKey: "provider") as? String
-        cell.creationDate?.text = patient.value(forKey: "creation") as? String
+        cell.patientID.text = patient.value(forKey: "id") as? String
+        cell.clinicName.text = patient.value(forKey: "provider") as? String
+        cell.creationDate.text = patient.value(forKey: "creation") as? String
         cell.age.text = patient.value(forKey: "age") as? String
         cell.diagnosis.text = patient.value(forKeyPath: "diagnosis") as? String
         cell.gender.text = patient.value(forKey: "gender") as? String

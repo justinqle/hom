@@ -11,6 +11,7 @@ import UIKit
 class DataTableCell: UITableViewCell {
     
     // MARK - Properties
+    
     @IBOutlet weak var patientID: UILabel!
     @IBOutlet weak var clinicName: UILabel!
     @IBOutlet weak var creationDate: UILabel!
