@@ -250,17 +250,17 @@ class EntryAdditionController: UIViewController,
             return
         }
         
-        let age = Int(ageTextField.text ?? "1")
-        let clinicName = clinicTextField.text ?? ""
+        let age = Int(ageTextField.text?.components(separatedBy: " ")[0] ?? "1")
+        let clinicName = clinicTextField.text
         let creationDate = Date()
         let delete = false
-        let diagnosis = diagnosisTextField.text ?? ""
-        let dosage = dosageTextField.text ?? ""
-        let gender = genderTextField.text ?? ""
-        let id = 1
-        let medication = prescriptionTextField.text ?? ""
-        let notes = notesTextView.text ?? ""
-        let provider = providerTextField.text ?? ""
+        let diagnosis = diagnosisTextField.text
+        let dosage = dosageTextField.text
+        let gender = genderTextField.text
+        let id = (((segue.destination as? DataTableController)?.patients.count)!) + 1
+        let medication = prescriptionTextField.text
+        let notes = notesTextView.text
+        let provider = providerTextField.text
         
         // Core Data setup
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {

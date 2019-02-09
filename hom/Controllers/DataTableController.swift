@@ -57,13 +57,14 @@ class DataTableController: UITableViewController {
         // Fetches the appropriate patient for the data source layout.
         let patient = patients[indexPath.row]
         
-        cell.patientID.text = patient.value(forKey: "id") as? String
-        cell.clinicName.text = patient.value(forKey: "provider") as? String
-        cell.creationDate.text = patient.value(forKey: "creation") as? String
-        cell.age.text = patient.value(forKey: "age") as? String
-        cell.diagnosis.text = patient.value(forKeyPath: "diagnosis") as? String
-        cell.gender.text = patient.value(forKey: "gender") as? String
-        cell.medication.text = patient.value(forKey: "medication") as? String
+        // TODO: Move optional-unwrapping to EntryAdditionController
+        cell.patientID.text = "Patient " + String(patient.value(forKey: "id") as? Int ?? -1)
+        cell.clinicName.text = patient.value(forKey: "clinic") as? String
+        cell.creationDate.text = String((patient.value(forKey: "creation") as? Date ?? Date()).description)
+        cell.age.text = "Age: " + String(patient.value(forKey: "age") as? Int ?? -1)
+        cell.diagnosis.text = "Diagnosis: " + (patient.value(forKeyPath: "diagnosis") as? String ?? "Error")
+        cell.gender.text = "Gender: " + (patient.value(forKey: "gender") as? String ?? "Error")
+        cell.medication.text = "Prescrip: " + (patient.value(forKey: "medication") as? String ?? "Error")
         
         return cell
     }
