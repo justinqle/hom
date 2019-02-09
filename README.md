@@ -1,2 +1,2 @@
-# heart-of-medicine
-For Haiti!
+# hom
+`hom` is an iOS application made for the non-profit organization, [Heart of Medicine](http://heartofmedicine.net). The app serves as a data capture tool for physicians and physician assistants in areas of the world where data access is limited. The core functionality of the application is to provide a tool that facilitates the collection of several pieces of data relevant to each patient. After collection is complete, the user must be able to convert the stored data into a CSV file for sharing by means of email or the like.
