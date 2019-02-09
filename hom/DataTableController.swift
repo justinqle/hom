@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "PatientCell"
 
 class DataTableController: UITableViewController {
     
@@ -17,11 +17,32 @@ class DataTableController: UITableViewController {
     
     var patients: [NSManagedObject] = []
     
-    // MARK: - Overriden Methods
+    // MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(DataTableCell.self, forCellReuseIdentifier: reuseIdentifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Patient")
+        
+        do {
+            patients = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    // MARK: - Table View Data Source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,16 +50,40 @@ class DataTableController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? DataTableCell else {
+            fatalError("The dequeued cell is not an instance of DataTableCell.")
+        }
+        
+        // Fetches the appropriate patient for the data source layout.
         let patient = patients[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = patient.value(forKeyPath: "diagnosis") as? String
+        
+        cell.patientID?.text = patient.value(forKey: "id") as? String
+        cell.clinicName?.text = patient.value(forKey: "provider") as? String
+        cell.creationDate?.text = patient.value(forKey: "creation") as? String
+        cell.age.text = patient.value(forKey: "age") as? String
+        cell.diagnosis.text = patient.value(forKeyPath: "diagnosis") as? String
+        cell.gender.text = patient.value(forKey: "gender") as? String
+        cell.medication.text = patient.value(forKey: "medication") as? String
+        
         return cell
     }
     
     // MARK: - Actions
     
     @IBAction func unwindToDataTable(sender: UIStoryboardSegue) {
-        
+        if let sourceViewController = sender.source as? EntryAdditionController, let patient = sourceViewController.patient {
+            if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
+                // Update an existing patient.
+                patients[selectedIndexPath.row] = patient
+                self.tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            }
+            else {
+                // Add a new patient.
+                let newIndexPath = IndexPath(row: patients.count, section: 0)
+                patients.append(patient)
+                self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        }
     }
     
 }

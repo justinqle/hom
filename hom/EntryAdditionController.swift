@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+import os.log
 
 class EntryAdditionController: UIViewController,
     UIScrollViewDelegate, UITextFieldDelegate, UITextViewDelegate,
@@ -29,11 +31,14 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var creationLabel: PaddedLabel!
     @IBOutlet weak var deleteButtonView: UIView!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     private let options = Options.shared
     private var activeInput: UIView?
     private let pickerView = UIPickerView()
     private var lastKeyboardRect: CGRect?
+    
+    var patient: NSManagedObject?
     
     // MARK: - Overriden Methods
     
@@ -201,6 +206,53 @@ class EntryAdditionController: UIViewController,
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        // Configure the destination view controller only when the save button is pressed.
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+        
+        let age = Int(ageTextField.text ?? "1")
+        let clinicName = clinicTextField.text ?? ""
+        let creationDate = Date()
+        let delete = false
+        let diagnosis = diagnosisTextField.text ?? ""
+        let dosage = dosageTextField.text ?? ""
+        let gender = genderTextField.text ?? ""
+        let id = 1
+        let medication = prescriptionTextField.text ?? ""
+        let notes = notesTextView.text ?? ""
+        let provider = providerTextField.text ?? ""
+        
+        // Core Data setup
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Patient", in: managedContext)!
+        patient = NSManagedObject(entity: entity, insertInto: managedContext)
+        
+        // Set the patient to be passed to MealTableViewController after the unwind segue.
+        patient?.setValue(age, forKeyPath: "age")
+        patient?.setValue(clinicName, forKeyPath: "clinic")
+        patient?.setValue(creationDate, forKeyPath: "creation")
+        patient?.setValue(delete, forKeyPath: "delete")
+        patient?.setValue(diagnosis, forKeyPath: "diagnosis")
+        patient?.setValue(dosage, forKeyPath: "dosage")
+        patient?.setValue(gender, forKeyPath: "gender")
+        patient?.setValue(id, forKeyPath: "id")
+        patient?.setValue(medication, forKeyPath: "medication")
+        patient?.setValue(notes, forKeyPath: "notes")
+        patient?.setValue(provider, forKeyPath: "provider")
+        
+        // Save to disk
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
         
     }
     

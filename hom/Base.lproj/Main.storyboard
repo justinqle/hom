@@ -13,7 +13,7 @@
         <scene sceneID="8Fa-Ka-BL5">
             <objects>
                 <tableViewController id="69c-u1-eDq" customClass="DataTableController" customModule="hom" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oKm-HE-iFZ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oKm-HE-iFZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -110,6 +110,15 @@
                                         <constraint firstItem="XQl-oe-eQ8" firstAttribute="leading" secondItem="RQV-HV-5QY" secondAttribute="leading" id="qim-K3-BSn"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="age" destination="RA0-wU-2M9" id="sbS-py-oKh"/>
+                                    <outlet property="clinicName" destination="se5-sb-Uug" id="cjC-gt-tmk"/>
+                                    <outlet property="creationDate" destination="S87-8F-7KH" id="Xfa-Qf-mvN"/>
+                                    <outlet property="diagnosis" destination="a3Z-eF-MnJ" id="pfT-uM-FAD"/>
+                                    <outlet property="gender" destination="vWW-5P-EOU" id="Hk9-A7-mbv"/>
+                                    <outlet property="medication" destination="POd-xU-ZNd" id="KfF-qt-5Y7"/>
+                                    <outlet property="patientID" destination="yXZ-6m-yoL" id="1ho-aG-DoA"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -197,7 +206,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Clinic name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l0c-M4-PJ0" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="4" width="355" height="83.666666666666671"/>
+                                                                        <rect key="frame" x="20" y="4" width="355" height="115.66666666666667"/>
                                                                         <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
@@ -208,7 +217,7 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </textField>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="ASl-C5-fxT" customClass="BorderedStackView" customModule="hom" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="95.666666666666686" width="355" height="50.333333333333343"/>
+                                                                        <rect key="frame" x="20" y="127.66666666666667" width="355" height="50.333333333333329"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGn-am-yz0">
                                                                                 <rect key="frame" x="15.999999999999996" y="13.999999999999998" width="56.666666666666657" height="20.333333333333329"/>
@@ -227,7 +236,7 @@
                                                                         <edgeInsets key="layoutMargins" top="14" left="16" bottom="16" right="0.0"/>
                                                                     </stackView>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Patient age" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="L0c-La-69b" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="154" width="355" height="52"/>
+                                                                        <rect key="frame" x="20" y="186" width="355" height="20"/>
                                                                         <nil key="textColor"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -448,6 +457,7 @@
                         <outlet property="patientLabel" destination="Pcd-FS-egZ" id="SDC-QE-0U0"/>
                         <outlet property="prescriptionTextField" destination="MGu-cp-1lR" id="3xt-pF-7tp"/>
                         <outlet property="providerTextField" destination="u4m-0P-ptQ" id="8TU-qb-Rpd"/>
+                        <outlet property="saveButton" destination="kTy-g0-7xw" id="YT8-hv-1xC"/>
                         <outlet property="scrollView" destination="Jcd-2J-Yut" id="e2A-jI-pyY"/>
                     </connections>
                 </viewController>
