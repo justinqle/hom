@@ -14,15 +14,19 @@ class PaddedTextView: UITextView {
     // MARK: Initialization
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        addLeftPadding()
+        textContainerInset = UIEdgeInsets(top: 4, left: 12, bottom: 0, right: 0)
+        
+        // Placeholder text
+        self.text = "No notes"
+        self.textColor = UIColorCollection.placeHolderGrey
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        addLeftPadding()
-    }
-    
-    private func addLeftPadding() {
         textContainerInset = UIEdgeInsets(top: 4, left: 12, bottom: 0, right: 0)
+        
+        // Placeholder text
+        self.text = "No notes"
+        self.textColor = UIColorCollection.placeHolderGrey
     }
 }

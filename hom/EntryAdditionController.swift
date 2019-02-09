@@ -87,21 +87,13 @@ class EntryAdditionController: UIViewController,
         }
         
         // Customize TextFields for PickerView
-        genderTextField.tintColor = UIColor.clear
         genderTextField.inputView = pickerView
-        diagnosisTextField.tintColor = UIColor.clear
         diagnosisTextField.inputView = pickerView
-        dosageTextField.tintColor = UIColor.clear
         dosageTextField.inputView = pickerView
         
         // Configure UIPickerView
         pickerView.dataSource = self
         pickerView.showsSelectionIndicator = true
-        
-        // Configure tap recorgnizers to UIStackViews that trigger pickers
-        genderTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
-        diagnosisTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
-        dosageTextField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EntryAdditionController.pickerShouldTrigger(sender:))))
         
         // Dismiss the keyboard on tap of the content
         self.view.addGestureRecognizer(
@@ -116,16 +108,37 @@ class EntryAdditionController: UIViewController,
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeInput = textField
+        
+        if textField == ageTextField {
+            textField.text = ""
+        } else if textField is PickerTextField {
+            // Refresh the UIPickerField values if appropriate
+            pickerView.reloadAllComponents()
+            
+            // Set default value for PickerTextField on input
+            pickerView.selectRow(0, inComponent: 0, animated: true)
+            switch textField {
+            case genderTextField:
+                textField.text = options.genderList[0]
+            case diagnosisTextField:
+                textField.text = options.diagnosisList[0]
+            case dosageTextField:
+                textField.text = options.dosageList[0]
+            default:
+                fatalError("Invalid picker trigger: \(textField)")
+            }
+        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeInput = nil
         
         if textField == ageTextField {
-            print("HERE IT IS BOI")
             if let text = textField.text {
-                let newText = text + " years old"
-                textField.text = newText
+                if text != "" {
+                    let newText = text + " years old"
+                    textField.text = newText
+                }
             }
         }
     }
@@ -140,10 +153,22 @@ class EntryAdditionController: UIViewController,
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         activeInput = textView
+        
+        // Handle placeholder text
+        if textView.textColor == UIColorCollection.placeHolderGrey {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         activeInput = nil
+        
+        // Handle placeholder text
+        if textView.text.isEmpty {
+            textView.text = "No notes"
+            textView.textColor = UIColorCollection.placeHolderGrey
+        }
     }
     
     // MARK: - UIPickerViewDataSource
@@ -153,7 +178,10 @@ class EntryAdditionController: UIViewController,
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let trigger = activeInput!
+        guard let trigger = activeInput else {
+            print("Active input not set!")
+            return 0
+        }
         
         switch trigger {
         case genderTextField:
@@ -163,14 +191,18 @@ class EntryAdditionController: UIViewController,
         case dosageTextField:
             return options.dosageList.count
         default:
-            fatalError("Invalid picker trigger: \(trigger)")
+            print("Invalid picker trigger: \(trigger)")
+            return 0
         }
     }
     
     // MARK: - UIPickerViewDelegate
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let trigger = activeInput!
+        guard let trigger = activeInput else {
+            print("Active input not set!")
+            return nil
+        }
         
         switch trigger {
         case genderTextField:
@@ -180,12 +212,16 @@ class EntryAdditionController: UIViewController,
         case dosageTextField:
             return options.dosageList[row]
         default:
-            fatalError("Invalid picker trigger: \(trigger)")
+            print("Invalid picker trigger: \(trigger)")
+            return nil
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let trigger = activeInput! as! UITextField
+        guard let trigger = activeInput as? UITextField else {
+            print("Active input not set!")
+            return
+        }
         
         switch trigger {
         case genderTextField:
@@ -195,7 +231,7 @@ class EntryAdditionController: UIViewController,
         case dosageTextField:
             trigger.text = options.dosageList[row]
         default:
-            fatalError("Invalid picker trigger: \(trigger)")
+            print("Invalid picker trigger: \(trigger)")
         }
     }
     
@@ -304,16 +340,5 @@ class EntryAdditionController: UIViewController,
             let contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y + difference)
             scrollView.setContentOffset(contentOffset, animated: true)
         }
-    }
-    
-    @objc private func pickerShouldTrigger(sender: UIGestureRecognizer) {
-        
-        if activeInput == nil {
-            activeInput = sender.view as? UITextField
-        }
-        
-        // Refresh data and show PickerView if needed
-        pickerView.reloadAllComponents()
-        activeInput!.becomeFirstResponder()
     }
 }
