@@ -52,7 +52,7 @@
 		320AC8AD21FA6C8800F6EA0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32DEEA13220141E90010332F /* hom.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = hom.xcdatamodel; sourceTree = "<group>"; };
 		7320C099220B37F1003BC777 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
-		7320C09B220B45F4003BC777 /* Medications.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Medications.csv; sourceTree = SOURCE_ROOT; };
+		7320C09B220B45F4003BC777 /* Medications.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Medications.csv; path = hom/Assets/Medications.csv; sourceTree = SOURCE_ROOT; };
 		7322C64F220380D30075A616 /* PaddedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextView.swift; sourceTree = "<group>"; };
 		7322C65122038CD90075A616 /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
 		7329C83F2200ED410072DCC8 /* InsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
@@ -108,26 +108,12 @@
 			isa = PBXGroup;
 			children = (
 				320AC89421FA6C8700F6EA0B /* AppDelegate.swift */,
-				7381B89B21FD513900845384 /* DataTableController.swift */,
-				7381B89D21FD520700845384 /* DataTableCell.swift */,
-				7381B89F21FD529000845384 /* ExportViewController.swift */,
-				7381B8A121FD52FD00845384 /* SettingsViewController.swift */,
-				73CF968E22012F5C00C96354 /* EntryAdditionController.swift */,
-				7320C099220B37F1003BC777 /* Options.swift */,
-				73D81B012206711B0010EA75 /* UIColorCollection.swift */,
-				7329C83F2200ED410072DCC8 /* InsetTextField.swift */,
-				7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */,
-				73DD487C220E88AC00A47482 /* PickerTextField.swift */,
-				73AFA352220D259C00E4CD80 /* SearchTextField.swift */,
-				73CF968C2200F13700C96354 /* BorderedStackView.swift */,
-				7322C64F220380D30075A616 /* PaddedTextView.swift */,
-				7322C65122038CD90075A616 /* PaddedLabel.swift */,
-				320AC89A21FA6C8700F6EA0B /* Main.storyboard */,
-				320AC89D21FA6C8800F6EA0B /* Assets.xcassets */,
-				7320C09B220B45F4003BC777 /* Medications.csv */,
-				320AC89F21FA6C8800F6EA0B /* LaunchScreen.storyboard */,
-				320AC8A221FA6C8800F6EA0B /* Info.plist */,
-				32DEEA12220141E90010332F /* hom.xcdatamodeld */,
+				324F535B220F549300491CCA /* Models */,
+				324F535A220F547F00491CCA /* Controllers */,
+				324F5359220F545000491CCA /* Views */,
+				324F535E220F561700491CCA /* Resources */,
+				324F535C220F553400491CCA /* Storyboards */,
+				324F535D220F557100491CCA /* Assets */,
 			);
 			path = hom;
 			sourceTree = "<group>";
@@ -139,6 +125,68 @@
 				320AC8AD21FA6C8800F6EA0B /* Info.plist */,
 			);
 			path = homTests;
+			sourceTree = "<group>";
+		};
+		324F5359220F545000491CCA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7381B89D21FD520700845384 /* DataTableCell.swift */,
+				7329C83F2200ED410072DCC8 /* InsetTextField.swift */,
+				7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */,
+				73DD487C220E88AC00A47482 /* PickerTextField.swift */,
+				73AFA352220D259C00E4CD80 /* SearchTextField.swift */,
+				73CF968C2200F13700C96354 /* BorderedStackView.swift */,
+				7322C64F220380D30075A616 /* PaddedTextView.swift */,
+				7322C65122038CD90075A616 /* PaddedLabel.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		324F535A220F547F00491CCA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7381B89B21FD513900845384 /* DataTableController.swift */,
+				73CF968E22012F5C00C96354 /* EntryAdditionController.swift */,
+				7381B89F21FD529000845384 /* ExportViewController.swift */,
+				7381B8A121FD52FD00845384 /* SettingsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		324F535B220F549300491CCA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				32DEEA12220141E90010332F /* hom.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		324F535C220F553400491CCA /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				320AC89A21FA6C8700F6EA0B /* Main.storyboard */,
+				320AC89F21FA6C8800F6EA0B /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		324F535D220F557100491CCA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7320C09B220B45F4003BC777 /* Medications.csv */,
+				320AC89D21FA6C8800F6EA0B /* Assets.xcassets */,
+				320AC8A221FA6C8800F6EA0B /* Info.plist */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		324F535E220F561700491CCA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				73D81B012206711B0010EA75 /* UIColorCollection.swift */,
+				7320C099220B37F1003BC777 /* Options.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
