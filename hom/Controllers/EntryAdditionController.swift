@@ -36,7 +36,7 @@ class EntryAdditionController: UIViewController,
     private let options = Options.shared
     private var activeInput: UIView?
     private let pickerView = UIPickerView()
-    private var lastKeyboardRect: CGRect?
+    private var additionDate = Date()
     
     var patient: NSManagedObject?
     
@@ -44,7 +44,6 @@ class EntryAdditionController: UIViewController,
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print("re-layout")
         
         // ScrollView content size
         scrollView.contentSize = contentView.frame.size
@@ -95,6 +94,14 @@ class EntryAdditionController: UIViewController,
         // Configure UIPickerView
         pickerView.dataSource = self
         pickerView.showsSelectionIndicator = true
+        
+        // Display current date and time
+        let formatter = DateFormatter()
+        formatter.dateFormat = "'Added' MMMM dd',' yyyy 'at' hh:mma"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        let dateString = formatter.string(from: additionDate)
+        creationLabel.text = dateString
         
         // Dismiss the keyboard on tap of the content
         self.view.addGestureRecognizer(
@@ -306,7 +313,7 @@ class EntryAdditionController: UIViewController,
             return
         }
         
-        lastKeyboardRect = keyboardSize.cgRectValue
+        let keyboardRect = keyboardSize.cgRectValue
         
         var difference: CGFloat = 0
         
@@ -317,7 +324,7 @@ class EntryAdditionController: UIViewController,
             }
             // Difference + borderedStackView bottom margins set in IB
             let bottomFieldY = viewOrigin.y + textView.frame.height
-            difference = bottomFieldY - lastKeyboardRect!.minY + 20
+            difference = bottomFieldY - keyboardRect.minY + 20
         }
         else if var view = activeInput {
             if case let superView as BorderedStackView = view.superview {
@@ -330,7 +337,7 @@ class EntryAdditionController: UIViewController,
                 return
             }
             let bottomFieldY = viewOrigin.y + view.frame.height
-            difference = bottomFieldY - lastKeyboardRect!.minY
+            difference = bottomFieldY - keyboardRect.minY
         }
         
         if difference < 0 {
