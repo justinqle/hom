@@ -61,10 +61,10 @@ class DataTableController: UITableViewController {
         cell.patientID.text = "Patient " + String(patient.value(forKey: "id") as? Int ?? -1)
         cell.clinicName.text = patient.value(forKey: "clinic") as? String
         cell.creationDate.text = String((patient.value(forKey: "creation") as? Date ?? Date()).description)
-        cell.age.text = "Age: " + String(patient.value(forKey: "age") as? Int ?? -1)
-        cell.diagnosis.text = "Diagnosis: " + (patient.value(forKeyPath: "diagnosis") as? String ?? "Error")
-        cell.gender.text = "Gender: " + (patient.value(forKey: "gender") as? String ?? "Error")
-        cell.medication.text = "Prescrip: " + (patient.value(forKey: "medication") as? String ?? "Error")
+        cell.age.text = String(patient.value(forKey: "age") as? Int ?? -1) + " years old"
+        cell.diagnosis.text = (patient.value(forKeyPath: "diagnosis") as? String ?? "Error")
+        cell.gender.text = (patient.value(forKey: "gender") as? String ?? "Error")
+        cell.medication.text = (patient.value(forKey: "medication") as? String ?? "Error")
         
         return cell
     }
