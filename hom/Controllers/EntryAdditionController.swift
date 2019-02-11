@@ -37,6 +37,8 @@ class EntryAdditionController: UIViewController,
     private var activeInput: UIView?
     private let pickerView = UIPickerView()
     private var additionDate = Date()
+    private var lastKeyboardFrame: CGRect?
+    private var lastTextViewHeight: CGFloat = 0
     
     var patient: NSManagedObject?
     
@@ -44,6 +46,11 @@ class EntryAdditionController: UIViewController,
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
+        // Get height of TextView
+        if lastTextViewHeight == 0 {
+            lastTextViewHeight = notesTextView.frame.height
+        }
         
         // ScrollView content size
         scrollView.contentSize = contentView.frame.size
@@ -110,6 +117,8 @@ class EntryAdditionController: UIViewController,
         // Register observers for keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow),
                                                name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     // MARK: - UITextFieldDelegate
@@ -167,6 +176,20 @@ class EntryAdditionController: UIViewController,
             textView.text = nil
             textView.textColor = UIColor.black
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Move down the ScrollView on newline
+        if text == "\n" {
+            let difference = textView.frame.height - lastTextViewHeight
+            if difference != 0 {
+                scrollView.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                                       bottom: lastKeyboardFrame!.height + difference + 20,
+                                                       right: 0)
+            }
+            lastTextViewHeight = textView.frame.height
+        }
+        return true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -314,6 +337,7 @@ class EntryAdditionController: UIViewController,
         }
         
         let keyboardRect = keyboardSize.cgRectValue
+        lastKeyboardFrame = keyboardRect
         
         var difference: CGFloat = 0
         
@@ -348,5 +372,10 @@ class EntryAdditionController: UIViewController,
             let contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y + difference)
             scrollView.setContentOffset(contentOffset, animated: true)
         }
+    }
+    
+    @objc private func keyboardWillHide(notification: Notification) {
+        // Reset content insets
+        scrollView.contentInset = UIEdgeInsets.zero
     }
 }
