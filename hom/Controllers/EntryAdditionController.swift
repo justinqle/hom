@@ -80,6 +80,7 @@ class EntryAdditionController: UIViewController,
         prescriptionTextField.filterStrings(options.medicationList)
         prescriptionTextField.theme.font = UIFont.systemFont(ofSize: 18)
         prescriptionTextField.maxNumberOfResults = 5
+        prescriptionTextField.theme.bgColor = UIColor.white
         prescriptionTextField.itemSelectionHandler = { filteredResults, itemPosition in
             let item = filteredResults[itemPosition]
             self.prescriptionTextField.text = item.title

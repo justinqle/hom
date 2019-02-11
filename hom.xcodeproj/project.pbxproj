@@ -173,9 +173,9 @@
 		324F535D220F557100491CCA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				320AC8A221FA6C8800F6EA0B /* Info.plist */,
 				7320C09B220B45F4003BC777 /* Medications.csv */,
 				320AC89D21FA6C8800F6EA0B /* Assets.xcassets */,
-				320AC8A221FA6C8800F6EA0B /* Info.plist */,
 			);
 			path = Assets;
 			sourceTree = "<group>";

@@ -31,6 +31,9 @@ class Options {
         do {
             let contents = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
             medicationList = fromCSV(data: contents)
+            
+            // Sort diagnoses
+            diagnosisList.sort(by: <)
         } catch {
             fatalError("Could not read Medications in: \(path)")
         }
