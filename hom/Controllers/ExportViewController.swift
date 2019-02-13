@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ExportViewController: UIViewController {
+class ExportViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
@@ -18,13 +18,22 @@ class ExportViewController: UIViewController {
     @IBOutlet weak var rowLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var nameTextField: BorderedTextField!
+    @IBOutlet weak var exportButton: UIButton!
     
     // MARK: - Overridden Methods
     
     override func viewDidLoad() {
+        // Assign delegate
+        nameTextField.delegate = self
+        
         // Dismiss the keyboard on tap of the content
         self.view.addGestureRecognizer(
             UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
+        // Set button default state
+        exportButton.backgroundColor = UIColorCollection.greyLight
+        exportButton.setTitleColor(UIColorCollection.greyDark, for: .disabled)
+        exportButton.isEnabled = false
         
         // Register observers for keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow),
@@ -33,10 +42,36 @@ class ExportViewController: UIViewController {
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let text = textField.text, text != "" {
+            let name = text.components(separatedBy: ".")[0]
+            textField.text = name
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text == "" {
+            exportButton.backgroundColor = UIColorCollection.greyLight
+            exportButton.isEnabled = false
+        } else {
+            exportButton.isEnabled = true
+            exportButton.backgroundColor = UIColorCollection.accentOrange
+            let name = nameTextField.text!.components(separatedBy: ".")[0]
+            nameTextField.text = name + ".csv"
+        }
+    }
+    
     // MARK: - Actions
     
     @IBAction func exportFile(_ sender: UIButton) {
-        
+        print("EXPORT!")
     }
     
     // MARK: - Private Methods
