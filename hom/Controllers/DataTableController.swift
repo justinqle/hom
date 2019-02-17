@@ -58,13 +58,35 @@ class DataTableController: UITableViewController {
         let patient = patients[indexPath.row]
         
         // TODO: Move optional-unwrapping to EntryAdditionController
+        
+        // PatientID Clinic Name, Creation Date
         cell.patientID.text = "Patient " + String(patient.value(forKey: "id") as? Int ?? -1)
         cell.clinicName.text = patient.value(forKey: "clinic") as? String
         cell.creationDate.text = String((patient.value(forKey: "creation") as? Date ?? Date()).description)
-        cell.age.text = String(patient.value(forKey: "age") as? Int ?? -1) + " years old"
-        cell.diagnosis.text = (patient.value(forKeyPath: "diagnosis") as? String ?? "Error")
-        cell.gender.text = (patient.value(forKey: "gender") as? String ?? "Error")
-        cell.medication.text = (patient.value(forKey: "medication") as? String ?? "Error")
+        
+        let mediumFont = UIFont.systemFont(ofSize: 15, weight: .medium)
+        
+        // Gender label attributes
+        let gender = NSMutableAttributedString(string: "Sex: ", attributes: [NSAttributedString.Key.font: mediumFont])
+        let genderValue = NSMutableAttributedString(string: patient.value(forKey: "gender") as? String ?? "Error")
+        gender.append(genderValue)
+        
+        let genderRange = (gender.string as NSString).range(of: "Sex: ")
+        gender.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColorCollection.greyDarker, range: genderRange)
+        cell.gender.attributedText = gender
+        
+        // Age label attributes
+        let age = NSMutableAttributedString(string: "Age: ", attributes: [NSAttributedString.Key.font: mediumFont])
+        let ageValue = NSMutableAttributedString(string: String(patient.value(forKey: "age") as? Int ?? -1) + " years old")
+        age.append(ageValue)
+        
+        let ageRange = (age.string as NSString).range(of: "Age: ")
+        age.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColorCollection.greyDarker, range: ageRange)
+        cell.age.attributedText = age
+        
+        // Diagnoses and prescriptions
+        cell.diagnoses.text = (patient.value(forKeyPath: "diagnosis") as? String ?? "Error")
+        cell.prescriptions.text = (patient.value(forKey: "medication") as? String ?? "Error")
         
         return cell
     }

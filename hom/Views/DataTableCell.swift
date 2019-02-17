@@ -16,16 +16,15 @@ class DataTableCell: UITableViewCell {
     @IBOutlet weak var clinicName: UILabel!
     @IBOutlet weak var creationDate: UILabel!
     @IBOutlet weak var age: UILabel!
-    @IBOutlet weak var diagnosis: UILabel!
     @IBOutlet weak var gender: UILabel!
-    @IBOutlet weak var medication: UILabel!
+    @IBOutlet weak var diagnosesCount: UILabel!
+    @IBOutlet weak var diagnoses: UILabel!
+    @IBOutlet weak var prescriptionCount: UILabel!
+    @IBOutlet weak var prescriptions: UILabel!
     
     // MARK - Overriden Methods
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
-    
 }
