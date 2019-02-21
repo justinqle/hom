@@ -63,7 +63,8 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         } else {
             exportButton.isEnabled = true
             exportButton.backgroundColor = UIColorCollection.accentOrange
-            let name = nameTextField.text!.components(separatedBy: ".")[0]
+            var name = nameTextField.text!.components(separatedBy: ".")[0]
+            name = name.trimmingCharacters(in: [" "])
             nameTextField.text = name + ".csv"
         }
     }
