@@ -9,6 +9,7 @@
 import UIKit
 
 class FooterCell: UITableViewCell {
+    @IBOutlet weak var plusImage: UIImageView!
     @IBOutlet weak var additionLabel: UILabel!
     
     override func setSelected(_ selected: Bool, animated: Bool) {

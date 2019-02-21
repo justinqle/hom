@@ -422,6 +422,7 @@
                                                                                                     <subviews>
                                                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="100" image="PlusGreen" translatesAutoresizingMaskIntoConstraints="NO" id="8pZ-rl-Qhp">
                                                                                                             <rect key="frame" x="14" y="0.0" width="25" height="34.666666666666664"/>
+                                                                                                            <color key="tintColor" red="0.0" green="0.87058823529411766" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                                             <constraints>
                                                                                                                 <constraint firstAttribute="width" constant="25" id="kFs-rH-x1g"/>
                                                                                                             </constraints>
@@ -445,6 +446,7 @@
                                                                                         </tableViewCellContentView>
                                                                                         <connections>
                                                                                             <outlet property="additionLabel" destination="tOS-96-GtO" id="wS5-cC-gF1"/>
+                                                                                            <outlet property="plusImage" destination="8pZ-rl-Qhp" id="LAp-bC-caj"/>
                                                                                         </connections>
                                                                                     </tableViewCell>
                                                                                 </prototypes>
@@ -691,7 +693,7 @@
                                                 </subviews>
                                             </stackView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="File name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZWb-jw-zqa" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="255" width="342" height="21"/>
+                                                <rect key="frame" x="16" y="255" width="342" height="53"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -699,10 +701,16 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="yInset">
                                                         <real key="value" value="16"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="yInsetBottom">
+                                                        <real key="value" value="16"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="yInsetTop">
+                                                        <real key="value" value="16"/>
+                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8VB-eI-hnl">
-                                                <rect key="frame" x="16" y="306" width="342" height="54"/>
+                                                <rect key="frame" x="16" y="338" width="342" height="54"/>
                                                 <color key="backgroundColor" red="1" green="0.73725490199999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="18" maxX="0.0" maxY="18"/>

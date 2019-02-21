@@ -348,8 +348,15 @@ class EntryAdditionController: UIViewController,
             }
         }
         
+        // Add gesture recognizer to footer
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.footerTapped(_:)))
         footerCell.addGestureRecognizer(gestureRecognizer)
+        
+        // Add drop shadow to plus button
+        footerCell.plusImage.layer.shadowColor = UIColor.black.cgColor
+        footerCell.plusImage.layer.shadowOffset = CGSize(width: 0, height: 1)
+        footerCell.plusImage.layer.shadowOpacity = 0.1
+        footerCell.plusImage.layer.shadowRadius = 0.8
         
         return footerCell
     }
