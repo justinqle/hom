@@ -12,12 +12,14 @@ import UIKit
 class InsetTextField: UITextField {
     
     // MARK: Properties
-    @IBInspectable var xInset: CGFloat = 0
-    @IBInspectable var yInset: CGFloat = 0
+    @IBInspectable var xInsetLeft: CGFloat = 0
+    @IBInspectable var xInsetRight: CGFloat = 0
+    @IBInspectable var yInsetTop: CGFloat = 0
+    @IBInspectable var yInsetBottom: CGFloat = 0
     
     // MARK: Drawing
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: xInset, dy: yInset)
+        return bounds.inset(by: UIEdgeInsets(top: yInsetTop, left: xInsetLeft, bottom: yInsetBottom, right: xInsetRight))
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {

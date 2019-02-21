@@ -40,7 +40,7 @@ class EntryAdditionController: UIViewController,
     private var additionDate = Date()
     private var lastKeyboardFrame: CGRect?
     private var lastTextViewHeight: CGFloat = 0
-    private let sectionHeaderHeight: CGFloat = 25
+    private let sectionHeaderHeight: CGFloat = 55
     
     private enum TableSection: Int {
         case diagnosis = 0, prescription, total
@@ -52,7 +52,8 @@ class EntryAdditionController: UIViewController,
         var quantity: Int
     }
     
-    private var tableData = [TableSection: [Any]]()
+    private var diagnoses = [String]()
+    private var prescriptions = [Prescription]()
     
     // MARK: - Overriden Methods
     
@@ -72,9 +73,10 @@ class EntryAdditionController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableData[.diagnosis] = ["GERD", "Headache"]
-        tableData[.prescription]?.append(Prescription(medicine: "Gas-X", dosage: "1 week", quantity: 2))
-        tableData[.prescription]?.append(Prescription(medicine: "Asprin 325mg", dosage: "1 month", quantity: 4))
+        // Init dummy data
+        diagnoses.append(contentsOf: ["GERD", "Headache"])
+        prescriptions.append(contentsOf: [Prescription(medicine: "Tylenol Children's", dosage: "1 week", quantity: 1),
+                                          Prescription(medicine: "Asprin 325mg", dosage: "1 week", quantity: 2)])
         
         // Assign delegates
         clinicTextField.delegate = self
@@ -294,8 +296,15 @@ class EntryAdditionController: UIViewController,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let currentSection = TableSection(rawValue: section), let rows = tableData[currentSection] {
-            return rows.count
+        if let currentSection = TableSection(rawValue: section) {
+            switch currentSection {
+            case .diagnosis:
+                return diagnoses.count
+            case .prescription:
+                return prescriptions.count
+            default:
+                fatalError("Invalid table section!")
+            }
         }
         return 0
     }
@@ -324,31 +333,25 @@ class EntryAdditionController: UIViewController,
     // MARK: - UIDataTableViewDelegate
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight))
-        view.layer.borderColor = UIColorCollection.greyDark.cgColor
+        guard let footerCell = tableView.dequeueReusableCell(withIdentifier: "FooterCell") as? FooterCell else {
+            fatalError("Invalid FooterCell!")
+        }
         
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        imageView.image = #imageLiteral(resourceName: "PlusGreen")
-        view.addSubview(imageView)
-        
-        let label = UILabel(frame: CGRect(x: 30, y: 0, width: tableView.bounds.width, height: sectionHeaderHeight))
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         if let currentSection = TableSection(rawValue: section) {
             switch currentSection {
             case .diagnosis:
-                label.text = "add diagnosis"
+                footerCell.additionLabel.text = "add diagnosis"
             case .prescription:
-                label.text = "add prescription"
+                footerCell.additionLabel.text = "add prescription"
             default:
                 fatalError("Invalid table section!")
             }
         }
-        view.addSubview(label)
         
-        let gestureRecognizer = UITapGestureRecognizer(target: view, action: #selector(self.footerTapped(_:)))
-        view.addGestureRecognizer(gestureRecognizer)
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.footerTapped(_:)))
+        footerCell.addGestureRecognizer(gestureRecognizer)
         
-        return view
+        return footerCell
     }
     
     // MARK: - Navigation

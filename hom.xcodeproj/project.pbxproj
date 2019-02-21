@@ -31,6 +31,7 @@
 		73E91836221DC5C700C6E458 /* PrescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E91835221DC5C700C6E458 /* PrescriptionCell.swift */; };
 		73E91838221DC5D900C6E458 /* DiagnosisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E91837221DC5D900C6E458 /* DiagnosisCell.swift */; };
 		73E9183A221DC77E00C6E458 /* ExpandableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E91839221DC77E00C6E458 /* ExpandableTableView.swift */; };
+		73E9183C221E5DEA00C6E458 /* FooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E9183B221E5DEA00C6E458 /* FooterCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		73E91835221DC5C700C6E458 /* PrescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionCell.swift; sourceTree = "<group>"; };
 		73E91837221DC5D900C6E458 /* DiagnosisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisCell.swift; sourceTree = "<group>"; };
 		73E91839221DC77E00C6E458 /* ExpandableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTableView.swift; sourceTree = "<group>"; };
+		73E9183B221E5DEA00C6E458 /* FooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				7381B89D21FD520700845384 /* DataTableCell.swift */,
 				73E91837221DC5D900C6E458 /* DiagnosisCell.swift */,
 				73E91835221DC5C700C6E458 /* PrescriptionCell.swift */,
+				73E9183B221E5DEA00C6E458 /* FooterCell.swift */,
 				7329C83F2200ED410072DCC8 /* InsetTextField.swift */,
 				7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */,
 				73DD487C220E88AC00A47482 /* PickerTextField.swift */,
@@ -310,6 +313,7 @@
 				73DD487D220E88AC00A47482 /* PickerTextField.swift in Sources */,
 				73E91836221DC5C700C6E458 /* PrescriptionCell.swift in Sources */,
 				7320C09A220B37F1003BC777 /* Options.swift in Sources */,
+				73E9183C221E5DEA00C6E458 /* FooterCell.swift in Sources */,
 				7322C65222038CD90075A616 /* PaddedLabel.swift in Sources */,
 				7308B763220E393C00903577 /* PaddedTextView.swift in Sources */,
 				320AC89521FA6C8700F6EA0B /* AppDelegate.swift in Sources */,
