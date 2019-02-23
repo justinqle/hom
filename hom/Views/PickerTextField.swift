@@ -8,17 +8,33 @@
 
 import UIKit
 
+@IBDesignable
 class PickerTextField: UITextField {
+    // MARK: - Properties
+    enum PickerType: String {
+        case gender = "Gender"
+        case diagnosis = "Diagnosis"
+        case dosage = "Dosage"
+    }
+    
+    var pickerOptions = PickerType.gender
     
     // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.tintColor = UIColor.clear
+        self.autocorrectionType = .no
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         self.tintColor = UIColor.clear
+        self.autocorrectionType = .no
     }
     
+    // MARK: - Overriden Methods
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        UIMenuController.shared.isMenuVisible = false
+        return false
+    }
 }
