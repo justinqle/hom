@@ -17,7 +17,7 @@ class Options {
     let diagnosisList = ["GERD", "HTN", "Arthritis", "Undernourished", "URI",
                                  "Headache", "Anemia", "Vaginitis", "Iron deficiency",
                                  "Rash", "Pain", "Diabetes", "Worried Well", "Cough", "Fever"]
-    let dosageList = ["One time", "One week", "One month", "3 month"]
+    let dosageList = ["1 time", "1 week", "1 month", "3 month"]
     private (set) var medicationList: [String] = []
     
     // MARK: - Initializer

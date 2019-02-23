@@ -9,10 +9,9 @@
 import UIKit
 
 class PrescriptionCell: UITableViewCell {
-    @IBOutlet weak var prescriptionTextField: BorderedTextField!
-    @IBOutlet weak var dosageLabel: UILabel!
-    @IBOutlet weak var quantityLabel: UILabel!
-    
+    @IBOutlet weak var prescriptionTextField: SearchTextField!
+    @IBOutlet weak var dosageTextField: PickerTextField!
+    @IBOutlet weak var quantityTextField: UITextField!
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

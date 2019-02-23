@@ -25,7 +25,7 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var providerTextField: InsetTextField!
     @IBOutlet weak var patientInfoView: UIView!
     @IBOutlet weak var clinicTextField: BorderedTextField!
-    @IBOutlet weak var genderTextField: UITextField!
+    @IBOutlet weak var genderTextField: PickerTextField!
     @IBOutlet weak var ageTextField: BorderedTextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var notesTextView: PaddedTextView!
@@ -82,9 +82,6 @@ class EntryAdditionController: UIViewController,
         clinicTextField.delegate = self
         genderTextField.delegate = self
         ageTextField.delegate = self
-//        diagnosisTextField.delegate = self
-//        prescriptionTextField.delegate = self
-//        dosageTextField.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         notesTextView.delegate = self
@@ -105,21 +102,9 @@ class EntryAdditionController: UIViewController,
         // Set editing on TableView
         tableView.setEditing(true, animated: true)
         
-        // Customize SearchTextField instance for prescriptions
-//        prescriptionTextField.filterStrings(options.medicationList)
-//        prescriptionTextField.theme.font = UIFont.systemFont(ofSize: 18)
-//        prescriptionTextField.maxNumberOfResults = 5
-//        prescriptionTextField.theme.bgColor = UIColor.white
-//        prescriptionTextField.itemSelectionHandler = { filteredResults, itemPosition in
-//            let item = filteredResults[itemPosition]
-//            self.prescriptionTextField.text = item.title
-//            self.prescriptionTextField.resignFirstResponder()
-//        }
-        
-        // Customize TextFields for PickerView
+        // Customize GenderTextField input options
         genderTextField.inputView = pickerView
-//        diagnosisTextField.inputView = pickerView
-//        dosageTextField.inputView = pickerView
+        genderTextField.pickerOptions = .gender
         
         // Configure UIPickerView
         pickerView.dataSource = self
@@ -146,27 +131,35 @@ class EntryAdditionController: UIViewController,
     
     // MARK: - UITextFieldDelegate
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField is PickerTextField {
+            // Prevent user from interacting with the TextField while selecting
+            textField.isUserInteractionEnabled = false
+        }
+        return true
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeInput = textField
         
         if textField == ageTextField {
             textField.text = ""
         } else if textField is PickerTextField {
-            // Refresh the UIPickerField values if appropriate
-            pickerView.reloadAllComponents()
-            
             // Set default value for PickerTextField on input
+            let pickerTrigger = textField as! PickerTextField
             pickerView.selectRow(0, inComponent: 0, animated: true)
-            switch textField {
-            case genderTextField:
-                textField.text = options.genderList[0]
-//            case diagnosisTextField:
-//                textField.text = options.diagnosisList[0]
-//            case dosageTextField:
-//                textField.text = options.dosageList[0]
-            default:
-                fatalError("Invalid picker trigger: \(textField)")
+
+            switch pickerTrigger.pickerOptions {
+            case .gender:
+                pickerTrigger.text = options.genderList[0]
+            case .diagnosis:
+                pickerTrigger.text = options.diagnosisList[0]
+            case .dosage:
+                pickerTrigger.text = options.dosageList[0]
             }
+            
+            // Refresh the UIPickerField values
+            pickerView.reloadAllComponents()
         }
     }
     
@@ -180,6 +173,9 @@ class EntryAdditionController: UIViewController,
                     textField.text = newText
                 }
             }
+        } else if textField is PickerTextField {
+            // Re-enable user interaction
+            textField.isUserInteractionEnabled = true
         }
     }
     
@@ -232,60 +228,52 @@ class EntryAdditionController: UIViewController,
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        guard let trigger = activeInput else {
-            print("Active input not set!")
+        guard let trigger = activeInput as? PickerTextField else {
+            print("Active input not a PickerView!")
             return 0
         }
         
-        switch trigger {
-        case genderTextField:
+        switch trigger.pickerOptions {
+        case .gender:
             return options.genderList.count
-//        case diagnosisTextField:
-//            return options.diagnosisList.count
-//        case dosageTextField:
-//            return options.dosageList.count
-        default:
-            print("Invalid picker trigger: \(trigger)")
-            return 0
+        case .diagnosis:
+            return options.diagnosisList.count
+        case .dosage:
+            return options.dosageList.count
         }
     }
     
     // MARK: - UIPickerViewDelegate
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let trigger = activeInput else {
-            print("Active input not set!")
+        guard let trigger = activeInput as? PickerTextField else {
+            print("Active input not a PickerView!")
             return nil
         }
         
-        switch trigger {
-        case genderTextField:
+        switch trigger.pickerOptions {
+        case .gender:
             return options.genderList[row]
-//        case diagnosisTextField:
-//            return options.diagnosisList[row]
-//        case dosageTextField:
-//            return options.dosageList[row]
-        default:
-            print("Invalid picker trigger: \(trigger)")
-            return nil
+        case .diagnosis:
+            return options.diagnosisList[row]
+        case .dosage:
+            return options.dosageList[row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let trigger = activeInput as? UITextField else {
-            print("Active input not set!")
+        guard let trigger = activeInput as? PickerTextField else {
+            print("Active input not a PickerView!")
             return
         }
         
-        switch trigger {
-        case genderTextField:
+        switch trigger.pickerOptions {
+        case .gender:
             trigger.text = options.genderList[row]
-//        case diagnosisTextField:
-//            trigger.text = options.diagnosisList[row]
-//        case dosageTextField:
-//            trigger.text = options.dosageList[row]
-        default:
-            print("Invalid picker trigger: \(trigger)")
+        case .diagnosis:
+            trigger.text = options.diagnosisList[row]
+        case .dosage:
+            trigger.text = options.dosageList[row]
         }
     }
     
@@ -319,11 +307,35 @@ class EntryAdditionController: UIViewController,
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DiagnosisCell", for: indexPath) as? DiagnosisCell else {
                 fatalError("Invalid DiagnosisCell!")
             }
+            
+            // Configure TextField for PickerView
+            cell.diagnosisTextField.delegate = self
+            cell.diagnosisTextField.inputView = pickerView
+            cell.diagnosisTextField.pickerOptions = .diagnosis
+            
             return cell
         case .prescription:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "PrescriptionCell", for: indexPath) as? PrescriptionCell else {
                 fatalError("Invalid PrescriptionCell!")
             }
+            
+            // Customize SearchTextField
+            cell.prescriptionTextField.filterStrings(options.medicationList)
+            cell.prescriptionTextField.theme.font = UIFont.systemFont(ofSize: 18)
+            cell.prescriptionTextField.maxNumberOfResults = 5
+            cell.prescriptionTextField.theme.bgColor = UIColor.white
+            cell.prescriptionTextField.itemSelectionHandler = { filteredResults, itemPosition in
+                let item = filteredResults[itemPosition]
+                cell.prescriptionTextField.text = item.title
+                cell.prescriptionTextField.resignFirstResponder()
+            }
+            
+            // Configure TextFields for PickerView
+            cell.dosageTextField.delegate = self
+            cell.dosageTextField.inputView = pickerView
+            cell.dosageTextField.pickerOptions = .dosage
+            cell.quantityTextField.delegate = self
+            
             return cell
         default:
             fatalError("Invalid section!")

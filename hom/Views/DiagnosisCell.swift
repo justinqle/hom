@@ -9,7 +9,7 @@
 import UIKit
 
 class DiagnosisCell: UITableViewCell {
-    @IBOutlet weak var diagnosis: UILabel!
+    @IBOutlet weak var diagnosisTextField: PickerTextField!
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(false, animated: false)
