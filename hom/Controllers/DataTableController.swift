@@ -57,18 +57,24 @@ class DataTableController: UITableViewController {
         // Fetches the appropriate patient for the data source layout.
         let patient = patients[indexPath.row]
         
-        // TODO: Move optional-unwrapping to EntryAdditionController
-        
-        // PatientID Clinic Name, Creation Date
-        cell.patientID.text = "Patient " + String(patient.value(forKey: "id") as? Int ?? -1)
+        // Patient ID and Clinic Name
+        cell.patientID.text = "Patient " + String(patient.value(forKey: "id") as! Int)
         cell.clinicName.text = patient.value(forKey: "clinic") as? String
-        cell.creationDate.text = String((patient.value(forKey: "creation") as? Date ?? Date()).description)
+        
+        // Date
+        let date = patient.value(forKey: "creation") as! Date
+        let dateFormatter = DateFormatter();
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        // US English Locale (en_US)
+        dateFormatter.locale = Locale(identifier: "en_US")
+        cell.creationDate.text = dateFormatter.string(from: date)
         
         let mediumFont = UIFont.systemFont(ofSize: 15, weight: .medium)
         
         // Gender label attributes
         let gender = NSMutableAttributedString(string: "Sex: ", attributes: [NSAttributedString.Key.font: mediumFont])
-        let genderValue = NSMutableAttributedString(string: patient.value(forKey: "gender") as? String ?? "Error")
+        let genderValue = NSMutableAttributedString(string: patient.value(forKey: "gender") as! String)
         gender.append(genderValue)
         
         let genderRange = (gender.string as NSString).range(of: "Sex: ")
@@ -77,7 +83,7 @@ class DataTableController: UITableViewController {
         
         // Age label attributes
         let age = NSMutableAttributedString(string: "Age: ", attributes: [NSAttributedString.Key.font: mediumFont])
-        let ageValue = NSMutableAttributedString(string: String(patient.value(forKey: "age") as? Int ?? -1) + " years old")
+        let ageValue = NSMutableAttributedString(string: String(patient.value(forKey: "age") as! Int) + " years old")
         age.append(ageValue)
         
         let ageRange = (age.string as NSString).range(of: "Age: ")
@@ -85,8 +91,8 @@ class DataTableController: UITableViewController {
         cell.age.attributedText = age
         
         // Diagnoses and prescriptions
-        cell.diagnoses.text = (patient.value(forKeyPath: "diagnosis") as? String ?? "Error")
-        cell.prescriptions.text = (patient.value(forKey: "medication") as? String ?? "Error")
+        cell.diagnoses.text = (patient.value(forKeyPath: "diagnosis") as! String)
+        cell.prescriptions.text = (patient.value(forKey: "medication") as! String)
         
         return cell
     }

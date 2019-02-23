@@ -376,7 +376,7 @@ class EntryAdditionController: UIViewController,
             return
         }
         
-        let age = Int(ageTextField.text?.components(separatedBy: " ")[0] ?? "1")
+        let age = Int(ageTextField.text!.components(separatedBy: " ")[0])
         let clinicName = clinicTextField.text
         let creationDate = Date()
         let delete = false
