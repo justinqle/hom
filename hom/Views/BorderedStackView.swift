@@ -37,7 +37,7 @@ class BorderedStackView: UIStackView {
     }
     
     // MARK: Private Methods
-    private func updateBorders(color: UIColor, borderThickness: CGFloat) {
+    func updateBorders(color: UIColor, borderThickness: CGFloat) {
         if top {
             topBorder.backgroundColor = color.cgColor
             topBorder.frame = CGRect(x: 0, y: borderThickness, width: self.frame.size.width, height: borderThickness)

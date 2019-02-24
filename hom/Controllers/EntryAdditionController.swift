@@ -34,17 +34,18 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    enum TableSection: Int {
+        case diagnosis = 0, prescription, total
+    }
+    
     private let options = Options.shared
     private var activeInput: UIView?
     private let pickerView = UIPickerView()
     private var additionDate = Date()
     private var lastKeyboardFrame: CGRect?
     private var lastTextViewHeight: CGFloat = 0
-    private let sectionHeaderHeight: CGFloat = 55
-    
-    private enum TableSection: Int {
-        case diagnosis = 0, prescription, total
-    }
+    private let sectionFooterHeight: CGFloat = 42
+    private let sectionPadding: CGFloat = 15
     
     private struct Prescription {
         var medicine: String
@@ -72,11 +73,6 @@ class EntryAdditionController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Init dummy data
-        diagnoses.append(contentsOf: ["GERD", "Headache"])
-        prescriptions.append(contentsOf: [Prescription(medicine: "Tylenol Children's", dosage: "1 week", quantity: 1),
-                                          Prescription(medicine: "Asprin 325mg", dosage: "1 week", quantity: 2)])
         
         // Assign delegates
         clinicTextField.delegate = self
@@ -320,6 +316,7 @@ class EntryAdditionController: UIViewController,
             }
             
             // Customize SearchTextField
+            cell.prescriptionTextField.delegate = self
             cell.prescriptionTextField.filterStrings(options.medicationList)
             cell.prescriptionTextField.theme.font = UIFont.systemFont(ofSize: 18)
             cell.prescriptionTextField.maxNumberOfResults = 5
@@ -344,33 +341,73 @@ class EntryAdditionController: UIViewController,
     
     // MARK: - UIDataTableViewDelegate
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return sectionFooterHeight + sectionPadding
+    }
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let footerCell = tableView.dequeueReusableCell(withIdentifier: "FooterCell") as? FooterCell else {
-            fatalError("Invalid FooterCell!")
-        }
+        // Create footer parent
+        let footer = AdditionFooter(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight + sectionPadding))
         
+        // Create StackView
+        let stackView = BorderedStackView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight))
+        stackView.axis = .horizontal
+        stackView.layoutMargins = UIEdgeInsets(top: 8, left: 14, bottom: 8, right: 8)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.distribution = .fill
+        stackView.spacing = 16
+        
+        stackView.top = true
+        stackView.bottom = true
+        stackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        
+        // Create a background view
+        let background = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight))
+        
+        // Add plus "button"
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
+        image.tintColor = UIColor.green
+        image.image = #imageLiteral(resourceName: "PlusGreen")
+        image.contentMode = .scaleAspectFit
+        
+        image.layer.shadowColor = UIColor.black.cgColor
+        image.layer.shadowOffset = CGSize(width: 0, height: 1)
+        image.layer.shadowOpacity = 0.1
+        image.layer.shadowRadius = 0.8
+        
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        
+        // Add label
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 25))
+        
+        // Add subviews
+        footer.addSubview(background)
+        stackView.addArrangedSubview(image)
+        stackView.addArrangedSubview(label)
+        footer.addSubview(stackView)
+        
+        // Set label text
         if let currentSection = TableSection(rawValue: section) {
             switch currentSection {
             case .diagnosis:
-                footerCell.additionLabel.text = "add diagnosis"
+                label.text = "add diagnosis"
+                label.sizeToFit()
+                footer.parentSection = .diagnosis
             case .prescription:
-                footerCell.additionLabel.text = "add prescription"
+                label.text = "add prescription"
+                label.sizeToFit()
+                footer.parentSection = .prescription
             default:
                 fatalError("Invalid table section!")
             }
         }
-        
+
         // Add gesture recognizer to footer
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.footerTapped(_:)))
-        footerCell.addGestureRecognizer(gestureRecognizer)
-        
-        // Add drop shadow to plus button
-        footerCell.plusImage.layer.shadowColor = UIColor.black.cgColor
-        footerCell.plusImage.layer.shadowOffset = CGSize(width: 0, height: 1)
-        footerCell.plusImage.layer.shadowOpacity = 0.1
-        footerCell.plusImage.layer.shadowRadius = 0.8
-        
-        return footerCell
+        stackView.addGestureRecognizer(gestureRecognizer)
+
+        return footer
     }
     
     // MARK: - Navigation
@@ -487,6 +524,36 @@ class EntryAdditionController: UIViewController,
     }
     
     @objc private func footerTapped(_ sender: UITapGestureRecognizer) {
-        print("tapped!")
+        guard let sendingFooter = sender.view?.superview as? AdditionFooter else {
+            fatalError("Tap did not come from a footer!")
+        }
+        
+        // Animate tap
+        let footerBackground = sendingFooter.subviews[0]
+        UIView.animate(withDuration: 0.1, animations: {
+            footerBackground.backgroundColor = UIColorCollection.greyDark
+        }, completion: {_ in
+            // Append initial dummy data and insert new cell
+            switch sendingFooter.parentSection {
+            case .diagnosis:
+                self.diagnoses.append("")
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [IndexPath(row: self.diagnoses.count - 1, section: 0)], with: .left)
+                self.tableView.endUpdates()
+            case .prescription:
+                self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: 0))
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [IndexPath(row: self.prescriptions.count - 1, section: 1)], with: .left)
+                self.tableView.endUpdates()
+            case .total:
+                fatalError("Invalid table section!")
+            }
+
+            // Undo animation
+            UIView.animate(withDuration: 0.3, animations: {
+                footerBackground.backgroundColor = UIColor.white
+            })
+        })
+        
     }
 }
