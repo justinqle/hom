@@ -195,7 +195,11 @@ class EntryAdditionController: UIViewController,
                 case textField as? PickerTextField:
                     prescriptions[cellField.sectionRow!].dosage = textField.text ?? ""
                 case textField as? InsetTextField:
-                    prescriptions[cellField.sectionRow!].quantity = Int(textField.text ?? "0")!
+                    var text = textField.text ?? "0"
+                    if text == "" {
+                        text = "0"
+                    }
+                    prescriptions[cellField.sectionRow!].quantity = Int(text)!
                 default:
                     fatalError("Invalid CellSubView!")
                 }
