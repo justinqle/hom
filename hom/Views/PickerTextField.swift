@@ -9,7 +9,8 @@
 import UIKit
 
 @IBDesignable
-class PickerTextField: UITextField {
+class PickerTextField: UITextField, UITableCellSubView {
+    
     // MARK: - Properties
     enum PickerType: String {
         case gender = "Gender"
@@ -17,7 +18,9 @@ class PickerTextField: UITextField {
         case dosage = "Dosage"
     }
     
-    var pickerOptions = PickerType.gender
+    var pickerOptions: PickerType?
+    var tableSection: EntryAdditionController.TableSection?
+    var sectionRow: Int?
     
     // MARK: Initialization
     override init(frame: CGRect) {

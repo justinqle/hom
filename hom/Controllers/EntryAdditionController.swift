@@ -10,6 +10,11 @@ import UIKit
 import CoreData
 import os.log
 
+protocol UITableCellSubView {
+    var tableSection: EntryAdditionController.TableSection? { get set }
+    var sectionRow: Int? { get set }
+}
+
 class EntryAdditionController: UIViewController,
     UIScrollViewDelegate, UITextFieldDelegate, UITextViewDelegate,
     UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate,
@@ -46,12 +51,6 @@ class EntryAdditionController: UIViewController,
     private var lastTextViewHeight: CGFloat = 0
     private let sectionFooterHeight: CGFloat = 42
     private let sectionPadding: CGFloat = 15
-    
-    private struct Prescription {
-        var medicine: String
-        var dosage: String
-        var quantity: Int
-    }
     
     private var diagnoses = [String]()
     private var prescriptions = [Prescription]()
@@ -148,7 +147,7 @@ class EntryAdditionController: UIViewController,
             let pickerTrigger = textField as! PickerTextField
             pickerView.selectRow(0, inComponent: 0, animated: true)
 
-            switch pickerTrigger.pickerOptions {
+            switch pickerTrigger.pickerOptions! {
             case .gender:
                 pickerTrigger.text = options.genderList[0]
             case .diagnosis:
@@ -175,6 +174,30 @@ class EntryAdditionController: UIViewController,
         } else if textField is PickerTextField {
             // Re-enable user interaction
             textField.isUserInteractionEnabled = true
+        }
+        
+        // Update values in the appropriate data model if field is contained in the table
+        if let cellField = textField as? UITableCellSubView, cellField.tableSection != nil {
+            switch cellField.tableSection! {
+            case .diagnosis:
+                diagnoses[cellField.sectionRow!] = textField.text ?? ""
+            case .prescription:
+                switch textField {
+                case textField as? SearchTextField:
+                    prescriptions[cellField.sectionRow!].medicine = textField.text ?? ""
+                case textField as? PickerTextField:
+                    prescriptions[cellField.sectionRow!].dosage = textField.text ?? ""
+                case textField as? InsetTextField:
+                    prescriptions[cellField.sectionRow!].quantity = Int(textField.text ?? "0")!
+                default:
+                    fatalError("Invalid CellSubView!")
+                }
+            case .total:
+                fatalError("Invalid TableSection assigned!")
+            }
+            
+            print("Diagoses: \(diagnoses)")
+            print("Prescriptions: \(prescriptions)")
         }
         
         enableSaveButton()
@@ -236,7 +259,7 @@ class EntryAdditionController: UIViewController,
             return 0
         }
         
-        switch trigger.pickerOptions {
+        switch trigger.pickerOptions! {
         case .gender:
             return options.genderList.count
         case .diagnosis:
@@ -254,7 +277,7 @@ class EntryAdditionController: UIViewController,
             return nil
         }
         
-        switch trigger.pickerOptions {
+        switch trigger.pickerOptions! {
         case .gender:
             return options.genderList[row]
         case .diagnosis:
@@ -270,7 +293,8 @@ class EntryAdditionController: UIViewController,
             return
         }
         
-        switch trigger.pickerOptions {
+        // Set the appropriate value
+        switch trigger.pickerOptions! {
         case .gender:
             trigger.text = options.genderList[row]
         case .diagnosis:
@@ -316,6 +340,18 @@ class EntryAdditionController: UIViewController,
             cell.diagnosisTextField.inputView = pickerView
             cell.diagnosisTextField.pickerOptions = .diagnosis
             
+            // Assign a reference to the corresponding index in the data model
+            cell.tableSection = .diagnosis
+            cell.sectionRow = indexPath.row
+            
+            // Assign a reference to parent cell in appropriate subviews
+            guard let diagnosisField = cell.subviews[0].subviews[0].subviews[1] as? PickerTextField else {
+                fatalError("Child is not PickerTextField!")
+            }
+            
+            diagnosisField.tableSection = .diagnosis
+            diagnosisField.sectionRow = indexPath.row
+            
             return cell
         case .prescription:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "PrescriptionCell", for: indexPath) as? PrescriptionCell else {
@@ -339,6 +375,36 @@ class EntryAdditionController: UIViewController,
             cell.dosageTextField.inputView = pickerView
             cell.dosageTextField.pickerOptions = .dosage
             cell.quantityTextField.delegate = self
+            
+            // Assign a reference to the corresponding index in the data model
+            cell.tableSection = .prescription
+            cell.sectionRow = indexPath.row
+            
+            // Assign a reference to parent cell in appropriate subviews
+            guard let verticalStackView = cell.subviews[0].subviews[0] as? UIStackView else {
+                fatalError("Child is not StackView!")
+            }
+            
+            guard let medicationField = verticalStackView.subviews[0].subviews[0] as? SearchTextField else {
+                fatalError("Child is not a SearchTextField!")
+            }
+            
+            medicationField.tableSection = .prescription
+            medicationField.sectionRow = indexPath.row
+            
+            guard let dosageField = verticalStackView.subviews[1].subviews[0].subviews[0] as? PickerTextField else {
+                fatalError("Child is not a PickerTextField!")
+            }
+            
+            dosageField.tableSection = .prescription
+            dosageField.sectionRow = indexPath.row
+            
+            guard let quantityField = verticalStackView.subviews[1].subviews[1].subviews[0] as? InsetTextField else {
+                fatalError("Child is not an InsetTextField!")
+            }
+            
+            quantityField.tableSection = .prescription
+            quantityField.sectionRow = indexPath.row
             
             return cell
         default:

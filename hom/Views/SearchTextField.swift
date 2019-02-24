@@ -8,7 +8,10 @@
 
 import UIKit
 
-open class SearchTextField: UITextField {
+open class SearchTextField: UITextField, UITableCellSubView {
+    
+    var tableSection: EntryAdditionController.TableSection?
+    var sectionRow: Int?
     
     ////////////////////////////////////////////////////////////////////////
     // Public interface

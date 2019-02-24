@@ -9,13 +9,16 @@
 import UIKit
 
 @IBDesignable
-class InsetTextField: UITextField {
+class InsetTextField: UITextField, UITableCellSubView {
     
     // MARK: Properties
     @IBInspectable var xInsetLeft: CGFloat = 0
     @IBInspectable var xInsetRight: CGFloat = 0
     @IBInspectable var yInsetTop: CGFloat = 0
     @IBInspectable var yInsetBottom: CGFloat = 0
+    
+    var tableSection: EntryAdditionController.TableSection?
+    var sectionRow: Int?
     
     // MARK: Drawing
     override func textRect(forBounds bounds: CGRect) -> CGRect {
