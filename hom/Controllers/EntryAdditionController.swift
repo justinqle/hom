@@ -83,6 +83,9 @@ class EntryAdditionController: UIViewController,
         notesTextView.delegate = self
         pickerView.delegate = self
         
+        // Disable save button
+        saveButton.isEnabled = false
+        
         // Provider TextField borders
         providerTextField.layer.borderColor = UIColorCollection.greyDark.cgColor
         providerTextField.layer.borderWidth = 1
@@ -173,6 +176,8 @@ class EntryAdditionController: UIViewController,
             // Re-enable user interaction
             textField.isUserInteractionEnabled = true
         }
+        
+        enableSaveButton()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -215,6 +220,8 @@ class EntryAdditionController: UIViewController,
             textView.text = "No notes"
             textView.textColor = UIColorCollection.placeHolderGrey
         }
+        
+        enableSaveButton()
     }
     
     // MARK: - UIPickerViewDataSource
@@ -425,9 +432,9 @@ class EntryAdditionController: UIViewController,
             return
         }
         
-        let age = Int(ageTextField.text?.components(separatedBy: " ")[0] ?? "1")
+        let age = Int(ageTextField.text!.components(separatedBy: " ")[0])
         let clinicName = clinicTextField.text
-        let creationDate = Date()
+        let creationDate = additionDate
         let delete = false
         let diagnosis = ""
         let dosage = ""
@@ -468,6 +475,15 @@ class EntryAdditionController: UIViewController,
     }
     
     // MARK: - Private Methods
+    
+    // Enables save button if all required fields are filled out
+    private func enableSaveButton() {
+        if !clinicTextField.text!.isEmpty && genderTextField.text != "Not Chosen" && !ageTextField.text!.isEmpty {
+            saveButton.isEnabled = true
+        } else {
+            saveButton.isEnabled = false
+        }
+    }
     
     @objc private func keyboardDidShow(notification: Notification) {
         guard let userInfo = notification.userInfo else {
