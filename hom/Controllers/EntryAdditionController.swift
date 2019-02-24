@@ -566,7 +566,7 @@ class EntryAdditionController: UIViewController,
             }
 
             // Undo animation
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.25, animations: {
                 footerBackground.backgroundColor = UIColor.white
             })
         })

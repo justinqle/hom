@@ -18,10 +18,6 @@ class DataTableController: UITableViewController {
     var patients: [NSManagedObject] = []
     
     // MARK: - Lifecycle Methods
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,11 +57,12 @@ class DataTableController: UITableViewController {
         cell.patientID.text = "Patient " + String(patient.value(forKey: "id") as! Int)
         cell.clinicName.text = patient.value(forKey: "clinic") as? String
         
-        // Date
+        // Addition date
         let date = patient.value(forKey: "creation") as! Date
         let dateFormatter = DateFormatter();
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "MM/dd/yy - hh:mma"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
         // US English Locale (en_US)
         dateFormatter.locale = Locale(identifier: "en_US")
         cell.creationDate.text = dateFormatter.string(from: date)
