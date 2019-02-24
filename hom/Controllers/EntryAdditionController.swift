@@ -176,7 +176,7 @@ class EntryAdditionController: UIViewController,
             textField.isUserInteractionEnabled = true
         } else if textField is InsetTextField, (textField as! UITableCellSubView).sectionRow != nil {
             // Trim leading excess 0's from the quantity field
-            if let text = textField.text {
+            if let text = textField.text, text != "" {
                 let integer = Int(text)!
                 let trimmed = String(integer)
                 textField.text = trimmed
