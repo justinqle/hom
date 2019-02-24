@@ -167,7 +167,6 @@ class EntryAdditionController: UIViewController,
                 if text != "" {
                     let integer = Int(text)!
                     let trimmed = String(integer)
-                    
                     let newText = trimmed + " years old"
                     textField.text = newText
                 }
@@ -178,7 +177,6 @@ class EntryAdditionController: UIViewController,
         } else if textField is InsetTextField, (textField as! UITableCellSubView).sectionRow != nil {
             // Trim leading excess 0's from the quantity field
             if let text = textField.text {
-                print(text)
                 let integer = Int(text)!
                 let trimmed = String(integer)
                 textField.text = trimmed
