@@ -373,7 +373,7 @@ class EntryAdditionController: UIViewController,
         
         // Add plus "button"
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
-        image.tintColor = UIColor.green
+        image.tintColor = UIColorCollection.accentGreen
         image.image = #imageLiteral(resourceName: "PlusGreen")
         image.contentMode = .scaleAspectFit
         
