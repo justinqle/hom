@@ -9,7 +9,7 @@
 import Foundation
 class Prescription: CustomStringConvertible {
     var description: String {
-        return "Medicine: \(self.medicine) | dosage: \(self.dosage) | quantity: \(self.quantity)"
+        return "{Medicine: \(self.medicine) | dosage: \(self.dosage) | quantity: \(self.quantity)}"
     }
     
     var medicine: String

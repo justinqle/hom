@@ -97,9 +97,6 @@ class EntryAdditionController: UIViewController,
         deleteButtonView.layer.borderColor = UIColorCollection.greyDark.cgColor
         deleteButtonView.layer.borderWidth = 1
         
-        // Set editing on TableView
-        tableView.setEditing(true, animated: true)
-        
         // Customize GenderTextField input options
         genderTextField.inputView = pickerView
         genderTextField.pickerOptions = .gender
@@ -166,14 +163,26 @@ class EntryAdditionController: UIViewController,
         
         if textField == ageTextField {
             if let text = textField.text {
+                // Append "years old" and trim leading 0's
                 if text != "" {
-                    let newText = text + " years old"
+                    let integer = Int(text)!
+                    let trimmed = String(integer)
+                    
+                    let newText = trimmed + " years old"
                     textField.text = newText
                 }
             }
         } else if textField is PickerTextField {
             // Re-enable user interaction
             textField.isUserInteractionEnabled = true
+        } else if textField is InsetTextField, (textField as! UITableCellSubView).sectionRow != nil {
+            // Trim leading excess 0's from the quantity field
+            if let text = textField.text {
+                print(text)
+                let integer = Int(text)!
+                let trimmed = String(integer)
+                textField.text = trimmed
+            }
         }
         
         // Update values in the appropriate data model if field is contained in the table
@@ -195,9 +204,6 @@ class EntryAdditionController: UIViewController,
             case .total:
                 fatalError("Invalid TableSection assigned!")
             }
-            
-            print("Diagoses: \(diagnoses)")
-            print("Prescriptions: \(prescriptions)")
         }
         
         enableSaveButton()
@@ -335,22 +341,20 @@ class EntryAdditionController: UIViewController,
                 fatalError("Invalid DiagnosisCell!")
             }
             
-            // Configure TextField for PickerView
+            // Configure TextField
             cell.diagnosisTextField.delegate = self
             cell.diagnosisTextField.inputView = pickerView
             cell.diagnosisTextField.pickerOptions = .diagnosis
             
-            // Assign a reference to the corresponding index in the data model
-            cell.tableSection = .diagnosis
-            cell.sectionRow = indexPath.row
+            // Assign a reference to row index in appropriate subviews
+            cell.diagnosisTextField.tableSection = .diagnosis
+            cell.diagnosisTextField.sectionRow = indexPath.row
             
-            // Assign a reference to parent cell in appropriate subviews
-            guard let diagnosisField = cell.subviews[0].subviews[0].subviews[1] as? PickerTextField else {
-                fatalError("Child is not PickerTextField!")
+            // Assign values in the data model if available
+            let diagnosis = diagnoses[indexPath.row]
+            if diagnosis != "" {
+                cell.diagnosisTextField.text = diagnosis
             }
-            
-            diagnosisField.tableSection = .diagnosis
-            diagnosisField.sectionRow = indexPath.row
             
             return cell
         case .prescription:
@@ -370,45 +374,61 @@ class EntryAdditionController: UIViewController,
                 cell.prescriptionTextField.resignFirstResponder()
             }
             
-            // Configure TextFields for PickerView
+            // Configure TextFields
             cell.dosageTextField.delegate = self
             cell.dosageTextField.inputView = pickerView
             cell.dosageTextField.pickerOptions = .dosage
             cell.quantityTextField.delegate = self
             
-            // Assign a reference to the corresponding index in the data model
-            cell.tableSection = .prescription
-            cell.sectionRow = indexPath.row
+            // Assign a reference to row index in appropriate subviews
+            cell.prescriptionTextField.tableSection = .prescription
+            cell.prescriptionTextField.sectionRow = indexPath.row
+        
+            cell.dosageTextField.tableSection = .prescription
+            cell.dosageTextField.sectionRow = indexPath.row
             
-            // Assign a reference to parent cell in appropriate subviews
-            guard let verticalStackView = cell.subviews[0].subviews[0] as? UIStackView else {
-                fatalError("Child is not StackView!")
+            cell.quantityTextField.tableSection = .prescription
+            cell.quantityTextField.sectionRow = indexPath.row
+            
+            // Assign values in the data model if available
+            let medication = prescriptions[indexPath.row].medicine
+            if medication != "" {
+                cell.prescriptionTextField.text = medication
             }
             
-            guard let medicationField = verticalStackView.subviews[0].subviews[0] as? SearchTextField else {
-                fatalError("Child is not a SearchTextField!")
+            let dosage = prescriptions[indexPath.row].dosage
+            if prescriptions[indexPath.row].dosage != "" {
+                cell.dosageTextField.text = dosage
             }
             
-            medicationField.tableSection = .prescription
-            medicationField.sectionRow = indexPath.row
-            
-            guard let dosageField = verticalStackView.subviews[1].subviews[0].subviews[0] as? PickerTextField else {
-                fatalError("Child is not a PickerTextField!")
-            }
-            
-            dosageField.tableSection = .prescription
-            dosageField.sectionRow = indexPath.row
-            
-            guard let quantityField = verticalStackView.subviews[1].subviews[1].subviews[0] as? InsetTextField else {
-                fatalError("Child is not an InsetTextField!")
-            }
-            
-            quantityField.tableSection = .prescription
-            quantityField.sectionRow = indexPath.row
+            cell.quantityTextField.text = String(prescriptions[indexPath.row].quantity)
             
             return cell
         default:
             fatalError("Invalid section!")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let tableSection = TableSection(rawValue: indexPath.section) else {
+            fatalError("Invalid TableSection!")
+        }
+        
+        if editingStyle == .delete {
+            switch tableSection {
+            case .diagnosis:
+                diagnoses.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .prescription:
+                prescriptions.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            case .total:
+                fatalError("Invalid TableSection!")
+            }
         }
     }
     
@@ -425,7 +445,7 @@ class EntryAdditionController: UIViewController,
         // Create StackView
         let stackView = BorderedStackView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight))
         stackView.axis = .horizontal
-        stackView.layoutMargins = UIEdgeInsets(top: 8, left: 14, bottom: 8, right: 8)
+        stackView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 8)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.distribution = .fill
         stackView.spacing = 16
@@ -610,9 +630,12 @@ class EntryAdditionController: UIViewController,
             fatalError("Tap did not come from a footer!")
         }
         
+        // Hide keyboard if needed
+        view.endEditing(true)
+        
         // Animate tap
         let footerBackground = sendingFooter.subviews[0]
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.08, animations: {
             footerBackground.backgroundColor = UIColorCollection.greyDark
         }, completion: {_ in
             // Append initial dummy data and insert new cell
@@ -632,10 +655,9 @@ class EntryAdditionController: UIViewController,
             }
 
             // Undo animation
-            UIView.animate(withDuration: 0.25, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 footerBackground.backgroundColor = UIColor.white
             })
         })
-        
     }
 }

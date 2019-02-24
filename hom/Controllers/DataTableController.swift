@@ -60,7 +60,7 @@ class DataTableController: UITableViewController {
         // Addition date
         let date = patient.value(forKey: "creation") as! Date
         let dateFormatter = DateFormatter();
-        dateFormatter.dateFormat = "MM/dd/yy - hh:mma"
+        dateFormatter.dateFormat = "MM/dd/yy | hh:mma"
         dateFormatter.amSymbol = "AM"
         dateFormatter.pmSymbol = "PM"
         // US English Locale (en_US)
