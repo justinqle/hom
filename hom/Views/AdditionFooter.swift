@@ -8,6 +8,6 @@
 
 import UIKit
 
-class AdditionFooter: UIView {
+class AdditionFooter: UITableViewHeaderFooterView {
     var parentSection: EntryAdditionController.TableSection = .diagnosis
 }

@@ -292,7 +292,7 @@
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>
-                                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="35" estimatedSectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="EQd-Cv-Ee9" customClass="ExpandableTableView" customModule="hom" customModuleProvider="target">
+                                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" estimatedSectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="EQd-Cv-Ee9" customClass="ExpandableTableView" customModule="hom" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="139" width="394" height="250"/>
                                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <prototypes>
@@ -364,7 +364,7 @@
                                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="coF-Nn-pwJ" customClass="BorderedStackView" customModule="hom" customModuleProvider="target">
                                                                                                                     <rect key="frame" x="0.0" y="8" width="188.66666666666666" height="37"/>
                                                                                                                     <subviews>
-                                                                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Dosage" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="li3-sm-tAk" customClass="PickerTextField" customModule="hom" customModuleProvider="target">
+                                                                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Dosage" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="li3-sm-tAk" customClass="PickerTextField" customModule="hom" customModuleProvider="target">
                                                                                                                             <rect key="frame" x="16" y="8" width="156.66666666666666" height="21"/>
                                                                                                                             <nil key="textColor"/>
                                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -655,7 +655,7 @@
                                                 </subviews>
                                             </stackView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="File name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZWb-jw-zqa" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="255" width="342" height="21"/>
+                                                <rect key="frame" x="16" y="255" width="342" height="53"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -669,7 +669,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8VB-eI-hnl">
-                                                <rect key="frame" x="16" y="306" width="342" height="54"/>
+                                                <rect key="frame" x="16" y="338" width="342" height="54"/>
                                                 <color key="backgroundColor" red="1" green="0.73725490199999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="18" maxX="0.0" maxY="18"/>

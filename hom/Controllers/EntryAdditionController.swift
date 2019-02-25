@@ -52,8 +52,31 @@ class EntryAdditionController: UIViewController,
     private let sectionFooterHeight: CGFloat = 42
     private let sectionPadding: CGFloat = 15
     
-    private var diagnoses = [String]()
-    private var prescriptions = [Prescription]()
+    private var diagnoses = [String]() {
+        didSet {
+            // Enable or disable the footer
+            if let footer = tableView.footerView(forSection: 0) {
+                if diagnoses.count == 3 {
+                    setFooterInteractable(footer, setEnabled: false)
+                } else {
+                    setFooterInteractable(footer, setEnabled: true)
+                }
+            }
+        }
+    }
+    
+    private var prescriptions = [Prescription]() {
+        didSet {
+            // Enable or disable the footer
+            if let footer = tableView.footerView(forSection: 1) {
+                if prescriptions.count == 5 {
+                    setFooterInteractable(footer, setEnabled: false)
+                } else {
+                    setFooterInteractable(footer, setEnabled: true)
+                }
+            }
+        }
+    }
     
     // MARK: - Overriden Methods
     
@@ -392,18 +415,17 @@ class EntryAdditionController: UIViewController,
             cell.quantityTextField.tableSection = .prescription
             cell.quantityTextField.sectionRow = indexPath.row
             
-            // Assign values in the data model if available
+            // Assign values from the data model if available
             let medication = prescriptions[indexPath.row].medicine
-            if medication != "" {
-                cell.prescriptionTextField.text = medication
-            }
+            cell.prescriptionTextField.text = medication
             
             let dosage = prescriptions[indexPath.row].dosage
-            if prescriptions[indexPath.row].dosage != "" {
-                cell.dosageTextField.text = dosage
-            }
+            cell.dosageTextField.text = dosage
             
-            cell.quantityTextField.text = String(prescriptions[indexPath.row].quantity)
+            let quantity = prescriptions[indexPath.row].quantity
+            if quantity != -1 {
+                cell.quantityTextField.text = String(quantity)
+            }
             
             return cell
         default:
@@ -442,7 +464,11 @@ class EntryAdditionController: UIViewController,
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Create footer parent
-        let footer = AdditionFooter(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight + sectionPadding))
+        let footer = AdditionFooter()
+        
+        // Create footer background view
+        let footerBackground = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight + sectionPadding))
+        footer.backgroundView = footerBackground
         
         // Create StackView
         let stackView = BorderedStackView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight))
@@ -457,7 +483,7 @@ class EntryAdditionController: UIViewController,
         stackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
         
         // Create a background view
-        let background = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight))
+        let stackViewBackground = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight))
         
         // Add plus "button"
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
@@ -475,12 +501,6 @@ class EntryAdditionController: UIViewController,
         
         // Add label
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 25))
-        
-        // Add subviews
-        footer.addSubview(background)
-        stackView.addArrangedSubview(image)
-        stackView.addArrangedSubview(label)
-        footer.addSubview(stackView)
         
         // Set label text
         if let currentSection = TableSection(rawValue: section) {
@@ -501,6 +521,12 @@ class EntryAdditionController: UIViewController,
         // Add gesture recognizer to footer
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.footerTapped(_:)))
         stackView.addGestureRecognizer(gestureRecognizer)
+        
+        // Add subviews
+        footer.contentView.addSubview(stackViewBackground)
+        stackView.addArrangedSubview(image)
+        stackView.addArrangedSubview(label)
+        footer.contentView.addSubview(stackView)
 
         return footer
     }
@@ -628,15 +654,15 @@ class EntryAdditionController: UIViewController,
     }
     
     @objc private func footerTapped(_ sender: UITapGestureRecognizer) {
-        guard let sendingFooter = sender.view?.superview as? AdditionFooter else {
+        guard let sendingFooter = sender.view?.superview?.superview as? AdditionFooter else {
             fatalError("Tap did not come from a footer!")
         }
         
         // Hide keyboard if needed
         view.endEditing(true)
-        
+
         // Animate tap
-        let footerBackground = sendingFooter.subviews[0]
+        let footerBackground = sendingFooter.contentView.subviews[0]
         UIView.animate(withDuration: 0.08, animations: {
             footerBackground.backgroundColor = UIColorCollection.greyDark
         }, completion: {_ in
@@ -648,7 +674,7 @@ class EntryAdditionController: UIViewController,
                 self.tableView.insertRows(at: [IndexPath(row: self.diagnoses.count - 1, section: 0)], with: .left)
                 self.tableView.endUpdates()
             case .prescription:
-                self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: 0))
+                self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: -1))
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: [IndexPath(row: self.prescriptions.count - 1, section: 1)], with: .left)
                 self.tableView.endUpdates()
@@ -661,5 +687,29 @@ class EntryAdditionController: UIViewController,
                 footerBackground.backgroundColor = UIColor.white
             })
         })
+    }
+    
+    private func setFooterInteractable(_ footer: UITableViewHeaderFooterView, setEnabled: Bool) {
+        guard let stackView = footer.contentView.subviews[1] as? UIStackView else {
+            fatalError("Child is not a StackView!")
+        }
+        
+        guard let plus = stackView.subviews[0] as? UIImageView else {
+            fatalError("Child is not an ImageView!")
+        }
+        
+        guard let label = stackView.subviews[1] as? UILabel else {
+            fatalError("Child is not a Label!")
+        }
+        
+        if setEnabled {
+            stackView.isUserInteractionEnabled = true
+            plus.tintColor = UIColorCollection.accentGreen
+            label.textColor = UIColor.black
+        } else {
+            stackView.isUserInteractionEnabled = false
+            plus.tintColor = UIColorCollection.greyDark
+            label.textColor = UIColorCollection.greyDarker
+        }
     }
 }
