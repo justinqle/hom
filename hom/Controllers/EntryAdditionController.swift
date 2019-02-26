@@ -11,8 +11,7 @@ import CoreData
 import os.log
 
 protocol UITableCellSubView {
-    var tableSection: EntryAdditionController.TableSection? { get set }
-    var sectionRow: Int? { get set }
+    var parentCell: UITableViewCell? { get set }
 }
 
 class EntryAdditionController: UIViewController,
@@ -184,6 +183,8 @@ class EntryAdditionController: UIViewController,
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeInput = nil
         
+        print("Hello from did end")
+        
         if textField == ageTextField {
             if let text = textField.text {
                 // Append "years old" and trim leading 0's
@@ -197,7 +198,7 @@ class EntryAdditionController: UIViewController,
         } else if textField is PickerTextField {
             // Re-enable user interaction
             textField.isUserInteractionEnabled = true
-        } else if textField is InsetTextField, (textField as! UITableCellSubView).sectionRow != nil {
+        } else if textField is InsetTextField, (textField as! UITableCellSubView).parentCell != nil {
             // Trim leading excess 0's from the quantity field
             if let text = textField.text, text != "" {
                 let integer = Int(text)!
@@ -207,22 +208,22 @@ class EntryAdditionController: UIViewController,
         }
         
         // Update values in the appropriate data model if field is contained in the table
-        if let cellField = textField as? UITableCellSubView, cellField.tableSection != nil {
-            switch cellField.tableSection! {
+        if let cellField = textField as? UITableCellSubView, cellField.parentCell != nil {
+            switch TableSection(rawValue: tableView.indexPath(for: cellField.parentCell!)!.section)! {
             case .diagnosis:
-                diagnoses[cellField.sectionRow!] = textField.text ?? ""
+                diagnoses[tableView.indexPath(for: cellField.parentCell!)!.row] = textField.text ?? ""
             case .prescription:
                 switch textField {
                 case textField as? SearchTextField:
-                    prescriptions[cellField.sectionRow!].medicine = textField.text ?? ""
+                    prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].medicine = textField.text ?? ""
                 case textField as? PickerTextField:
-                    prescriptions[cellField.sectionRow!].dosage = textField.text ?? ""
+                    prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].dosage = textField.text ?? ""
                 case textField as? InsetTextField:
                     var text = textField.text ?? "0"
                     if text == "" {
                         text = "0"
                     }
-                    prescriptions[cellField.sectionRow!].quantity = Int(text)!
+                    prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].quantity = Int(text)!
                 default:
                     fatalError("Invalid CellSubView!")
                 }
@@ -372,13 +373,14 @@ class EntryAdditionController: UIViewController,
             cell.diagnosisTextField.pickerOptions = .diagnosis
             
             // Assign a reference to row index in appropriate subviews
-            cell.diagnosisTextField.tableSection = .diagnosis
-            cell.diagnosisTextField.sectionRow = indexPath.row
+            cell.diagnosisTextField.parentCell = cell
             
             // Assign values in the data model if available
             let diagnosis = diagnoses[indexPath.row]
             if diagnosis != "" {
                 cell.diagnosisTextField.text = diagnosis
+            } else {
+                cell.diagnosisTextField.text = "Not Chosen"
             }
             
             return cell
@@ -405,15 +407,10 @@ class EntryAdditionController: UIViewController,
             cell.dosageTextField.pickerOptions = .dosage
             cell.quantityTextField.delegate = self
             
-            // Assign a reference to row index in appropriate subviews
-            cell.prescriptionTextField.tableSection = .prescription
-            cell.prescriptionTextField.sectionRow = indexPath.row
-        
-            cell.dosageTextField.tableSection = .prescription
-            cell.dosageTextField.sectionRow = indexPath.row
-            
-            cell.quantityTextField.tableSection = .prescription
-            cell.quantityTextField.sectionRow = indexPath.row
+            // Assign a reference to parent cell in appropriate subviews
+            cell.prescriptionTextField.parentCell = cell
+            cell.dosageTextField.parentCell = cell
+            cell.quantityTextField.parentCell = cell
             
             // Assign values from the data model if available
             let medication = prescriptions[indexPath.row].medicine
@@ -425,6 +422,8 @@ class EntryAdditionController: UIViewController,
             let quantity = prescriptions[indexPath.row].quantity
             if quantity != -1 {
                 cell.quantityTextField.text = String(quantity)
+            } else {
+                cell.quantityTextField.text = ""
             }
             
             return cell

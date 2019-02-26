@@ -17,8 +17,7 @@ class InsetTextField: UITextField, UITableCellSubView {
     @IBInspectable var yInsetTop: CGFloat = 0
     @IBInspectable var yInsetBottom: CGFloat = 0
     
-    var tableSection: EntryAdditionController.TableSection?
-    var sectionRow: Int?
+    var parentCell: UITableViewCell?
     
     // MARK: Drawing
     override func textRect(forBounds bounds: CGRect) -> CGRect {

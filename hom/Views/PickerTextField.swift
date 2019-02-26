@@ -19,8 +19,7 @@ class PickerTextField: UITextField, UITableCellSubView {
     }
     
     var pickerOptions: PickerType?
-    var tableSection: EntryAdditionController.TableSection?
-    var sectionRow: Int?
+    var parentCell: UITableViewCell?
     
     // MARK: Initialization
     override init(frame: CGRect) {
