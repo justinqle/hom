@@ -160,30 +160,52 @@ class EntryAdditionController: UIViewController,
         activeInput = textField
         
         if textField == ageTextField {
-            textField.text = ""
+            if let text = textField.text, text != "" {
+                let age = text.components(separatedBy: " ")
+                textField.text = age[0]
+            }
         } else if textField is PickerTextField {
             // Set default value for PickerTextField on input
             let pickerTrigger = textField as! PickerTextField
-            pickerView.selectRow(0, inComponent: 0, animated: true)
-
-            switch pickerTrigger.pickerOptions! {
-            case .gender:
-                pickerTrigger.text = options.genderList[0]
-            case .diagnosis:
-                pickerTrigger.text = options.diagnosisList[0]
-            case .dosage:
-                pickerTrigger.text = options.dosageList[0]
-            }
             
             // Refresh the UIPickerField values
             pickerView.reloadAllComponents()
+
+            // Assign default value or preserve previous one
+            switch pickerTrigger.pickerOptions! {
+            case .gender:
+                if let text = pickerTrigger.text, text != "Not Chosen" {
+                    if let index = options.genderList.firstIndex(of: text) {
+                        pickerView.selectRow(index, inComponent: 0, animated: true)
+                    }
+                } else {
+                    pickerTrigger.text = options.genderList[0]
+                    pickerView.selectRow(0, inComponent: 0, animated: true)
+                }
+            case .diagnosis:
+                if let text = pickerTrigger.text, text != "Not Chosen" {
+                    if let index = options.diagnosisList.firstIndex(of: text) {
+                        pickerView.selectRow(index, inComponent: 0, animated: true)
+                    }
+                } else {
+                    pickerTrigger.text = options.diagnosisList[0]
+                    pickerView.selectRow(0, inComponent: 0, animated: true)
+                }
+            case .dosage:
+                if let text = pickerTrigger.text, text != "" {
+                    if let index = options.dosageList.firstIndex(of: text) {
+                        pickerView.selectRow(index, inComponent: 0, animated: true)
+                    }
+                } else {
+                    pickerTrigger.text = options.dosageList[0]
+                    pickerView.selectRow(0, inComponent: 0, animated: true)
+                }
+            }
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeInput = nil
-        
-        print("Hello from did end")
         
         if textField == ageTextField {
             if let text = textField.text {

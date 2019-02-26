@@ -270,7 +270,7 @@
                                                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="bottom" value="YES"/>
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </stackView>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Patient age" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="L0c-La-69b" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
+                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Patient age" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="L0c-La-69b" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
                                                                                         <rect key="frame" x="0.0" y="120" width="394" height="51"/>
                                                                                         <nil key="textColor"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -312,7 +312,7 @@
                                                                                                             <color key="textColor" red="1" green="0.73725490199999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
-                                                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Not Chosen" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KXu-3P-c3b" customClass="PickerTextField" customModule="hom" customModuleProvider="target">
+                                                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Not Chosen" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KXu-3P-c3b" customClass="PickerTextField" customModule="hom" customModuleProvider="target">
                                                                                                             <rect key="frame" x="115" y="7.9999999999999964" width="263" height="53.666666666666657"/>
                                                                                                             <nil key="textColor"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
