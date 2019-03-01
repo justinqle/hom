@@ -49,6 +49,9 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
             let name = text.components(separatedBy: ".")[0]
             textField.text = name
         }
+        
+        exportButton.backgroundColor = UIColorCollection.greyLight
+        exportButton.isEnabled = false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -57,10 +60,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.text == "" {
-            exportButton.backgroundColor = UIColorCollection.greyLight
-            exportButton.isEnabled = false
-        } else {
+        if textField.text != "" {
             exportButton.isEnabled = true
             exportButton.backgroundColor = UIColorCollection.accentOrange
             var name = nameTextField.text!.components(separatedBy: ".")[0]
