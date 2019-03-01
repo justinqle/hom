@@ -270,12 +270,6 @@ class EntryAdditionController: UIViewController,
         return true
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        // Move down the ScrollView on newline [TODO]
-        
-        return true
-    }
-    
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         activeInput = nil
         
@@ -625,28 +619,36 @@ class EntryAdditionController: UIViewController,
         if notification.name == UIResponder.keyboardWillShowNotification ||
             notification.name == UIResponder.keyboardWillChangeFrameNotification {
             
-            guard let input = activeInput else {
+            guard var input = activeInput else {
                 return
             }
             
-            // Calculate difference between top of keyboard and bottom of active input
-            let activeInputMax = CGPoint(x: 0, y: input.frame.maxY)
-            var difference = keyboardRect.minY
-            let maxY = (input.superview?.convert(activeInputMax, to: nil).y)!
+            // Set edge insets to account for keyboard
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardRect.height, right: 0)
+            scrollView.contentInset = insets
+            scrollView.scrollIndicatorInsets = insets
             
-            // Conditonally factor in margins in calculation
-            if input.superview is UIStackView {
-                difference -= (maxY + (input.superview?.layoutMargins.bottom)!)
+            // Find the part of the screen that is visible
+            var rect = self.view.frame
+            rect.size.height -= keyboardRect.height
+            
+            // Does the active input have a superview with margins?
+            if let superview = input.superview as? UIStackView {
+                input = superview
             }
             
-            // Should we scroll?
-            if difference < 0 {
-                view.frame.origin = CGPoint(x: 0, y: difference)
+            // Find the bottom edge of the active view
+            let bottom = CGPoint(x: 0, y: input.frame.maxY)
+            
+            // Scroll if the active input is not visible
+            if !rect.contains(bottom) {
+                scrollView.scrollRectToVisible(input.frame, animated: true)
             }
             
         } else {
-            // Reset the origin while keyboard dismisses
-            view.frame.origin.y = 0
+            // Reset the insets
+            scrollView.contentInset = UIEdgeInsets.zero
+            scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
         }
     }
     
