@@ -466,9 +466,18 @@ class EntryAdditionController: UIViewController,
         if editingStyle == .delete {
             switch tableSection {
             case .diagnosis:
+                // Remove cell from data model and table
                 diagnoses.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             case .prescription:
+                // Set PresciptionTextField text to "" to ensure menu does not appear when recycled
+                guard let cell = tableView.cellForRow(at: indexPath) as? PrescriptionCell else {
+                    fatalError("TableCell is not a PrescriptionCell!")
+                }
+                
+                cell.prescriptionTextField.text = ""
+                
+                // Remove cell from data model and table
                 prescriptions.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
             case .total:
