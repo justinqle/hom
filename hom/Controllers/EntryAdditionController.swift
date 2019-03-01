@@ -46,8 +46,6 @@ class EntryAdditionController: UIViewController,
     private var activeInput: UIView?
     private let pickerView = UIPickerView()
     private var additionDate = Date()
-    private var lastKeyboardFrame: CGRect?
-    private var lastTextViewHeight: CGFloat = 0
     private let sectionFooterHeight: CGFloat = 42
     private let sectionPadding: CGFloat = 15
     
@@ -81,11 +79,6 @@ class EntryAdditionController: UIViewController,
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        // Get height of TextView
-        if lastTextViewHeight == 0 {
-            lastTextViewHeight = notesTextView.frame.height
-        }
         
         // ScrollView content size
         scrollView.contentSize = contentView.frame.size
@@ -140,10 +133,12 @@ class EntryAdditionController: UIViewController,
             UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
         // Register observers for keyboard notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow),
-                                               name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide),
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChange),
+                                               name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChange),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChange),
+                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     // MARK: - UITextFieldDelegate
@@ -258,14 +253,13 @@ class EntryAdditionController: UIViewController,
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        activeInput = nil
         textField.resignFirstResponder()
         return true
     }
     
     // MARK: - UITextViewDelegate
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         activeInput = textView
         
         // Handle placeholder text
@@ -273,23 +267,16 @@ class EntryAdditionController: UIViewController,
             textView.text = nil
             textView.textColor = UIColor.black
         }
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        // Move down the ScrollView on newline
-        if text == "\n" {
-            let difference = textView.frame.height - lastTextViewHeight
-            if difference != 0 {
-                scrollView.contentInset = UIEdgeInsets(top: 0, left: 0,
-                                                       bottom: lastKeyboardFrame!.height + difference + 20,
-                                                       right: 0)
-            }
-            lastTextViewHeight = textView.frame.height
-        }
         return true
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Move down the ScrollView on newline [TODO]
+        
+        return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         activeInput = nil
         
         // Handle placeholder text
@@ -299,6 +286,7 @@ class EntryAdditionController: UIViewController,
         }
         
         enableSaveButton()
+        return true
     }
     
     // MARK: - UIPickerViewDataSource
@@ -629,58 +617,37 @@ class EntryAdditionController: UIViewController,
         }
     }
     
-    @objc private func keyboardDidShow(notification: Notification) {
-        guard let userInfo = notification.userInfo else {
-            print("No userInfo found")
+    @objc private func keyboardWillChange(notification: Notification) {
+        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
         
-        guard let keyboardSize = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-            print("No keyboard frame found")
-            return
-        }
-        
-        let keyboardRect = keyboardSize.cgRectValue
-        lastKeyboardFrame = keyboardRect
-        
-        var difference: CGFloat = 0
-        
-        if case let textView as UITextView = activeInput {
-            // Calculate the difference between bottom of active TextView and top of keyboard
-            guard let viewOrigin = textView.superview?.convert(textView.frame.origin, to: nil) else {
+        if notification.name == UIResponder.keyboardWillShowNotification ||
+            notification.name == UIResponder.keyboardWillChangeFrameNotification {
+            
+            guard let input = activeInput else {
                 return
-            }
-            // Difference + borderedStackView bottom margins set in IB
-            let bottomFieldY = viewOrigin.y + textView.frame.height
-            difference = bottomFieldY - keyboardRect.minY + 20
-        }
-        else if var view = activeInput {
-            if case let superView as BorderedStackView = view.superview {
-                // If the superview is a BorderedStackView, use that instead
-                view = superView
             }
             
-            // Calculate the difference between bottom of active view (or its superview) and top of keyboard
-            guard let viewOrigin = view.superview?.convert(view.frame.origin, to: nil) else {
-                return
+            // Calculate difference between top of keyboard and bottom of active input
+            let activeInputMax = CGPoint(x: 0, y: input.frame.maxY)
+            var difference = keyboardRect.minY
+            let maxY = (input.superview?.convert(activeInputMax, to: nil).y)!
+            
+            // Conditonally factor in margins in calculation
+            if input.superview is UIStackView {
+                difference -= (maxY + (input.superview?.layoutMargins.bottom)!)
             }
-            let bottomFieldY = viewOrigin.y + view.frame.height
-            difference = bottomFieldY - keyboardRect.minY
-        }
-        
-        if difference < 0 {
-            // View is above keyboard - return
-            return
+            
+            // Should we scroll?
+            if difference < 0 {
+                view.frame.origin = CGPoint(x: 0, y: difference)
+            }
+            
         } else {
-            // View is hidden by keyboard, scroll up by difference
-            let contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y + difference)
-            scrollView.setContentOffset(contentOffset, animated: true)
+            // Reset the origin while keyboard dismisses
+            view.frame.origin.y = 0
         }
-    }
-    
-    @objc private func keyboardWillHide(notification: Notification) {
-        // Reset content insets
-        scrollView.contentInset = UIEdgeInsets.zero
     }
     
     @objc private func footerTapped(_ sender: UITapGestureRecognizer) {
