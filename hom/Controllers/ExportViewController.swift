@@ -14,6 +14,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Properties
     
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var providerLabel: UILabel!
     @IBOutlet weak var rowLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
@@ -21,6 +22,12 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var exportButton: UIButton!
     
     // MARK: - Overridden Methods
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        scrollView.contentSize = contentView.frame.size
+    }
     
     override func viewDidLoad() {
         // Assign delegate
@@ -70,9 +77,8 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Actions
-    
-    @IBAction func exportFile(_ sender: UIButton) {
-        print("EXPORT!")
+    @IBAction func exportButtonPressed(_ sender: UIButton) {
+        print("Export table!")
     }
     
     // MARK: - Private Methods
