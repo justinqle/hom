@@ -82,13 +82,13 @@ class EntryAdditionController: UIViewController,
         
         // ScrollView content size
         scrollView.contentSize = contentView.frame.size
-        scrollView.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Assign delegates
+        scrollView.delegate = self
         clinicTextField.delegate = self
         genderTextField.delegate = self
         ageTextField.delegate = self
