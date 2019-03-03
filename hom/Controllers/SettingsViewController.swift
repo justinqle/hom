@@ -68,7 +68,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         print("Clear table!")
     }
     
-    
     @objc private func itemTapped(sender: UITapGestureRecognizer) {
         guard let view = sender.view as? UIStackView else {
             fatalError("Invalid sender!")

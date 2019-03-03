@@ -33,14 +33,14 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         // Assign delegate
         nameTextField.delegate = self
         
-        // Dismiss the keyboard on tap of the content
-        self.view.addGestureRecognizer(
-            UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
-        
         // Set button default state
         exportButton.backgroundColor = UIColorCollection.greyLight
         exportButton.setTitleColor(UIColorCollection.greyDark, for: .disabled)
         exportButton.isEnabled = false
+        
+        // Dismiss the keyboard on tap of the content
+        self.view.addGestureRecognizer(
+            UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
         // Register observers for keyboard notifications
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow),
@@ -77,7 +77,31 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Actions
-    @IBAction func exportButtonPressed(_ sender: UIButton) {
+    
+    @IBAction func exportTouchDown(_ sender: Any) {
+        // The touch began
+        UIView.animate(withDuration: 0.1, animations: {
+            self.exportButton.backgroundColor = UIColorCollection.accentOrangeLight
+            self.exportButton.setTitleColor(UIColorCollection.whiteDark, for: UIControl.State.normal)
+        })
+    }
+    
+    @IBAction func exportDragExit(_ sender: Any) {
+        // The touch was dragged outside of the button
+        UIView.animate(withDuration: 0.25, animations: {
+            self.exportButton.backgroundColor = UIColorCollection.accentOrange
+            self.exportButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        })
+    }
+    
+    @IBAction func exportTouchUpInside(_ sender: Any) {
+        // The touch ended inside the button
+        UIView.animate(withDuration: 0.25, animations: {
+            self.exportButton.backgroundColor = UIColorCollection.accentOrange
+            self.exportButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        })
+        
+        // Export the table
         print("Export table!")
     }
     
