@@ -578,7 +578,7 @@ class EntryAdditionController: UIViewController,
         let entity = NSEntityDescription.entity(forEntityName: "Patient", in: managedContext)!
         patient = NSManagedObject(entity: entity, insertInto: managedContext)
         
-        // Set the patient to be passed to MealTableViewController after the unwind segue.
+        // Set the patient to be passed to DataTableController after the unwind segue.
         patient?.setValue(age, forKeyPath: "age")
         patient?.setValue(clinicName, forKeyPath: "clinic")
         patient?.setValue(creationDate, forKeyPath: "creation")
