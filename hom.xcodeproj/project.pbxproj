@@ -20,6 +20,7 @@
 		7329C8402200ED410072DCC8 /* InsetTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7329C83F2200ED410072DCC8 /* InsetTextField.swift */; };
 		7329C8422200ED5D0072DCC8 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */; };
 		733051FC22231A41004FD93B /* Prescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733051FB22231A41004FD93B /* Prescription.swift */; };
+		737E2D4B223037950019F2E2 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E2D4A223037950019F2E2 /* OnboardingViewController.swift */; };
 		7381B89C21FD513900845384 /* DataTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89B21FD513900845384 /* DataTableController.swift */; };
 		7381B89E21FD520700845384 /* DataTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89D21FD520700845384 /* DataTableCell.swift */; };
 		7381B8A021FD529000845384 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89F21FD529000845384 /* ExportViewController.swift */; };
@@ -63,6 +64,7 @@
 		7329C83F2200ED410072DCC8 /* InsetTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetTextField.swift; sourceTree = "<group>"; };
 		7329C8412200ED5D0072DCC8 /* BorderedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedTextField.swift; sourceTree = "<group>"; };
 		733051FB22231A41004FD93B /* Prescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prescription.swift; sourceTree = "<group>"; };
+		737E2D4A223037950019F2E2 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		7381B89B21FD513900845384 /* DataTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableController.swift; sourceTree = "<group>"; };
 		7381B89D21FD520700845384 /* DataTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableCell.swift; sourceTree = "<group>"; };
 		7381B89F21FD529000845384 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				73CF968E22012F5C00C96354 /* EntryAdditionController.swift */,
 				7381B89F21FD529000845384 /* ExportViewController.swift */,
 				7381B8A121FD52FD00845384 /* SettingsViewController.swift */,
+				737E2D4A223037950019F2E2 /* OnboardingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				73AFA353220D259C00E4CD80 /* SearchTextField.swift in Sources */,
 				7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */,
 				73DD487D220E88AC00A47482 /* PickerTextField.swift in Sources */,
+				737E2D4B223037950019F2E2 /* OnboardingViewController.swift in Sources */,
 				73E91836221DC5C700C6E458 /* PrescriptionCell.swift in Sources */,
 				7320C09A220B37F1003BC777 /* Options.swift in Sources */,
 				73E9183C221E5DEA00C6E458 /* AdditionFooter.swift in Sources */,
