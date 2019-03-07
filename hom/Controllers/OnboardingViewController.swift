@@ -49,11 +49,6 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
     
     // MARK: - UITextFieldDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if let text = textField.text, text != "" {
-            let name = text.components(separatedBy: ".")[0]
-            textField.text = name
-        }
-        
         finishButton.backgroundColor = UIColorCollection.greyLight
         finishButton.isEnabled = false
     }
