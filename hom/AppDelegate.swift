@@ -14,12 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Conditionally show onboarding
-        let launchKey = UserDefaults.standard.bool(forKey: "hasLaunched")
-        if !launchKey {
-            
+        let launchKey = UserDefaults.standard.string(forKey: "ProviderName")
+        if launchKey != nil {
+            // Jump to main application if user is returning
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let rootController = storyboard.instantiateViewController(withIdentifier: "NavRoot")
+            if let window = self.window {
+                window.rootViewController = rootController
+            }
         }
         
         return true

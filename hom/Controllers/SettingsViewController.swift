@@ -52,15 +52,27 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         let attrTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.itemTapped(sender:)))
         attrInfoItem.addGestureRecognizer(attrTapRecognizer)
         
+        // Display ProviderName
+        providerTextField.text = UserDefaults.standard.string(forKey: "ProviderName")
+        
         // Dismiss keyboard on view tap
         self.view.addGestureRecognizer(
             UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
     // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Update the provider name
-        
+        if textField.text != "" {
+            UserDefaults.standard.set(textField.text!, forKey: "ProviderName")
+        } else {
+            textField.text = UserDefaults.standard.string(forKey: "ProviderName")
+        }
     }
     
     // MARK: - Actions

@@ -128,6 +128,9 @@ class EntryAdditionController: UIViewController,
         let dateString = formatter.string(from: additionDate)
         creationLabel.text = dateString
         
+        // Display ProviderName
+        providerTextField.text = UserDefaults.standard.string(forKey: "ProviderName")
+        
         // Dismiss the keyboard on tap of the content
         self.view.addGestureRecognizer(
             UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
