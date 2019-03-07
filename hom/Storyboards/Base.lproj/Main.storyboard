@@ -654,7 +654,7 @@
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="File name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nfv-va-osB" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="File name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Nfv-va-osB" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="245" width="374" height="53"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="53" id="tnU-F6-R5P"/>
