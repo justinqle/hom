@@ -266,7 +266,7 @@ class EntryAdditionController: UIViewController,
         activeInput = textView
         
         // Handle placeholder text
-        if textView.textColor == UIColorCollection.placeHolderGrey {
+        if textView.textColor == UIColorCollection.greyDark {
             textView.text = nil
             textView.textColor = UIColor.black
         }
@@ -279,7 +279,7 @@ class EntryAdditionController: UIViewController,
         // Handle placeholder text
         if textView.text.isEmpty {
             textView.text = "No notes"
-            textView.textColor = UIColorCollection.placeHolderGrey
+            textView.textColor = UIColorCollection.greyDark
         }
         
         enableSaveButton()

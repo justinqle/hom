@@ -17,8 +17,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var providerTextField: InsetTextField!
     @IBOutlet weak var itemStackView: BorderedStackView!
-    @IBOutlet weak var devInfoItem: BorderedStackView!
-    @IBOutlet weak var attrInfoItem: BorderedStackView!
+    @IBOutlet weak var devInfoItem: UIView!
+    @IBOutlet weak var devInfoStackView: BorderedStackView!
+    @IBOutlet weak var attrInfoItem: UIView!
+    @IBOutlet weak var attrInfoStackView: BorderedStackView!
     @IBOutlet weak var clearButton: UIButton!
     
     // MARK: - Overriden Functions
@@ -40,20 +42,21 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         providerTextField.layer.borderWidth = 1
         
         itemStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
-        devInfoItem.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        devInfoStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
         
         clearButton.layer.borderColor = UIColorCollection.greyDark.cgColor
         clearButton.layer.borderWidth = 1
         
-        // Item tap listeners
-        let devTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.itemTapped(sender:)))
-        devInfoItem.addGestureRecognizer(devTapRecognizer)
-        
-        let attrTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.itemTapped(sender:)))
-        attrInfoItem.addGestureRecognizer(attrTapRecognizer)
-        
         // Display ProviderName
         providerTextField.text = UserDefaults.standard.string(forKey: "ProviderName")
+        
+        let devTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.itemTapped(_:)))
+        devTapRecognizer.minimumPressDuration = 0
+        devInfoItem.addGestureRecognizer(devTapRecognizer)
+        
+        let attrTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.itemTapped(_:)))
+        attrTapRecognizer.minimumPressDuration = 0
+        attrInfoItem.addGestureRecognizer(attrTapRecognizer)
         
         // Dismiss keyboard on view tap
         self.view.addGestureRecognizer(
@@ -76,23 +79,24 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Actions
-    @IBAction func clearButtonTapped(_ sender: UIButton) {
-        print("Clear table!")
-    }
     
-    @objc private func itemTapped(sender: UITapGestureRecognizer) {
-        guard let view = sender.view as? UIStackView else {
+    @objc private func itemTapped(_ sender: UITapGestureRecognizer) {
+        guard sender.view != nil else {
             fatalError("Invalid sender!")
         }
         
-        // Tap anim
-        guard let background = view.superview else {
-            fatalError("Invalid superview!")
+        if sender.state == .began {
+            // Animate the touch
+            sender.view!.backgroundColor = UIColorCollection.greyDark
+        } else if sender.state == .ended {
+            print(sender.location(ofTouch: 0, in: sender.view!))
+            if sender.view!.bounds.contains(sender.location(ofTouch: 0, in: sender.view!)) {
+                // Touch ended inside of view, perform action
+                print("Move to new controller!")
+            } else {
+                // Touch ended outside of view, undo animation
+                sender.view!.backgroundColor = UIColor.white
+            }
         }
-        
-        background.backgroundColor = UIColorCollection.greyDark
-        
-        // Move to appropriate scene
-        
     }
 }

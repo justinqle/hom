@@ -1032,9 +1032,6 @@
                                                 <state key="normal" title="Clear Table">
                                                     <color key="titleColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="clearButtonTapped:" destination="wrw-cX-JTg" eventType="touchUpInside" id="g6E-e1-z8D"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -1081,10 +1078,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="GVs-VJ-z8m"/>
                     <connections>
-                        <outlet property="attrInfoItem" destination="JrS-fJ-X9H" id="nTT-DZ-sp8"/>
+                        <outlet property="attrInfoItem" destination="QJG-4h-O6Z" id="CAt-jg-iiV"/>
+                        <outlet property="attrInfoStackView" destination="JrS-fJ-X9H" id="nTT-DZ-sp8"/>
                         <outlet property="clearButton" destination="V9I-0I-cT8" id="umc-Wv-Mul"/>
                         <outlet property="contentView" destination="jI3-UI-mek" id="yu0-2r-wuh"/>
-                        <outlet property="devInfoItem" destination="SKp-C9-5k0" id="yY4-D8-HgF"/>
+                        <outlet property="devInfoItem" destination="NX9-lD-FgN" id="d1z-wY-Uqc"/>
+                        <outlet property="devInfoStackView" destination="SKp-C9-5k0" id="yY4-D8-HgF"/>
                         <outlet property="itemStackView" destination="mAo-Vm-tqo" id="8Ge-qb-wNn"/>
                         <outlet property="providerTextField" destination="A3o-am-46L" id="mem-WP-r1U"/>
                         <outlet property="scrollView" destination="gT9-xw-6yM" id="5vJ-eg-IAW"/>

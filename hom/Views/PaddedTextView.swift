@@ -18,7 +18,7 @@ class PaddedTextView: UITextView {
         
         // Placeholder text
         self.text = "No notes"
-        self.textColor = UIColorCollection.placeHolderGrey
+        self.textColor = UIColorCollection.greyDark
     }
     
     required init?(coder: NSCoder) {
@@ -27,6 +27,6 @@ class PaddedTextView: UITextView {
         
         // Placeholder text
         self.text = "No notes"
-        self.textColor = UIColorCollection.placeHolderGrey
+        self.textColor = UIColorCollection.greyDark
     }
 }
