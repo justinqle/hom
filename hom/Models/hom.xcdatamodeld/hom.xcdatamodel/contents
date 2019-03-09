@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Patient" representedClassName="Patient" syncable="YES" codeGenerationType="class">
         <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="clinic" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="creation" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="delete" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="diagnosis" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="dosage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="diagnoses" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="medication" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prescriptions" optional="YES" attributeType="Transformable" customClassName="[Prescription]" syncable="YES"/>
         <attribute name="provider" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sex" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Patient" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="Patient" positionX="-63" positionY="-18" width="128" height="195"/>
     </elements>
 </model>

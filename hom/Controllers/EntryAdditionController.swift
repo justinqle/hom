@@ -563,17 +563,14 @@ class EntryAdditionController: UIViewController,
             return
         }
         
-        let age = Int(ageTextField.text!.components(separatedBy: " ")[0])
-        let clinicName = clinicTextField.text
+        let age = Int(ageTextField.text!.components(separatedBy: " ")[0])!
+        let clinicName = clinicTextField.text!
         let creationDate = additionDate
         let delete = false
-        let diagnosis = ""
-        let dosage = ""
-        let gender = genderTextField.text
         let id = (((segue.destination as? DataTableController)?.patients.count)!) + 1
-        let medication = ""
         let notes = notesTextView.text
-        let provider = providerTextField.text
+        let provider = providerTextField.text!
+        let sex = genderTextField.text!
         
         // Core Data setup
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -588,13 +585,12 @@ class EntryAdditionController: UIViewController,
         patient?.setValue(clinicName, forKeyPath: "clinic")
         patient?.setValue(creationDate, forKeyPath: "creation")
         patient?.setValue(delete, forKeyPath: "delete")
-        patient?.setValue(diagnosis, forKeyPath: "diagnosis")
-        patient?.setValue(dosage, forKeyPath: "dosage")
-        patient?.setValue(gender, forKeyPath: "gender")
+        patient?.setValue(diagnoses, forKeyPath: "diagnoses")
         patient?.setValue(id, forKeyPath: "id")
-        patient?.setValue(medication, forKeyPath: "medication")
         patient?.setValue(notes, forKeyPath: "notes")
+        patient?.setValue(prescriptions, forKeyPath: "prescriptions")
         patient?.setValue(provider, forKeyPath: "provider")
+        patient?.setValue(sex, forKeyPath: "sex")
         
         // Save to disk
         do {
@@ -602,7 +598,6 @@ class EntryAdditionController: UIViewController,
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
-        
     }
     
     // MARK: - Private Methods

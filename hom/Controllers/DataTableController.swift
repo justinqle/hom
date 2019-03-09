@@ -53,11 +53,13 @@ class DataTableController: UITableViewController {
         // Fetches the appropriate patient for the data source layout.
         let patient = patients[indexPath.row]
         
-        // Patient ID and Clinic Name
+        // Patient ID
         cell.patientID.text = "Patient " + String(patient.value(forKey: "id") as! Int)
+        
+        // Clinic Name
         cell.clinicName.text = patient.value(forKey: "clinic") as? String
         
-        // Addition date
+        // Addition Date
         let date = patient.value(forKey: "creation") as! Date
         let dateFormatter = DateFormatter();
         dateFormatter.dateFormat = "MM/dd/yy | hh:mma"
@@ -67,29 +69,36 @@ class DataTableController: UITableViewController {
         dateFormatter.locale = Locale(identifier: "en_US")
         cell.creationDate.text = dateFormatter.string(from: date)
         
+        // Sex label attributes
         let mediumFont = UIFont.systemFont(ofSize: 15, weight: .medium)
-        
-        // Gender label attributes
-        let gender = NSMutableAttributedString(string: "Sex: ", attributes: [NSAttributedString.Key.font: mediumFont])
-        let genderValue = NSMutableAttributedString(string: patient.value(forKey: "gender") as! String)
-        gender.append(genderValue)
-        
-        let genderRange = (gender.string as NSString).range(of: "Sex: ")
-        gender.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColorCollection.greyDarker, range: genderRange)
-        cell.gender.attributedText = gender
+        let sex = NSMutableAttributedString(string: "Sex: ", attributes: [NSAttributedString.Key.font: mediumFont])
+        let sexValue = NSMutableAttributedString(string: patient.value(forKey: "sex") as! String)
+        sex.append(sexValue)
+        let sexRange = (sex.string as NSString).range(of: "Sex: ")
+        sex.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColorCollection.greyDarker, range: sexRange)
+        cell.gender.attributedText = sex
         
         // Age label attributes
         let age = NSMutableAttributedString(string: "Age: ", attributes: [NSAttributedString.Key.font: mediumFont])
         let ageValue = NSMutableAttributedString(string: String(patient.value(forKey: "age") as! Int) + " years old")
         age.append(ageValue)
-        
         let ageRange = (age.string as NSString).range(of: "Age: ")
         age.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColorCollection.greyDarker, range: ageRange)
         cell.age.attributedText = age
         
-        // Diagnoses and prescriptions
-        cell.diagnoses.text = (patient.value(forKeyPath: "diagnosis") as! String)
-        cell.prescriptions.text = (patient.value(forKey: "medication") as! String)
+        // Diagnoses
+        let diagnoses = patient.value(forKey: "diagnoses") as! [String]
+        cell.diagnosesCount.text = "Diagnoses (\(diagnoses.count))"
+        cell.diagnoses.text = diagnoses.joined(separator: ", ")
+        
+        // Prescriptions
+        let prescriptions = patient.value(forKey: "prescriptions") as! [Prescription]
+        cell.prescriptionCount.text = "Prescriptions (\(prescriptions.count))"
+        var medicines = [String]()
+        for prescription in prescriptions {
+            medicines.append(prescription.medicine)
+        }
+        cell.prescriptions.text = medicines.joined(separator: ", ")
         
         return cell
     }
