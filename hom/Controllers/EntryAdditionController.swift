@@ -427,7 +427,7 @@ class EntryAdditionController: UIViewController,
             cell.dosageTextField.text = dosage
             
             let quantity = prescriptions[indexPath.row].quantity
-            if quantity != -1 {
+            if quantity != 0 {
                 cell.quantityTextField.text = String(quantity)
             } else {
                 cell.quantityTextField.text = ""
@@ -469,6 +469,8 @@ class EntryAdditionController: UIViewController,
                 fatalError("Invalid TableSection!")
             }
         }
+        
+        enableSaveButton()
     }
     
     // MARK: - UIDataTableViewDelegate
@@ -607,7 +609,34 @@ class EntryAdditionController: UIViewController,
     
     // Enables save button if all required fields are filled out
     private func enableSaveButton() {
-        if !clinicTextField.text!.isEmpty && genderTextField.text != "Not Chosen" && !ageTextField.text!.isEmpty {
+        var valid_diagnoses = true
+        if diagnoses.isEmpty {
+            valid_diagnoses = false
+        } else {
+            for diagnosis in diagnoses {
+                if diagnosis == "" {
+                    valid_diagnoses = false
+                    break;
+                }
+            }
+        }
+        
+        var valid_prescriptions = true
+        if prescriptions.isEmpty {
+            valid_prescriptions = false
+        } else {
+            for prescription in prescriptions {
+                if prescription.medicine == "" || prescription.dosage == "" || prescription.quantity == 0 {
+                    valid_diagnoses = false
+                    break;
+                }
+            }
+        }
+        
+        let valid_fields = !clinicTextField.text!.isEmpty && genderTextField.text != "Not Chosen"
+            && !ageTextField.text!.isEmpty && valid_diagnoses && valid_prescriptions
+        
+        if valid_fields {
             saveButton.isEnabled = true
         } else {
             saveButton.isEnabled = false
@@ -676,7 +705,7 @@ class EntryAdditionController: UIViewController,
                 self.tableView.insertRows(at: [IndexPath(row: self.diagnoses.count - 1, section: 0)], with: .left)
                 self.tableView.endUpdates()
             case .prescription:
-                self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: -1))
+                self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: 0))
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: [IndexPath(row: self.prescriptions.count - 1, section: 1)], with: .left)
                 self.tableView.endUpdates()
@@ -689,6 +718,8 @@ class EntryAdditionController: UIViewController,
                 footerBackground.backgroundColor = UIColor.white
             })
         })
+        
+        saveButton.isEnabled = false
     }
     
     private func setFooterInteractable(_ footer: UITableViewHeaderFooterView, setEnabled: Bool) {
