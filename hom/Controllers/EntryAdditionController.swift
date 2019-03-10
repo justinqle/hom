@@ -690,7 +690,7 @@ class EntryAdditionController: UIViewController,
         // Animate tap
         let footerBackground = sendingFooter.contentView.subviews[0]
         UIView.animate(withDuration: 0.08, animations: {
-            footerBackground.backgroundColor = UIColorCollection.greyDark
+            footerBackground.backgroundColor = UIColorCollection.greyTap
         }, completion: {_ in
             // Append initial dummy data and insert new cell
             switch sendingFooter.parentSection {

@@ -50,13 +50,18 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         // Display ProviderName
         providerTextField.text = UserDefaults.standard.string(forKey: "ProviderName")
         
-        let devTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.itemTapped(_:)))
+        // Add gesture recognizers
+        let devTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
         devTapRecognizer.minimumPressDuration = 0
         devInfoItem.addGestureRecognizer(devTapRecognizer)
         
-        let attrTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.itemTapped(_:)))
+        let attrTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
         attrTapRecognizer.minimumPressDuration = 0
         attrInfoItem.addGestureRecognizer(attrTapRecognizer)
+        
+        let clearTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
+        clearTapRecognizer.minimumPressDuration = 0
+        clearButton.addGestureRecognizer(clearTapRecognizer)
         
         // Dismiss keyboard on view tap
         self.view.addGestureRecognizer(
@@ -80,19 +85,21 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     
-    @objc private func itemTapped(_ sender: UITapGestureRecognizer) {
-        guard sender.view != nil else {
-            fatalError("Invalid sender!")
-        }
-        
+    @objc private func viewTapped(_ sender: UITapGestureRecognizer) {
         if sender.state == .began {
             // Animate the touch
-            sender.view!.backgroundColor = UIColorCollection.greyDark
+            sender.view!.backgroundColor = UIColorCollection.greyTap
         } else if sender.state == .ended {
-            print(sender.location(ofTouch: 0, in: sender.view!))
             if sender.view!.bounds.contains(sender.location(ofTouch: 0, in: sender.view!)) {
                 // Touch ended inside of view, perform action
-                print("Move to new controller!")
+                if sender.view!.isDescendant(of: itemStackView) {
+                    // Move to correct view controller
+                    print("Move to new controller!")
+                } else if sender.view == clearButton {
+                    // Undo animation and clear table
+                    clearButton.backgroundColor = UIColor.white
+                    print("Clear the table!")
+                }
             } else {
                 // Touch ended outside of view, undo animation
                 sender.view!.backgroundColor = UIColor.white

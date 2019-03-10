@@ -17,5 +17,6 @@ class UIColorCollection {
     static let whiteDark = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.5)
     static let greyDarker = UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)
     static let greyDark = UIColor(red: 199/255, green: 199/255, blue: 205/255, alpha: 1)
+    static let greyTap = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     static let greyLight = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1)
 }
