@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class SettingsViewController: UIViewController, UITextFieldDelegate {
     
@@ -41,8 +42,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         providerTextField.layer.borderColor = UIColorCollection.greyDark.cgColor
         providerTextField.layer.borderWidth = 1
         
-        itemStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
-        devInfoStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        itemStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 0.5)
+        devInfoStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 0.5)
         
         clearButton.layer.borderColor = UIColorCollection.greyDark.cgColor
         clearButton.layer.borderWidth = 1
@@ -96,9 +97,33 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                     // Move to correct view controller
                     print("Move to new controller!")
                 } else if sender.view == clearButton {
-                    // Undo animation and clear table
+                    // Undo animation
                     clearButton.backgroundColor = UIColor.white
-                    print("Clear the table!")
+                    
+                    // Show confirmation
+                    let alert = UIAlertController(title: "Delete dataset?", message: "This action can not be undone.", preferredStyle: .actionSheet)
+                    
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+                        // Clear table
+                        let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
+                        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request as! NSFetchRequest<NSFetchRequestResult>)
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        let context = appDelegate.persistentContainer.viewContext
+                        do {
+                            try context.execute(deleteRequest)
+                        }
+                        catch {
+                            print(error)
+                        }
+                        
+                        // Invalidate the table data
+                        let tableViewController = (self.tabBarController!.viewControllers![0] as! UINavigationController).viewControllers.first as! DataTableController
+                        tableViewController.fetchData()
+                        tableViewController.tableView.reloadData()
+                    }))
+                    
+                    self.present(alert, animated: true)
                 }
             } else {
                 // Touch ended outside of view, undo animation

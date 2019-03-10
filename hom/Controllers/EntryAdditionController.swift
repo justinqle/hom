@@ -604,34 +604,34 @@ class EntryAdditionController: UIViewController,
     
     // Enables save button if all required fields are filled out
     private func enableSaveButton() {
-        var valid_diagnoses = true
+        var validDiagnoses = true
         if diagnoses.isEmpty {
-            valid_diagnoses = false
+            validDiagnoses = false
         } else {
             for diagnosis in diagnoses {
                 if diagnosis == "" {
-                    valid_diagnoses = false
+                    validDiagnoses = false
                     break;
                 }
             }
         }
         
-        var valid_prescriptions = true
+        var validPrescriptions = true
         if prescriptions.isEmpty {
-            valid_prescriptions = false
+            validPrescriptions = false
         } else {
             for prescription in prescriptions {
                 if prescription.medicine == "" || prescription.dosage == "" || prescription.quantity == 0 {
-                    valid_diagnoses = false
+                    validDiagnoses = false
                     break;
                 }
             }
         }
         
-        let valid_fields = !clinicTextField.text!.isEmpty && genderTextField.text != "Not Chosen"
-            && !ageTextField.text!.isEmpty && valid_diagnoses && valid_prescriptions
+        let validFields = !clinicTextField.text!.isEmpty && genderTextField.text != "Not Chosen"
+            && !ageTextField.text!.isEmpty && validDiagnoses && validPrescriptions
         
-        if valid_fields {
+        if validFields {
             saveButton.isEnabled = true
         } else {
             saveButton.isEnabled = false
