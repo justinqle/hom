@@ -126,6 +126,7 @@
                                     <outlet property="patientID" destination="yXZ-6m-yoL" id="1ho-aG-DoA"/>
                                     <outlet property="prescriptionCount" destination="bpf-nx-ryg" id="JVi-Xo-ryf"/>
                                     <outlet property="prescriptions" destination="tE7-ed-cAe" id="yd4-dz-uLh"/>
+                                    <segue destination="1qY-f6-OHt" kind="show" identifier="EditItem" id="CLR-W8-P6c"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1166,7 +1167,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9QN-Tf-2S4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2589.5999999999999" y="-460.11994002998506"/>
+            <point key="canvasLocation" x="2597" y="-114"/>
         </scene>
     </scenes>
     <resources>
@@ -1175,5 +1176,8 @@
         <image name="Settings" width="29" height="29"/>
         <image name="Table" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="oDv-sh-HEP"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.73725490199999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
 </document>

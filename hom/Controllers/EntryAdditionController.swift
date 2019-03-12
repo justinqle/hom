@@ -45,7 +45,7 @@ class EntryAdditionController: UIViewController,
     private let options = Options.shared
     private var activeInput: UIView?
     private let pickerView = UIPickerView()
-    private var additionDate = Date()
+    private var additionDate: Date!
     private let sectionFooterHeight: CGFloat = 42
     private let sectionPadding: CGFloat = 15
     
@@ -97,8 +97,20 @@ class EntryAdditionController: UIViewController,
         notesTextView.delegate = self
         pickerView.delegate = self
         
-        // Disable save button
-        saveButton.isEnabled = false
+        // Fill in patient data if editing patient
+        if let patient = patient {
+            clinicTextField.text = patient.value(forKey: "clinic") as? String
+            genderTextField.text = patient.value(forKey: "sex") as? String
+            ageTextField.text = String(patient.value(forKey: "age") as! Int) + " years old"
+            diagnoses = patient.value(forKey: "diagnoses") as! [String]
+            prescriptions = patient.value(forKey: "prescriptions") as! [Prescription]
+            notesTextView.text = patient.value(forKey: "notes") as? String
+            additionDate = patient.value(forKey: "creation") as? Date
+            // TODO: Show delete button
+        }
+        else {
+            additionDate = Date()
+        }
         
         // Provider TextField borders
         providerTextField.layer.borderColor = UIColorCollection.greyDark.cgColor
@@ -142,6 +154,8 @@ class EntryAdditionController: UIViewController,
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChange),
                                                name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+        enableSaveButton();
     }
     
     // MARK: - UITextFieldDelegate
@@ -551,7 +565,12 @@ class EntryAdditionController: UIViewController,
     // MARK: - Navigation
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        if presentingViewController != nil {
+            dismiss(animated: true, completion: nil)
+        }
+        else {
+            navigationController!.popViewController(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

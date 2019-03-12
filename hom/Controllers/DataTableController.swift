@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import os.log
 
 private let reuseIdentifier = "PatientCell"
 
@@ -35,7 +36,7 @@ class DataTableController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? DataTableCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? DataTableCell else {
             fatalError("The dequeued cell is not an instance of DataTableCell.")
         }
         
@@ -92,21 +93,56 @@ class DataTableController: UITableViewController {
         return cell
     }
     
-    // MARK: - Actions
+    // MARK: - Navigation
     
     @IBAction func unwindToDataTable(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? EntryAdditionController, let patient = sourceViewController.patient {
-            if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // Update an existing patient.
                 patients[selectedIndexPath.row] = patient
-                self.tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
             else {
                 // Add a new patient.
                 let newIndexPath = IndexPath(row: patients.count, section: 0)
                 patients.append(patient)
-                self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        let id = segue.identifier!
+        
+        switch(id) {
+            
+        case "AddItem":
+            os_log("Adding a new patient.", log: OSLog.default, type: .debug)
+            
+        case "EditItem":
+            guard let entryAdditionController = segue.destination as? EntryAdditionController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            guard let selectedCell = sender as? DataTableCell else {
+                fatalError("Unexpected sender: \(sender!)")
+            }
+            guard let indexPath = tableView.indexPath(for: selectedCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            // EntryAdditionController configuration for editing a patient
+            entryAdditionController.navigationItem.title = "Edit Entry"
+            entryAdditionController.navigationItem.largeTitleDisplayMode = .never
+            entryAdditionController.navigationItem.setLeftBarButton(nil, animated: true)
+            
+            let selectedPatient = patients[indexPath.row]
+            entryAdditionController.patient = selectedPatient
+            
+        default:
+            fatalError("Unexpected Segue Identifier: \(id)")
+            
         }
     }
     
