@@ -136,7 +136,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Data Table" id="Ivt-xV-J8x">
-                        <barButtonItem key="leftBarButtonItem" title="Sort" id="DkN-6l-ALS"/>
+                        <barButtonItem key="leftBarButtonItem" title="Sort" id="DkN-6l-ALS">
+                            <connections>
+                                <action selector="sortButton:" destination="69c-u1-eDq" id="y2V-CO-p40"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="XGh-Un-adT">
                             <connections>
                                 <segue destination="QMe-ET-V8y" kind="presentation" identifier="AddItem" id="ZkN-Zp-kRi"/>

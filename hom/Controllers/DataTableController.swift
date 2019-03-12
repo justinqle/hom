@@ -95,22 +95,6 @@ class DataTableController: UITableViewController {
     
     // MARK: - Navigation
     
-    @IBAction func unwindToDataTable(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? EntryAdditionController, let patient = sourceViewController.patient {
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing patient.
-                patients[selectedIndexPath.row] = patient
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            }
-            else {
-                // Add a new patient.
-                let newIndexPath = IndexPath(row: patients.count, section: 0)
-                patients.append(patient)
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -146,7 +130,44 @@ class DataTableController: UITableViewController {
         }
     }
     
+    // MARK - Actions
+    
+    @IBAction func unwindToDataTable(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? EntryAdditionController, let patient = sourceViewController.patient {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                // Update an existing patient.
+                patients[selectedIndexPath.row] = patient
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            }
+            else {
+                // Add a new patient.
+                let newIndexPath = IndexPath(row: patients.count, section: 0)
+                patients.append(patient)
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        }
+    }
+    
+    @IBAction func sortButton(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Sort by...", message: nil, preferredStyle: .actionSheet)
+        
+        // Sort by ascending ID order
+        alert.addAction(UIAlertAction(title: "Ascending", style: .default, handler: { _ in
+            self.patients.sort() { ($0.value(forKey: "id") as! Int) < ($1.value(forKey: "id") as! Int) }
+            self.tableView.reloadData()
+        }))
+        // Sort by descending ID order
+        alert.addAction(UIAlertAction(title: "Descending", style: .default, handler: { _ in
+            self.patients.sort() { ($0.value(forKey: "id") as! Int) > ($1.value(forKey: "id") as! Int) }
+            self.tableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
+    }
+    
     // MARK: - Public Methods
+    
     public func fetchData() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
