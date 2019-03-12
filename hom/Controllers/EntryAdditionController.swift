@@ -569,7 +569,6 @@ class EntryAdditionController: UIViewController,
         let delete = false
         let id = (((segue.destination as? DataTableController)?.patients.count)!) + 1
         let notes = notesTextView.text
-        let provider = providerTextField.text!
         let sex = genderTextField.text!
         
         // Core Data setup
@@ -589,7 +588,6 @@ class EntryAdditionController: UIViewController,
         patient?.setValue(id, forKeyPath: "id")
         patient?.setValue(notes, forKeyPath: "notes")
         patient?.setValue(prescriptions, forKeyPath: "prescriptions")
-        patient?.setValue(provider, forKeyPath: "provider")
         patient?.setValue(sex, forKeyPath: "sex")
         
         // Save to disk
