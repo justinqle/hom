@@ -47,6 +47,7 @@ class EntryAdditionController: UIViewController,
     private var activeInput: UIView?
     private let pickerView = UIPickerView()
     private var additionDate: Date!
+    private var dateString: String!
     private let sectionFooterHeight: CGFloat = 42
     private let sectionPadding: CGFloat = 15
     
@@ -140,10 +141,13 @@ class EntryAdditionController: UIViewController,
         formatter.dateFormat = "'Added' MMMM dd',' yyyy 'at' hh:mma"
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
-        let dateString = formatter.string(from: additionDate)
-        creationLabel.text = dateString
+        let fullDateString = formatter.string(from: additionDate)
+        creationLabel.text = fullDateString
         
-        UserDefaults.standard.set(dateString, forKey: "LatestEntry")
+        if patient == nil {
+            formatter.dateFormat = "MMMM dd',' yyyy 'at' hh:mma"
+            dateString = formatter.string(from: additionDate)
+        }
         
         // Display ProviderName
         providerTextField.text = UserDefaults.standard.string(forKey: "ProviderName")
@@ -617,6 +621,14 @@ class EntryAdditionController: UIViewController,
         // Save to disk
         do {
             try managedContext.save()
+            
+            // Update row count
+            let count = UserDefaults.standard.integer(forKey: "RowCount")
+            UserDefaults.standard.set(count + 1, forKey: "RowCount")
+            
+            // TODO: Store latest entry date if saving new entry
+            UserDefaults.standard.set(dateString, forKey: "LatestEntry")
+            
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }

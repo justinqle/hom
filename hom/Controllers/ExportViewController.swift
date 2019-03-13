@@ -53,9 +53,12 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // Display label values
+        // Update label values
         providerLabel.text = UserDefaults.standard.string(forKey: "ProviderName")
-
+        rowLabel.text = String(UserDefaults.standard.integer(forKey: "RowCount"))
+        if let latestEntry = UserDefaults.standard.string(forKey: "LatestEntry") {
+            latestEntryLabel.text = latestEntry
+        }
     }
     
     // MARK: - UITextFieldDelegate
