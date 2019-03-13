@@ -106,7 +106,11 @@ class EntryAdditionController: UIViewController,
             ageTextField.text = String(patient.value(forKey: "age") as! Int) + " years old"
             diagnoses = patient.value(forKey: "diagnoses") as! [String]
             prescriptions = patient.value(forKey: "prescriptions") as! [Prescription]
-            notesTextView.text = patient.value(forKey: "notes") as? String
+            let notesText = patient.value(forKey: "notes") as? String
+            if notesText != "No notes" {
+                notesTextView.text = notesText
+                notesTextView.textColor = UIColor.black
+            }
             additionDate = patient.value(forKey: "creation") as? Date
             
             // Show delete button
