@@ -120,6 +120,7 @@ class DataTableController: UITableViewController {
             entryAdditionController.navigationItem.title = "Edit Entry"
             entryAdditionController.navigationItem.largeTitleDisplayMode = .never
             entryAdditionController.navigationItem.setLeftBarButton(nil, animated: true)
+            entryAdditionController.hidesBottomBarWhenPushed = true
             
             let selectedPatient = patients[indexPath.row]
             entryAdditionController.patient = selectedPatient
