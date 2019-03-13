@@ -34,6 +34,7 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var notesTextView: PaddedTextView!
     @IBOutlet weak var creationLabel: PaddedLabel!
+    @IBOutlet weak var deleteButtonStack: UIStackView!
     @IBOutlet weak var deleteButtonView: UIView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -106,7 +107,9 @@ class EntryAdditionController: UIViewController,
             prescriptions = patient.value(forKey: "prescriptions") as! [Prescription]
             notesTextView.text = patient.value(forKey: "notes") as? String
             additionDate = patient.value(forKey: "creation") as? Date
-            // TODO: Show delete button
+            
+            // Show delete button
+            deleteButtonStack.isHidden = false
         }
         else {
             additionDate = Date()
@@ -132,13 +135,15 @@ class EntryAdditionController: UIViewController,
         pickerView.dataSource = self
         pickerView.showsSelectionIndicator = true
         
-        // Display current date and time
+        // Display and store current date and time
         let formatter = DateFormatter()
         formatter.dateFormat = "'Added' MMMM dd',' yyyy 'at' hh:mma"
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
         let dateString = formatter.string(from: additionDate)
         creationLabel.text = dateString
+        
+        UserDefaults.standard.set(dateString, forKey: "LatestEntry")
         
         // Display ProviderName
         providerTextField.text = UserDefaults.standard.string(forKey: "ProviderName")
@@ -615,6 +620,11 @@ class EntryAdditionController: UIViewController,
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+    }
+    
+    // MARK: - Actions
+    @IBAction func deleteTouchUpInside(_ sender: Any) {
+        
     }
     
     // MARK: - Private Methods

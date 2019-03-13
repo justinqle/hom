@@ -479,6 +479,9 @@
                                                                         <state key="normal" title="Delete Entry">
                                                                             <color key="titleColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
+                                                                        <connections>
+                                                                            <action selector="deleteTouchUpInside:" destination="1qY-f6-OHt" eventType="touchUpInside" id="Dkt-2l-n9E"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -572,6 +575,7 @@
                         <outlet property="contentView" destination="be6-7d-u5u" id="vLS-5S-DSg"/>
                         <outlet property="creationLabel" destination="4IC-aG-efh" id="7oO-ef-ER9"/>
                         <outlet property="deleteButton" destination="MUm-vu-rwq" id="3Br-pZ-z7e"/>
+                        <outlet property="deleteButtonStack" destination="63o-Xk-saf" id="yZ6-Le-cVc"/>
                         <outlet property="deleteButtonView" destination="Q3K-bs-n3X" id="1rV-0M-IcK"/>
                         <outlet property="genderTextField" destination="cED-d1-d6y" id="RZ5-Vc-W5K"/>
                         <outlet property="notesTextView" destination="dqO-Pm-Jhd" id="TLg-gV-ShW"/>
@@ -644,13 +648,13 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ure-49-kvb">
                                                         <rect key="frame" x="0.0" y="136.66666666666669" width="354" height="48.333333333333343"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FILE SIZE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oHh-XQ-SJq">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LATEST ENTRY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oHh-XQ-SJq">
                                                                 <rect key="frame" x="0.0" y="0.0" width="354" height="15.666666666666666"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0KB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOg-Db-KdP">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOg-Db-KdP">
                                                                 <rect key="frame" x="0.0" y="19.666666666666629" width="354" height="28.666666666666671"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                                                 <nil key="highlightedColor"/>
@@ -732,11 +736,11 @@
                     <connections>
                         <outlet property="contentView" destination="3aA-FQ-Njq" id="GXN-09-6d1"/>
                         <outlet property="exportButton" destination="x1T-po-kdw" id="ibo-h1-j9m"/>
+                        <outlet property="latestEntryLabel" destination="QOg-Db-KdP" id="PHh-2s-HsP"/>
                         <outlet property="nameTextField" destination="Nfv-va-osB" id="Dtk-5j-y04"/>
                         <outlet property="providerLabel" destination="fiP-lM-Iki" id="jF9-QY-Fad"/>
                         <outlet property="rowLabel" destination="61v-wf-e0g" id="0t6-sQ-uVN"/>
                         <outlet property="scrollView" destination="VLY-v7-2hK" id="hQc-Cc-zdr"/>
-                        <outlet property="sizeLabel" destination="QOg-Db-KdP" id="zx2-nZ-I8c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>

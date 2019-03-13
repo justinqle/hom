@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class ExportViewController: UIViewController, UITextFieldDelegate {
     
@@ -17,7 +18,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var providerLabel: UILabel!
     @IBOutlet weak var rowLabel: UILabel!
-    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var latestEntryLabel: UILabel!
     @IBOutlet weak var nameTextField: BorderedTextField!
     @IBOutlet weak var exportButton: UIButton!
     
@@ -47,6 +48,14 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                                                name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Display label values
+        providerLabel.text = UserDefaults.standard.string(forKey: "ProviderName")
+
     }
     
     // MARK: - UITextFieldDelegate
