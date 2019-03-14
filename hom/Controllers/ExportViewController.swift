@@ -53,11 +53,14 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // Update label values
+        // Update view values
         providerLabel.text = UserDefaults.standard.string(forKey: "ProviderName")
         rowLabel.text = String(UserDefaults.standard.integer(forKey: "RowCount"))
         if let latestEntry = UserDefaults.standard.string(forKey: "LatestEntry") {
             latestEntryLabel.text = latestEntry
+        }
+        if let prevFileName = UserDefaults.standard.string(forKey: "CSVName") {
+            nameTextField.text = prevFileName
         }
     }
     
@@ -113,8 +116,37 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
             self.exportButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         })
         
-        // Export the table
-        print("Export table!")
+        // Save filename for reuse
+        UserDefaults.standard.set(nameTextField.text!, forKey: "CSVName")
+        
+        // Get documents directory
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let documentsURL = NSURL(fileURLWithPath: documentsPath)
+        
+        // Get full filepath
+        let filePath = documentsURL.appendingPathComponent(nameTextField.text!)!
+        
+        // Attempt to use a previous CSV file of that name, or generate one if not found
+        if !UserDefaults.standard.bool(forKey: "TableModifed") {
+            if !FileManager.default.fileExists(atPath: filePath.path) {
+                generateCSV(atPath: filePath)
+            }
+        } else {
+            generateCSV(atPath: filePath)
+        }
+        
+        // Share the file
+        let objectsToShare = [filePath]
+        let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.assignToContact,
+                                                        UIActivity.ActivityType.saveToCameraRoll,
+                                                        UIActivity.ActivityType.postToFlickr,
+                                                        UIActivity.ActivityType.postToVimeo,
+                                                        UIActivity.ActivityType.postToTencentWeibo,
+                                                        UIActivity.ActivityType.postToTwitter,
+                                                        UIActivity.ActivityType.postToFacebook,
+                                                        UIActivity.ActivityType.openInIBooks]
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     // MARK: - Private Methods
@@ -156,5 +188,36 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     @objc private func keyboardWillHide(notification: Notification) {
         // Reset the content offset
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    
+    private func generateCSV(atPath path: URL) {
+        // Create a new file at path
+        FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil)
+        
+        // Collect entries in batches and write to file
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
+        request.fetchLimit = 100
+        request.fetchOffset = 0
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        do {
+            let count = Double(try context.count(for: request))
+            for _ in 0..<Int(ceil(count / 100.0)) {
+                let entries = try context.fetch(request)
+                
+                // Format the entries
+                for entry in entries {
+                    
+                }
+            }
+        }
+        catch {
+            print(error)
+        }
+        
+        // Delete any previous CSV files of a different name
+        
+        
     }
 }

@@ -630,6 +630,9 @@ class EntryAdditionController: UIViewController,
             let count = UserDefaults.standard.integer(forKey: "RowCount")
             UserDefaults.standard.set(count + 1, forKey: "RowCount")
             
+            // Update modification status if saving or editing new entry
+            UserDefaults.standard.set(true, forKey: "TableModified")
+            
             // TODO: Store latest entry date if saving new entry
             UserDefaults.standard.set(dateString, forKey: "LatestEntry")
             
