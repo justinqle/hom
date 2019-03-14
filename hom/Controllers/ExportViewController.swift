@@ -60,7 +60,12 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
             latestEntryLabel.text = latestEntry
         }
         if let prevFileName = UserDefaults.standard.string(forKey: "CSVName") {
-            nameTextField.text = prevFileName
+            if nameTextField.text == "" {
+                nameTextField.text = prevFileName
+                exportButton.isEnabled = true
+                exportButton.backgroundColor = UIColorCollection.accentOrange
+                exportButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+            }
         }
     }
     
@@ -116,9 +121,6 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
             self.exportButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         })
         
-        // Save filename for reuse
-        UserDefaults.standard.set(nameTextField.text!, forKey: "CSVName")
-        
         // Get documents directory
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let documentsURL = NSURL(fileURLWithPath: documentsPath)
@@ -129,10 +131,10 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         // Attempt to use a previous CSV file of that name, or generate one if not found
         if !UserDefaults.standard.bool(forKey: "TableModifed") {
             if !FileManager.default.fileExists(atPath: filePath.path) {
-                generateCSV(atPath: filePath)
+                generateCSV(atFullPath: filePath, docsDir: documentsURL as URL)
             }
         } else {
-            generateCSV(atPath: filePath)
+            generateCSV(atFullPath: filePath, docsDir: documentsURL as URL)
         }
         
         // Share the file
@@ -190,34 +192,129 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
-    private func generateCSV(atPath path: URL) {
+    private func generateCSV(atFullPath path: URL, docsDir: URL) {
+        print("generating")
+        
         // Create a new file at path
         FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil)
+        if !FileManager.default.fileExists(atPath: path.path) {
+            fatalError("Error creating file!")
+        }
         
-        // Collect entries in batches and write to file
+        var fetchOffset = 0
+        let fetchLimit = 100
+        
         let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
-        request.fetchLimit = 100
-        request.fetchOffset = 0
+        request.fetchLimit = fetchLimit
+        request.fetchOffset = fetchOffset
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
         do {
+            // Create the column titles
+            var csvString = "Date,Provider Name,Clinic Name,Patient Sex,Patient Age,Diagnosis 1,Diagnosis 2,Diagnosis 3,"
+            csvString += "Presciption 1,Prescription 2,Prescription 3,Prescription 4,Prescription 5,"
+            csvString += "Additional Notes\n"
+            
+            // Fetch the entries in batches and append them together
             let count = Double(try context.count(for: request))
-            for _ in 0..<Int(ceil(count / 100.0)) {
+            for _ in 0..<Int(ceil(count / Double(fetchLimit))) {
                 let entries = try context.fetch(request)
                 
-                // Format the entries
                 for entry in entries {
+                    var entryString = ""
                     
+                    // Get addition date
+                    let entryDate = entry.value(forKey: "creation") as! Date
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "MMMM dd',' yyyy 'at' hh:mma"
+                    formatter.amSymbol = "AM"
+                    formatter.pmSymbol = "PM"
+                    let dateString = formatter.string(from: entryDate)
+                    entryString += dateString + ","
+                    
+                    // Get Provider Name, Clinic Name, Sex, and Age
+                    let providerName = UserDefaults.standard.string(forKey: "ProviderName")!
+                    entryString += providerName + ","
+                    
+                    let clinicName = entry.value(forKey: "clinic") as! String
+                    entryString += clinicName + ","
+                    
+                    let patientSex = entry.value(forKey: "sex") as! String
+                    entryString += patientSex + ","
+                    
+                    let patientAge = String(entry.value(forKey: "age") as! Int)
+                    entryString += patientAge + ","
+                    
+                    // Get max 3 diagnoses
+                    let diagnoses = entry.value(forKey: "diagnoses") as! [String]
+                    for diagnosis in diagnoses {
+                        entryString += diagnosis + ","
+                    }
+                    
+                    // Add empty values for any remaining diagnosis columns
+                    if diagnoses.count < 3 {
+                        for _ in 0..<(3 - diagnoses.count) {
+                            entryString += ","
+                        }
+                    }
+                    
+                    // Get max 5 prescriptions
+                    let prescriptions = entry.value(forKey: "prescriptions") as! [Prescription]
+                    for presc in prescriptions {
+                        let medicine = presc.medicine
+                        let dosage = presc.dosage
+                        let quantity = presc.quantity
+                        entryString += medicine + " | "
+                        entryString += dosage + " | "
+                        entryString += String(quantity) + ","
+                    }
+                    
+                    // Add empty values for any remaining prescription columns
+                    if prescriptions.count < 5 {
+                        for _ in 0..<(5 - prescriptions.count) {
+                            entryString += ","
+                        }
+                    }
+                    
+                    // Get any additional notes
+                    let notes = entry.value(forKey: "notes") as! String
+                    entryString += notes + ","
+                    
+                    // End entry
+                    entryString += "\n"
+                    
+                    // Append to full string
+                    csvString += entryString
+                }
+                
+                // Set new offset
+                let newOffset = fetchOffset + fetchLimit
+                request.fetchOffset = newOffset
+                fetchOffset = newOffset
+            }
+            
+            // Write to file
+            try csvString.write(to: path, atomically: true, encoding: String.Encoding.utf8)
+        }
+        catch {
+            fatalError(error as! String)
+        }
+        
+        // Delete any previous CSV files
+        if let prevName = UserDefaults.standard.string(forKey: "CSVName") {
+            let prevFilePath = docsDir.appendingPathComponent(prevName)
+            if FileManager.default.fileExists(atPath: prevFilePath.path) {
+                do {
+                    try FileManager.default.removeItem(atPath: prevFilePath.path)
+                } catch {
+                    fatalError("Error deleting old file!")
                 }
             }
         }
-        catch {
-            print(error)
-        }
         
-        // Delete any previous CSV files of a different name
-        
-        
+        // Save new filename for reuse
+        UserDefaults.standard.set(nameTextField.text!, forKey: "CSVName")
     }
 }
