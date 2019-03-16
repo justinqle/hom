@@ -129,14 +129,14 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         let filePath = documentsURL.appendingPathComponent(nameTextField.text!)!
         
         // Determine whether to generate new CSV or rename the previous one
-        let tableWasModified = UserDefaults.standard.bool(forKey: "TableModified")
-        if tableWasModified {
+        let shouldGenerate = UserDefaults.standard.bool(forKey: "GenerateCSV")
+        if shouldGenerate {
             // Generate new CSV if table was modified
             generateCSV(atFullPath: filePath, docsDir: documentsURL as URL)
             
             // Save new filename for reuse, toggle modification status
             UserDefaults.standard.set(nameTextField.text!, forKey: "CSVName")
-            UserDefaults.standard.set(false, forKey: "TableModified")
+            UserDefaults.standard.set(false, forKey: "GenerateCSV")
         } else {
             if let prevCSV = UserDefaults.standard.string(forKey: "CSVName") {
                 if prevCSV != nameTextField.text! {
@@ -252,7 +252,6 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                 
                 for entry in entries {
                     var entryString = ""
-                    print("make new entry!")
                     
                     // Get addition date
                     let entryDate = entry.value(forKey: "creation") as! Date

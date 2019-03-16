@@ -14,6 +14,7 @@ class BorderedStackView: UIStackView {
     @IBInspectable var bottom: Bool = false
     @IBInspectable var left: Bool = false
     @IBInspectable var right: Bool = false
+    @IBInspectable var bottomOffset: CGFloat = 0
     override var bounds: CGRect {
         didSet {
             updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
@@ -40,7 +41,7 @@ class BorderedStackView: UIStackView {
     func updateBorders(color: UIColor, borderThickness: CGFloat) {
         if top {
             topBorder.backgroundColor = color.cgColor
-            topBorder.frame = CGRect(x: 0, y: borderThickness, width: self.frame.size.width, height: borderThickness)
+            topBorder.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: borderThickness)
             if topBorder.superlayer == nil {
                 self.layer.addSublayer(topBorder)
             }
@@ -48,7 +49,7 @@ class BorderedStackView: UIStackView {
         
         if bottom {
             bottomBorder.backgroundColor = color.cgColor
-            bottomBorder.frame = CGRect(x: 0, y: self.frame.size.height - borderThickness, width: self.frame.size.width, height: borderThickness)
+            bottomBorder.frame = CGRect(x: 0, y: self.frame.size.height - borderThickness + bottomOffset, width: self.frame.size.width, height: borderThickness)
             if bottomBorder.superlayer == nil {
                 self.layer.addSublayer(bottomBorder)
             }

@@ -634,7 +634,7 @@ class EntryAdditionController: UIViewController,
             UserDefaults.standard.set(count + 1, forKey: "RowCount")
             
             // Update modification status if saving or editing new entry
-            UserDefaults.standard.set(true, forKey: "TableModified")
+            UserDefaults.standard.set(true, forKey: "GenerateCSV")
             
             // TODO: Store latest entry date if saving new entry
             UserDefaults.standard.set(dateString, forKey: "LatestEntry")

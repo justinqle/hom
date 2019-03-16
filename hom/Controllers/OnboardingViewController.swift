@@ -93,7 +93,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
         UserDefaults.standard.set(providerTextField.text!, forKey: "ProviderName")
         
         // Set defaults for other keys
-        UserDefaults.standard.set(true, forKey: "TableModified")
+        UserDefaults.standard.set(true, forKey: "GenerateCSV")
     }
     
     // MARK: - Private Methods

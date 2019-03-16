@@ -77,8 +77,10 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Update the provider name
-        if textField.text != "" {
+        let prevName = UserDefaults.standard.string(forKey: "ProviderName")!
+        if textField.text != "" && textField.text != prevName {
             UserDefaults.standard.set(textField.text!, forKey: "ProviderName")
+            UserDefaults.standard.set(true, forKey: "GenerateCSV")
         } else {
             textField.text = UserDefaults.standard.string(forKey: "ProviderName")
         }
@@ -116,6 +118,23 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                         catch {
                             print(error)
                         }
+                        
+                        // Delete the CSV and reset keys
+                        if let csvName = UserDefaults.standard.string(forKey: "CSVName") {
+                            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                            let documentsURL = NSURL(fileURLWithPath: documentsPath)
+                            let filePath = documentsURL.appendingPathComponent(csvName)!
+                            do {
+                                try FileManager.default.removeItem(atPath: filePath.path)
+                            } catch {
+                                fatalError(error.localizedDescription)
+                            }
+                        }
+                        
+                        UserDefaults.standard.removeObject(forKey: "CSVName")
+                        UserDefaults.standard.set(true, forKey: "GenerateCSV")
+                        UserDefaults.standard.set(0, forKey: "RowCount")
+                        UserDefaults.standard.set("---", forKey: "LatestEntry")
                         
                         // Invalidate the table data
                         let tableViewController = (self.tabBarController!.viewControllers![0] as! UINavigationController).viewControllers.first as! DataTableController
