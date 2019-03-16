@@ -125,16 +125,32 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let documentsURL = NSURL(fileURLWithPath: documentsPath)
         
-        // Get full filepath
+        // Create filepath to CSV
         let filePath = documentsURL.appendingPathComponent(nameTextField.text!)!
         
-        // Attempt to use a previous CSV file of that name, or generate one if not found
-        if !UserDefaults.standard.bool(forKey: "TableModifed") {
-            if !FileManager.default.fileExists(atPath: filePath.path) {
-                generateCSV(atFullPath: filePath, docsDir: documentsURL as URL)
-            }
-        } else {
+        // Determine whether to generate new CSV or rename the previous one
+        let tableWasModified = UserDefaults.standard.bool(forKey: "TableModified")
+        if tableWasModified {
+            // Generate new CSV if table was modified
             generateCSV(atFullPath: filePath, docsDir: documentsURL as URL)
+            
+            // Save new filename for reuse, toggle modification status
+            UserDefaults.standard.set(nameTextField.text!, forKey: "CSVName")
+            UserDefaults.standard.set(false, forKey: "TableModified")
+        } else {
+            if let prevCSV = UserDefaults.standard.string(forKey: "CSVName") {
+                if prevCSV != nameTextField.text! {
+                    // Rename the file to the new name
+                    do {
+                        let oldFileURL = documentsURL.appendingPathComponent(prevCSV)!
+                        let newFileURL = documentsURL.appendingPathComponent(nameTextField.text!)!
+                        try FileManager.default.moveItem(at: oldFileURL, to: newFileURL)
+                        UserDefaults.standard.set(nameTextField.text!, forKey: "CSVName")
+                    } catch {
+                        fatalError(error as! String)
+                    }
+                }
+            }
         }
         
         // Share the file
@@ -195,6 +211,17 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     private func generateCSV(atFullPath path: URL, docsDir: URL) {
         print("generating")
         
+        // Clear any old CSVs in documents directory
+        do {
+            let oldFiles = try FileManager.default.contentsOfDirectory(atPath: docsDir.path)
+            for file in oldFiles {
+                print("deleting old file \(file)")
+                try FileManager.default.removeItem(atPath: docsDir.path + "/" + file)
+            }
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+        
         // Create a new file at path
         FileManager.default.createFile(atPath: path.path, contents: nil, attributes: nil)
         if !FileManager.default.fileExists(atPath: path.path) {
@@ -204,6 +231,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         var fetchOffset = 0
         let fetchLimit = 100
         
+        // Fetch data from model
         let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
         request.fetchLimit = fetchLimit
         request.fetchOffset = fetchOffset
@@ -224,11 +252,12 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                 
                 for entry in entries {
                     var entryString = ""
+                    print("make new entry!")
                     
                     // Get addition date
                     let entryDate = entry.value(forKey: "creation") as! Date
                     let formatter = DateFormatter()
-                    formatter.dateFormat = "MMMM dd',' yyyy 'at' hh:mma"
+                    formatter.dateFormat = "MMMM/dd/yyyy 'at' hh:mma"
                     formatter.amSymbol = "AM"
                     formatter.pmSymbol = "PM"
                     let dateString = formatter.string(from: entryDate)
@@ -301,20 +330,5 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         catch {
             fatalError(error as! String)
         }
-        
-        // Delete any previous CSV files
-        if let prevName = UserDefaults.standard.string(forKey: "CSVName") {
-            let prevFilePath = docsDir.appendingPathComponent(prevName)
-            if FileManager.default.fileExists(atPath: prevFilePath.path) {
-                do {
-                    try FileManager.default.removeItem(atPath: prevFilePath.path)
-                } catch {
-                    fatalError("Error deleting old file!")
-                }
-            }
-        }
-        
-        // Save new filename for reuse
-        UserDefaults.standard.set(nameTextField.text!, forKey: "CSVName")
     }
 }

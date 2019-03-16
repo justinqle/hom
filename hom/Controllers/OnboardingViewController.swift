@@ -91,6 +91,9 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
         
         // Save Provider Name during segue
         UserDefaults.standard.set(providerTextField.text!, forKey: "ProviderName")
+        
+        // Set defaults for other keys
+        UserDefaults.standard.set(true, forKey: "TableModified")
     }
     
     // MARK: - Private Methods

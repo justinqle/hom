@@ -107,7 +107,7 @@ class EntryAdditionController: UIViewController,
             diagnoses = patient.value(forKey: "diagnoses") as! [String]
             prescriptions = patient.value(forKey: "prescriptions") as! [Prescription]
             let notesText = patient.value(forKey: "notes") as? String
-            if notesText != "No notes" {
+            if notesText != "" {
                 notesTextView.text = notesText
                 notesTextView.textColor = UIColor.black
             }
@@ -149,7 +149,7 @@ class EntryAdditionController: UIViewController,
         creationLabel.text = fullDateString
         
         if patient == nil {
-            formatter.dateFormat = "MMMM dd',' yyyy 'at' hh:mma"
+            formatter.dateFormat = "MM/dd/yyyy 'at' hh:mma"
             dateString = formatter.string(from: additionDate)
         }
         
@@ -600,7 +600,10 @@ class EntryAdditionController: UIViewController,
         let creationDate = additionDate
         let delete = false
         let id = (((segue.destination as? DataTableController)?.patients.count)!) + 1
-        let notes = notesTextView.text
+        var notes = notesTextView.text
+        if notes == "No notes" {
+            notes = ""
+        }
         let sex = genderTextField.text!
         
         // Core Data setup
