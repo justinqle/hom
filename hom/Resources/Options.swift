@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import CSV
 
 class Options {
     
@@ -30,29 +31,13 @@ class Options {
         }
         
         // Read the file
-        do {
-            let contents = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
-            medicationList = fromCSV(data: contents)
-            
-            // Sort diagnoses
-            diagnosisList.sort(by: <)
-        } catch {
-            fatalError("Could not read Medications in: \(path)")
+        let stream = InputStream(fileAtPath: path)!
+        let csv = try! CSVReader(stream: stream)
+        while let row = csv.next() {
+            medicationList.append(row[0])
         }
-    }
-    
-    // MARK: - Private Methods
-    private func fromCSV(data: String) -> [String] {
-        // Collect the entries in the first column of the CSV
-        var result: [String] = []
-        let rows = data.components(separatedBy: "\n")
-        for row in rows {
-            let columns = row.components(separatedBy: ",")
-            var filtered = columns[0].replacingOccurrences(of: "\n", with: "")
-            filtered = filtered.trimmingCharacters(in: ["\""])
-            result.append(filtered)
-        }
-        result.removeFirst(1)
-        return result
+        
+        // Sort diagnoses
+        diagnosisList.sort(by: <)
     }
 }
