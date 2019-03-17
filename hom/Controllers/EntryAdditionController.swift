@@ -101,6 +101,7 @@ class EntryAdditionController: UIViewController,
         
         // Fill in patient data if editing patient
         if let patient = patient {
+            patientLabel.text = "Patient " + String(patient.value(forKey: "id") as! Int)
             clinicTextField.text = patient.value(forKey: "clinic") as? String
             genderTextField.text = patient.value(forKey: "sex") as? String
             ageTextField.text = String(patient.value(forKey: "age") as! Int) + " years old"
@@ -578,9 +579,11 @@ class EntryAdditionController: UIViewController,
     // MARK: - Navigation
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
+        // Adding a new patient
         if presentingViewController != nil {
             dismiss(animated: true, completion: nil)
         }
+        // Editing a patient
         else {
             navigationController!.popViewController(animated: true)
         }
@@ -595,6 +598,7 @@ class EntryAdditionController: UIViewController,
             return
         }
         
+        // Properties
         let age = Int(ageTextField.text!.components(separatedBy: " ")[0])!
         let clinicName = clinicTextField.text!
         let creationDate = additionDate
@@ -628,25 +632,25 @@ class EntryAdditionController: UIViewController,
         // Save to disk
         do {
             try managedContext.save()
-            
-            // Update row count
-            let count = UserDefaults.standard.integer(forKey: "RowCount")
-            UserDefaults.standard.set(count + 1, forKey: "RowCount")
-            
-            // Update modification status if saving or editing new entry
-            UserDefaults.standard.set(true, forKey: "GenerateCSV")
-            
-            // TODO: Store latest entry date if saving new entry
-            UserDefaults.standard.set(dateString, forKey: "LatestEntry")
-            
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+        
+        // Update row count
+        let count = UserDefaults.standard.integer(forKey: "RowCount")
+        UserDefaults.standard.set(count + 1, forKey: "RowCount")
+        
+        // Update modification status if saving or editing new entry
+        UserDefaults.standard.set(true, forKey: "GenerateCSV")
+        
+        // TODO: Store latest entry date if saving new entry
+        UserDefaults.standard.set(dateString, forKey: "LatestEntry")
     }
     
     // MARK: - Actions
+    
     @IBAction func deleteTouchUpInside(_ sender: Any) {
-        
+        patient?.setValue(true, forKey: "delete")
     }
     
     // MARK: - Private Methods
