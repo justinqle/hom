@@ -264,10 +264,10 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     
                     // Get Provider Name, Clinic Name, Sex, and Age
                     let providerName = UserDefaults.standard.string(forKey: "ProviderName")!
-                    entryString += providerName + ","
+                    entryString += "\"\(providerName)\"" + ","
                     
                     let clinicName = entry.value(forKey: "clinic") as! String
-                    entryString += clinicName + ","
+                    entryString += "\"\(clinicName)\"" + ","
                     
                     let patientSex = entry.value(forKey: "sex") as! String
                     entryString += patientSex + ","
@@ -278,7 +278,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     // Get max 3 diagnoses
                     let diagnoses = entry.value(forKey: "diagnoses") as! [String]
                     for diagnosis in diagnoses {
-                        entryString += diagnosis + ","
+                        entryString += "\"\(diagnosis)\"" + ","
                     }
                     
                     // Add empty values for any remaining diagnosis columns
@@ -294,9 +294,10 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                         let medicine = presc.medicine
                         let dosage = presc.dosage
                         let quantity = presc.quantity
-                        entryString += medicine + " | "
-                        entryString += dosage + " | "
-                        entryString += String(quantity) + ","
+                        let medicineString = medicine + " | "
+                        let dosageString = dosage + " | "
+                        let quantityString = String(quantity)
+                        entryString += "\"\(medicineString)\(dosageString)\(quantityString)\"" + ","
                     }
                     
                     // Add empty values for any remaining prescription columns
@@ -308,7 +309,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     
                     // Get any additional notes
                     let notes = entry.value(forKey: "notes") as! String
-                    entryString += notes + ","
+                    entryString += "\"\(notes)\""
                     
                     // End entry
                     entryString += "\n"

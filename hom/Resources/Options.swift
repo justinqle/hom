@@ -45,10 +45,11 @@ class Options {
     private func fromCSV(data: String) -> [String] {
         // Collect the entries in the first column of the CSV
         var result: [String] = []
-        let rows = data.components(separatedBy: "\r")
+        let rows = data.components(separatedBy: "\n")
         for row in rows {
             let columns = row.components(separatedBy: ",")
-            let filtered = columns[0].replacingOccurrences(of: "\n", with: "")
+            var filtered = columns[0].replacingOccurrences(of: "\n", with: "")
+            filtered = filtered.trimmingCharacters(in: ["\""])
             result.append(filtered)
         }
         result.removeFirst(1)
