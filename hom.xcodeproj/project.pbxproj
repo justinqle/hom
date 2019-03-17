@@ -236,7 +236,6 @@
 				29BC2E5A5D214F9BC7AF8836 /* Pods-homTests.debug.xcconfig */,
 				0FD65B337CDDAD0BC07FFB33 /* Pods-homTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
