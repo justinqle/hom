@@ -248,8 +248,13 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         do {
             
             // Create the column titles
-            var csvString = "Deleted,PatientID,Date,Provider Name,Clinic Name,Patient Sex,Patient Age,Diagnosis 1,Diagnosis 2,Diagnosis 3,"
-            csvString += "Presciption 1,Prescription 2,Prescription 3,Prescription 4,Prescription 5,"
+            var csvString = "Deleted,PatientID,Date,Provider Name,Clinic Name,Patient Sex,Patient Age,"
+            csvString += "Diagnosis 1,Diagnosis 2,Diagnosis 3,"
+            csvString += "Presciption 1,Dosage 1,Quantity 1,"
+            csvString += "Presciption 2,Dosage 2,Quantity 2,"
+            csvString += "Presciption 3,Dosage 3,Quantity 3,"
+            csvString += "Presciption 4,Dosage 4,Quantity 4,"
+            csvString += "Presciption 5,Dosage 5,Quantity 5,"
             csvString += "Additional Notes\n"
             
             // Fetch the entries in batches and append them together
@@ -311,20 +316,15 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     // Get max 5 prescriptions
                     let prescriptions = entry.value(forKey: "prescriptions") as! [Prescription]
                     for presc in prescriptions {
-                        let medicine = presc.medicine
-                        let dosage = presc.dosage
-                        let quantity = presc.quantity
-                        let medicineString = medicine + " | "
-                        let dosageString = dosage + " | "
-                        let quantityString = String(quantity)
-                        var fullEntry = "\(medicineString)\(dosageString)\(quantityString)"
-                        fullEntry = fullEntry.replacingOccurrences(of: "\"", with: "\"\"")
-                        csvString += "\"\(fullEntry)\","
+                        let medicineString = "\"" + String(presc.medicine).replacingOccurrences(of: "\"", with: "\"\"") + "\","
+                        let dosageString = "\"" + String(presc.dosage).replacingOccurrences(of: "\"", with: "\"\"") + "\","
+                        let quantityString = "\"" + String(presc.quantity).replacingOccurrences(of: "\"", with: "\"\"") + "\","
+                        csvString += medicineString + dosageString + quantityString
                     }
                     
                     // Add empty values for any remaining prescription columns
-                    if prescriptions.count < 5 {
-                        for _ in 0..<(5 - prescriptions.count) {
+                    if (prescriptions.count * 3) < 15 {
+                        for _ in 0..<(15 - prescriptions.count * 3) {
                             csvString += ","
                         }
                     }
