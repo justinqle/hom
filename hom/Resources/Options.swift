@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import CoreData
 import CSV
 
 class Options {

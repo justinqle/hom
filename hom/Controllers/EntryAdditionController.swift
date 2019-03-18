@@ -150,7 +150,7 @@ class EntryAdditionController: UIViewController,
         creationLabel.text = fullDateString
         
         if patient == nil {
-            formatter.dateFormat = "MM/dd/yyyy 'at' hh:mma"
+            formatter.dateFormat = "MM/dd/yy 'at' hh:mma"
             dateString = formatter.string(from: additionDate)
         }
         
@@ -650,7 +650,11 @@ class EntryAdditionController: UIViewController,
     // MARK: - Actions
     
     @IBAction func deleteTouchUpInside(_ sender: Any) {
+        // Set the deletion property, mark table for regeneration
         patient?.setValue(true, forKey: "delete")
+        UserDefaults.standard.set(true, forKey: "GenerateCSV")
+        
+        // TODO: Dismiss view controller
     }
     
     // MARK: - Private Methods

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import CSV
 
 class ExportViewController: UIViewController, UITextFieldDelegate {
     
@@ -240,10 +241,17 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         let context = appDelegate.persistentContainer.viewContext
         
         do {
+            // Create output stream for file
+            let stream = OutputStream(toFileAtPath: path.path, append: false)!
+            let csv = try CSVWriter(stream: stream)
+            
             // Create the column titles
-            var csvString = "Date,Provider Name,Clinic Name,Patient Sex,Patient Age,Diagnosis 1,Diagnosis 2,Diagnosis 3,"
-            csvString += "Presciption 1,Prescription 2,Prescription 3,Prescription 4,Prescription 5,"
-            csvString += "Additional Notes\n"
+            var headerRow = ["Deleted", "Patient ID", "Date", "Provider Name", "Clinic Name", "Patient Sex",
+                             "Patient Age", "Diagnosis 1", "Diagnosis 2", "Diagnosis 3"]
+            headerRow.append(contentsOf: ["Presciption 1", "Prescription 2", "Prescription 3", "Prescription 4", "Prescription 5"])
+            headerRow.append("Additional Notes")
+            
+            try csv.write(row: headerRow)
             
             // Fetch the entries in batches and append them together
             let count = Double(try context.count(for: request))
@@ -251,40 +259,52 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                 let entries = try context.fetch(request)
                 
                 for entry in entries {
-                    var entryString = ""
+                    var currentRow = [String]()
+                    
+                    // Get deletion status
+                    let wasDeleted = entry.value(forKey: "delete") as! Bool
+                    if wasDeleted {
+                        currentRow.append("Yes")
+                    } else {
+                        currentRow.append("")
+                    }
+                    
+                    // Get patient ID
+                    let patientID = entry.value(forKey: "id") as! Int
+                    currentRow.append(String(patientID))
                     
                     // Get addition date
                     let entryDate = entry.value(forKey: "creation") as! Date
                     let formatter = DateFormatter()
-                    formatter.dateFormat = "MMMM/dd/yyyy 'at' hh:mma"
+                    formatter.dateFormat = "MM/dd/yy 'at' hh:mma"
                     formatter.amSymbol = "AM"
                     formatter.pmSymbol = "PM"
                     let dateString = formatter.string(from: entryDate)
-                    entryString += dateString + ","
+                    currentRow.append(dateString)
                     
                     // Get Provider Name, Clinic Name, Sex, and Age
                     let providerName = UserDefaults.standard.string(forKey: "ProviderName")!
-                    entryString += "\"\(providerName)\"" + ","
+                    currentRow.append("\"" + providerName + "\"")
                     
                     let clinicName = entry.value(forKey: "clinic") as! String
-                    entryString += "\"\(clinicName)\"" + ","
+                    currentRow.append("\"" + clinicName + "\"")
                     
                     let patientSex = entry.value(forKey: "sex") as! String
-                    entryString += patientSex + ","
+                    currentRow.append(patientSex)
                     
                     let patientAge = String(entry.value(forKey: "age") as! Int)
-                    entryString += patientAge + ","
+                    currentRow.append(patientAge)
                     
                     // Get max 3 diagnoses
                     let diagnoses = entry.value(forKey: "diagnoses") as! [String]
                     for diagnosis in diagnoses {
-                        entryString += "\"\(diagnosis)\"" + ","
+                        currentRow.append("\"" + diagnosis + "\"")
                     }
                     
                     // Add empty values for any remaining diagnosis columns
                     if diagnoses.count < 3 {
                         for _ in 0..<(3 - diagnoses.count) {
-                            entryString += ","
+                            currentRow.append("")
                         }
                     }
                     
@@ -294,28 +314,26 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                         let medicine = presc.medicine
                         let dosage = presc.dosage
                         let quantity = presc.quantity
-                        let medicineString = medicine + " | "
+                        let medicineString = "\"" + medicine + "\"" + " | "
                         let dosageString = dosage + " | "
                         let quantityString = String(quantity)
-                        entryString += "\"\(medicineString)\(dosageString)\(quantityString)\"" + ","
+                        let fullEntry = "\(medicineString)\(dosageString)\(quantityString)"
+                        currentRow.append(fullEntry)
                     }
                     
                     // Add empty values for any remaining prescription columns
                     if prescriptions.count < 5 {
                         for _ in 0..<(5 - prescriptions.count) {
-                            entryString += ","
+                            currentRow.append("")
                         }
                     }
                     
                     // Get any additional notes
                     let notes = entry.value(forKey: "notes") as! String
-                    entryString += "\"\(notes)\""
+                    currentRow.append("\"" + notes + "\"")
                     
-                    // End entry
-                    entryString += "\n"
-                    
-                    // Append to full string
-                    csvString += entryString
+                    // Write the row
+                    try csv.write(row: currentRow)
                 }
                 
                 // Set new offset
@@ -324,11 +342,11 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                 fetchOffset = newOffset
             }
             
-            // Write to file
-            try csvString.write(to: path, atomically: true, encoding: String.Encoding.utf8)
+            // Close output stream
+            csv.stream.close()
         }
         catch {
-            fatalError(error as! String)
+            fatalError(error.localizedDescription)
         }
     }
 }
