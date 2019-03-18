@@ -172,7 +172,7 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
     }
     
     @IBAction func sortButton(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Sort by...", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Sort IDs by...", message: nil, preferredStyle: .actionSheet)
         
         // Sort by ascending ID order
         alert.addAction(UIAlertAction(title: "Ascending", style: .default, handler: { _ in
