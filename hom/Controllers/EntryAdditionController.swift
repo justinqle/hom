@@ -633,11 +633,20 @@ class EntryAdditionController: UIViewController,
     // MARK: - Actions
     
     @IBAction func deleteTouchUpInside(_ sender: Any) {
-        // Set the deletion property, mark table for regeneration
-        patient?.setValue(true, forKey: "delete")
-        UserDefaults.standard.set(true, forKey: "GenerateCSV")
+        // Show confirmation
+        let alert = UIAlertController(title: "Delete patient?", message: "This action will only hide them in the table.", preferredStyle: .actionSheet)
         
-        // TODO: Dismiss view controller
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            // Set the deletion property
+            self.patient?.setValue(true, forKey: "delete")
+            // Mark table for regeneration
+            UserDefaults.standard.set(true, forKey: "GenerateCSV")
+            // Pop view controller
+            self.navigationController!.popViewController(animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
     }
     
     // MARK: - Private Methods
@@ -720,7 +729,7 @@ class EntryAdditionController: UIViewController,
                 || (prescriptions.count != (patient.value(forKey: "prescriptions") as? [Prescription])?.count)
                 || (notes != patient.value(forKey: "notes") as? String)
             
-            // TODO - Prescriptions inequality
+            // TODO: Prescriptions inequality
         }
         
         if validFields {
