@@ -328,6 +328,9 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     var notes = entry.value(forKey: "notes") as! String
                     notes = notes.replacingOccurrences(of: "\"", with: "\"\"")
                     csvString += "\"\(notes)\""
+                    
+                    // End row
+                    csvString += "\n"
                 }
                 
                 // Set new offset
