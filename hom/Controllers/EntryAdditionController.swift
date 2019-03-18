@@ -105,7 +105,7 @@ class EntryAdditionController: UIViewController,
             self.id = patient.value(forKey: "id") as? Int
             clinicTextField.text = patient.value(forKey: "clinic") as? String
             genderTextField.text = patient.value(forKey: "sex") as? String
-            ageTextField.text = String(patient.value(forKey: "age") as! Int) + " years old"
+            ageTextField.text = String(patient.value(forKey: "age") as! Int) + " year(s) old"
             diagnoses = patient.value(forKey: "diagnoses") as! [String]
             prescriptions = patient.value(forKey: "prescriptions") as! [Prescription]
             let notesText = patient.value(forKey: "notes") as? String
@@ -243,7 +243,7 @@ class EntryAdditionController: UIViewController,
                 if text != "" {
                     let integer = Int(text)!
                     let trimmed = String(integer)
-                    let newText = trimmed + " years old"
+                    let newText = trimmed + " year(s) old"
                     textField.text = newText
                 }
             }

@@ -77,7 +77,7 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
         
         // Age label attributes
         let age = NSMutableAttributedString(string: "Age: ", attributes: [NSAttributedString.Key.font: mediumFont])
-        let ageValue = NSMutableAttributedString(string: String(patient.value(forKey: "age") as! Int) + " years old")
+        let ageValue = NSMutableAttributedString(string: String(patient.value(forKey: "age") as! Int) + " year(s) old")
         age.append(ageValue)
         let ageRange = (age.string as NSString).range(of: "Age: ")
         age.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColorCollection.greyDarker, range: ageRange)
