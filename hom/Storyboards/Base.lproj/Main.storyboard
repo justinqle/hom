@@ -473,10 +473,10 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUm-vu-rwq">
-                                                                        <rect key="frame" x="162.66666666666666" y="10" width="89" height="0.0"/>
+                                                                        <rect key="frame" x="158.66666666666666" y="10" width="97" height="0.0"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <color key="tintColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <state key="normal" title="Delete Entry">
+                                                                        <state key="normal" title="Archive Entry">
                                                                             <color key="titleColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
                                                                         <connections>
@@ -496,7 +496,7 @@
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRu-Qj-t2R">
                                                                         <rect key="frame" x="18" y="4" width="378" height="0.0"/>
-                                                                        <string key="text">Deleting the entry will mark it for deletion in the table. It will be hidden on your device, but will still be visible in the dataset. </string>
+                                                                        <string key="text">Archiving this entry will mark it as "deleted" in the table. It will be hidden on your device, but will still be visible in the dataset. </string>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>

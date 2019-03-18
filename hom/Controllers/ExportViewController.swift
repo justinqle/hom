@@ -256,7 +256,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     // Get deletion status
                     let wasDeleted = entry.value(forKey: "delete") as! Bool
                     if wasDeleted {
-                        csvString += "Yes"
+                        csvString += "Yes,"
                     } else {
                         csvString += ","
                     }

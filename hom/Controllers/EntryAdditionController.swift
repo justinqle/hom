@@ -634,7 +634,7 @@ class EntryAdditionController: UIViewController,
     
     @IBAction func deleteTouchUpInside(_ sender: Any) {
         // Show confirmation
-        let alert = UIAlertController(title: "Delete patient?", message: "This action will only hide them in the table.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Archive entry?", message: "This action can not be undone.", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             // Set the deletion property
