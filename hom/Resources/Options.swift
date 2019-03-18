@@ -32,6 +32,10 @@ class Options {
         // Read the file
         let stream = InputStream(fileAtPath: path)!
         let csv = try! CSVReader(stream: stream)
+        guard csv.headerRow != nil else {
+            fatalError("Unable to parse CSV!")
+        }
+        
         while let row = csv.next() {
             medicationList.append(row[0])
         }
