@@ -21,7 +21,8 @@ class EntryAdditionController: UIViewController,
     
     // MARK: - Properties
     
-    var patient: NSManagedObject?
+    weak var patient: NSManagedObject?
+    var id: Int!
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
@@ -100,8 +101,8 @@ class EntryAdditionController: UIViewController,
         pickerView.delegate = self
         
         // Fill in patient data if editing patient
-        if let patient = patient {
-            patientLabel.text = "Patient " + String(patient.value(forKey: "id") as! Int)
+        if let patient = self.patient {
+            self.id = patient.value(forKey: "id") as? Int
             clinicTextField.text = patient.value(forKey: "clinic") as? String
             genderTextField.text = patient.value(forKey: "sex") as? String
             ageTextField.text = String(patient.value(forKey: "age") as! Int) + " years old"
@@ -117,9 +118,12 @@ class EntryAdditionController: UIViewController,
             // Show delete button
             deleteButtonStack.isHidden = false
         }
+        // Otherwise use defaults
         else {
             additionDate = Date()
         }
+        
+        patientLabel.text = "Patient " + String(id)
         
         // Provider TextField borders
         providerTextField.layer.borderColor = UIColorCollection.greyDark.cgColor
@@ -598,53 +602,32 @@ class EntryAdditionController: UIViewController,
             return
         }
         
-        // Properties
-        let age = Int(ageTextField.text!.components(separatedBy: " ")[0])!
-        let clinicName = clinicTextField.text!
-        let creationDate = additionDate
-        let delete = false
-        let id = (((segue.destination as? DataTableController)?.patients.count)!) + 1
-        var notes = notesTextView.text
-        if notes == "No notes" {
-            notes = ""
-        }
-        let sex = genderTextField.text!
-        
         // Core Data setup
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Patient", in: managedContext)!
-        patient = NSManagedObject(entity: entity, insertInto: managedContext)
         
-        // Set the patient to be passed to DataTableController after the unwind segue.
-        patient?.setValue(age, forKeyPath: "age")
-        patient?.setValue(clinicName, forKeyPath: "clinic")
-        patient?.setValue(creationDate, forKeyPath: "creation")
-        patient?.setValue(delete, forKeyPath: "delete")
-        patient?.setValue(diagnoses, forKeyPath: "diagnoses")
-        patient?.setValue(id, forKeyPath: "id")
-        patient?.setValue(notes, forKeyPath: "notes")
-        patient?.setValue(prescriptions, forKeyPath: "prescriptions")
-        patient?.setValue(sex, forKeyPath: "sex")
-        
-        // Save to disk
-        do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+        // Update existing patient
+        if let patient = self.patient {
+            savePatient(patient, managedContext)
         }
-        
-        // Update row count
-        let count = UserDefaults.standard.integer(forKey: "RowCount")
-        UserDefaults.standard.set(count + 1, forKey: "RowCount")
+        // Add new patient
+        else {
+            let entity = NSEntityDescription.entity(forEntityName: "Patient", in: managedContext)!
+            let patient = NSManagedObject(entity: entity, insertInto: managedContext)
+            savePatient(patient, managedContext)
+            
+            // Update row count
+            let count = UserDefaults.standard.integer(forKey: "RowCount")
+            UserDefaults.standard.set(count + 1, forKey: "RowCount")
+            
+            // Store latest entry date if saving new entry
+            UserDefaults.standard.set(dateString, forKey: "LatestEntry")
+        }
         
         // Update modification status if saving or editing new entry
         UserDefaults.standard.set(true, forKey: "GenerateCSV")
-        
-        // TODO: Store latest entry date if saving new entry
-        UserDefaults.standard.set(dateString, forKey: "LatestEntry")
     }
     
     // MARK: - Actions
@@ -658,6 +641,38 @@ class EntryAdditionController: UIViewController,
     }
     
     // MARK: - Private Methods
+    
+    private func savePatient(_ patient: NSManagedObject, _ moc: NSManagedObjectContext) {
+        // Properties
+        let age = Int(ageTextField.text!.components(separatedBy: " ")[0])!
+        let clinicName = clinicTextField.text!
+        let creationDate = additionDate
+        let delete = false
+        let id = self.id
+        var notes = notesTextView.text
+        if notes == "No notes" {
+            notes = ""
+        }
+        let sex = genderTextField.text!
+        
+        // Set the patient to be passed to DataTableController after the unwind segue.
+        patient.setValue(age, forKeyPath: "age")
+        patient.setValue(clinicName, forKeyPath: "clinic")
+        patient.setValue(creationDate, forKeyPath: "creation")
+        patient.setValue(delete, forKeyPath: "delete")
+        patient.setValue(diagnoses, forKeyPath: "diagnoses")
+        patient.setValue(id, forKeyPath: "id")
+        patient.setValue(notes, forKeyPath: "notes")
+        patient.setValue(prescriptions, forKeyPath: "prescriptions")
+        patient.setValue(sex, forKeyPath: "sex")
+        
+        // Save to disk
+        do {
+            try moc.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
     
     // Enables save button if all required fields are filled out
     private func enableSaveButton() {
@@ -685,8 +700,28 @@ class EntryAdditionController: UIViewController,
             }
         }
         
-        let validFields = !clinicTextField.text!.isEmpty && genderTextField.text != "Not Chosen"
+        var validFields = !clinicTextField.text!.isEmpty && genderTextField.text != "Not Chosen"
             && !ageTextField.text!.isEmpty && validDiagnoses && validPrescriptions
+        
+        // Additionally, if editing a patient, only enable saving when a field is changed
+        if let patient = self.patient {
+            let clinicName = clinicTextField.text!
+            let sex = genderTextField.text!
+            let age = Int(ageTextField.text!.components(separatedBy: " ")[0])!
+            var notes = notesTextView.text
+            if notes == "No notes" {
+                notes = ""
+            }
+            
+            validFields = (clinicName != patient.value(forKey: "clinic") as? String)
+                || (sex != patient.value(forKey: "sex") as? String)
+                || (age != patient.value(forKey: "age") as? Int)
+                || (diagnoses != patient.value(forKey: "diagnoses") as? [String])
+                || (prescriptions.count != (patient.value(forKey: "prescriptions") as? [Prescription])?.count)
+                || (notes != patient.value(forKey: "notes") as? String)
+            
+            // TODO - Prescriptions inequality
+        }
         
         if validFields {
             saveButton.isEnabled = true

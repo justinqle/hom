@@ -12,17 +12,18 @@ import os.log
 
 private let reuseIdentifier = "PatientCell"
 
-class DataTableController: UITableViewController {
+class DataTableController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     // MARK: - Properties
     
-    var patients: [NSManagedObject] = []
+    var fetchedResultsController: NSFetchedResultsController<NSManagedObject>!
     
     // MARK: - Lifecycle Methods
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchData()
+        let ascending = UserDefaults.standard.bool(forKey: "ascending")
+        initializeFetchedResultsController(ascending: ascending)
     }
     
     // MARK: - Table View Data Source
@@ -32,7 +33,11 @@ class DataTableController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return patients.count
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,8 +45,10 @@ class DataTableController: UITableViewController {
             fatalError("The dequeued cell is not an instance of DataTableCell.")
         }
         
-        // Fetches the appropriate patient for the data source layout.
-        let patient = patients[indexPath.row]
+        // Get patient at specified index
+        guard let patient = self.fetchedResultsController?.object(at: indexPath) else {
+            fatalError("Attempt to configure cell without a managed object")
+        }
         
         // Patient ID
         cell.patientID.text = "Patient " + String(patient.value(forKey: "id") as! Int)
@@ -93,6 +100,31 @@ class DataTableController: UITableViewController {
         return cell
     }
     
+    // MARK: - NSFetchedResultsControllerDelegate
+    
+    // When Core Data gets changed, these methods update the UITableView
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .automatic)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -104,16 +136,19 @@ class DataTableController: UITableViewController {
             
         case "AddItem":
             os_log("Adding a new patient.", log: OSLog.default, type: .debug)
-            
-        case "EditItem":
-            guard let entryAdditionController = segue.destination as? EntryAdditionController else {
+            guard let destinationNavController = segue.destination as? UINavigationController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
-            guard let selectedCell = sender as? DataTableCell else {
-                fatalError("Unexpected sender: \(sender!)")
+            guard let entryAdditionController = destinationNavController.topViewController as? EntryAdditionController else {
+                fatalError("Unexpected top view controller: \(String(describing: destinationNavController.topViewController))")
             }
-            guard let indexPath = tableView.indexPath(for: selectedCell) else {
-                fatalError("The selected cell is not being displayed by the table")
+            
+            entryAdditionController.id = fetchedResultsController.fetchedObjects!.count + 1
+            
+        case "EditItem":
+            os_log("Editing a patient.", log: OSLog.default, type: .debug)
+            guard let entryAdditionController = segue.destination as? EntryAdditionController else {
+                fatalError("Unexpected destination: \(segue.destination)")
             }
             
             // EntryAdditionController configuration for editing a patient
@@ -121,8 +156,9 @@ class DataTableController: UITableViewController {
             entryAdditionController.navigationItem.largeTitleDisplayMode = .never
             entryAdditionController.navigationItem.setLeftBarButton(nil, animated: true)
             
-            let selectedPatient = patients[indexPath.row]
-            entryAdditionController.patient = selectedPatient
+            let indexPath = tableView.indexPathForSelectedRow!
+            let selectedObject = fetchedResultsController.object(at: indexPath) 
+            entryAdditionController.patient = selectedObject
             
         default:
             fatalError("Unexpected Segue Identifier: \(id)")
@@ -132,19 +168,7 @@ class DataTableController: UITableViewController {
     // MARK - Actions
     
     @IBAction func unwindToDataTable(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? EntryAdditionController, let patient = sourceViewController.patient {
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing patient.
-                patients[selectedIndexPath.row] = patient
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            }
-            else {
-                // Add a new patient.
-                let newIndexPath = IndexPath(row: patients.count, section: 0)
-                patients.append(patient)
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
-        }
+        
     }
     
     @IBAction func sortButton(_ sender: UIBarButtonItem) {
@@ -152,32 +176,39 @@ class DataTableController: UITableViewController {
         
         // Sort by ascending ID order
         alert.addAction(UIAlertAction(title: "Ascending", style: .default, handler: { _ in
-            self.patients.sort() { ($0.value(forKey: "id") as! Int) < ($1.value(forKey: "id") as! Int) }
+            self.initializeFetchedResultsController(ascending: true)
             self.tableView.reloadData()
+            UserDefaults.standard.set(true, forKey: "ascending")
         }))
         // Sort by descending ID order
         alert.addAction(UIAlertAction(title: "Descending", style: .default, handler: { _ in
-            self.patients.sort() { ($0.value(forKey: "id") as! Int) > ($1.value(forKey: "id") as! Int) }
+            self.initializeFetchedResultsController(ascending: false)
             self.tableView.reloadData()
+            UserDefaults.standard.set(false, forKey: "ascending")
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true)
     }
     
-    // MARK: - Public Methods
+    // MARK: - Private Methods
     
-    public func fetchData() {
+    private func initializeFetchedResultsController(ascending: Bool) {
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
+        let idSort = NSSortDescriptor(key: "id", ascending: ascending)
+        request.sortDescriptors = [idSort]
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Patient")
+        let moc = appDelegate.persistentContainer.viewContext
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
         
         do {
-            patients = try managedContext.fetch(fetchRequest)
-        } catch let error as NSError {
-            print("Could not fetch: \(error), \(error.userInfo)")
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
     }
 }

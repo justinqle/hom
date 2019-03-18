@@ -110,13 +110,16 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                         // Clear table
                         let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
                         let deleteRequest = NSBatchDeleteRequest(fetchRequest: request as! NSFetchRequest<NSFetchRequestResult>)
+                        deleteRequest.resultType = .resultTypeObjectIDs
                         let appDelegate = UIApplication.shared.delegate as! AppDelegate
                         let context = appDelegate.persistentContainer.viewContext
                         do {
-                            try context.execute(deleteRequest)
-                        }
-                        catch {
-                            print(error)
+                            let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
+                            let objectIDArray = result?.result as? [NSManagedObjectID]
+                            let changes = [NSDeletedObjectsKey : objectIDArray]
+                            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes as [AnyHashable : Any], into: [context])
+                        } catch {
+                            fatalError("Failed to perform batch update: \(error)")
                         }
                         
                         // Delete the CSV and reset keys
@@ -135,11 +138,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                         UserDefaults.standard.set(true, forKey: "GenerateCSV")
                         UserDefaults.standard.set(0, forKey: "RowCount")
                         UserDefaults.standard.set("---", forKey: "LatestEntry")
-                        
-                        // Invalidate the table data
-                        let tableViewController = (self.tabBarController!.viewControllers![0] as! UINavigationController).viewControllers.first as! DataTableController
-                        tableViewController.fetchData()
-                        tableViewController.tableView.reloadData()
                     }))
                     
                     self.present(alert, animated: true)

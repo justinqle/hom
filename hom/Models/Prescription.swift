@@ -36,4 +36,11 @@ public class Prescription: NSObject, NSCoding {
         self.dosage = aDecoder.decodeObject(forKey: "dosage") as! String
         self.quantity = aDecoder.decodeInteger(forKey: "quantity")
     }
+    
+    public override func isEqual(_ object: Any?) -> Bool {
+        let p = object as? Prescription
+        return medicine == p?.medicine
+            && dosage == p?.dosage
+            && quantity == p?.quantity
+    }
 }
