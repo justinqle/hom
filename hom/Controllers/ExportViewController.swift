@@ -234,6 +234,11 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         
         // Fetch data from model
         let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
+        
+        // Get patients in ascending ID order for export
+        let idSort = NSSortDescriptor(key: "id", ascending: true)
+        request.sortDescriptors = [idSort]
+        
         request.fetchLimit = fetchLimit
         request.fetchOffset = fetchOffset
         
