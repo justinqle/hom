@@ -197,6 +197,7 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
         let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
         let idSort = NSSortDescriptor(key: "id", ascending: ascending)
         request.sortDescriptors = [idSort]
+        request.predicate = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: false))
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
