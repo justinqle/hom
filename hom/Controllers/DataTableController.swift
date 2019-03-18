@@ -143,7 +143,7 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
                 fatalError("Unexpected top view controller: \(String(describing: destinationNavController.topViewController))")
             }
             
-            entryAdditionController.id = fetchedResultsController.fetchedObjects!.count + 1
+            entryAdditionController.id = totalSize() + 1
             
         case "EditItem":
             os_log("Editing a patient.", log: OSLog.default, type: .debug)
@@ -210,6 +210,23 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
             try fetchedResultsController.performFetch()
         } catch {
             fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+    }
+    
+    // Gets total number of patients saved (including deletes)
+    private func totalSize() -> Int {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            fatalError("Failed to get AppDelegate.")
+        }
+        let moc = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
+        
+        do {
+            let fetchedPatients = try moc.fetch(request)
+            return fetchedPatients.count
+        } catch {
+            fatalError("Failed to fetch patients: \(error)")
         }
     }
 }
