@@ -773,7 +773,7 @@ class EntryAdditionController: UIViewController,
                 scrollView.scrollRectToVisible(input.frame, animated: true)
             }
             
-        } else {
+        } else if notification.name == UIResponder.keyboardWillHideNotification {
             // Reset the insets
             scrollView.contentInset = UIEdgeInsets.zero
             scrollView.scrollIndicatorInsets = UIEdgeInsets.zero

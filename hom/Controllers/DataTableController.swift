@@ -172,23 +172,16 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
     }
     
     @IBAction func sortButton(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Sort IDs by...", message: nil, preferredStyle: .actionSheet)
-        
-        // Sort by ascending ID order
-        alert.addAction(UIAlertAction(title: "Ascending", style: .default, handler: { _ in
-            self.initializeFetchedResultsController(ascending: true)
-            self.tableView.reloadData()
-            UserDefaults.standard.set(true, forKey: "ascending")
-        }))
-        // Sort by descending ID order
-        alert.addAction(UIAlertAction(title: "Descending", style: .default, handler: { _ in
+        // Toggle ascending/descending ID order
+        if UserDefaults.standard.bool(forKey: "ascending") {
             self.initializeFetchedResultsController(ascending: false)
             self.tableView.reloadData()
             UserDefaults.standard.set(false, forKey: "ascending")
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true)
+        } else {
+            self.initializeFetchedResultsController(ascending: true)
+            self.tableView.reloadData()
+            UserDefaults.standard.set(true, forKey: "ascending")
+        }
     }
     
     // MARK: - Private Methods
