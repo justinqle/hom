@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFieldDelegate {
     
@@ -89,11 +90,15 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
             self.finishButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         })
         
+        // Generate dummy data
+//        createDummyData()
+        
         // Save Provider Name during segue
         UserDefaults.standard.set(providerTextField.text!, forKey: "ProviderName")
         
         // Set defaults for other keys
         UserDefaults.standard.set(true, forKey: "GenerateCSV")
+        UserDefaults.standard.set(false, forKey: "ascending")
     }
     
     // MARK: - Private Methods
@@ -135,5 +140,64 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
     @objc private func keyboardWillHide(notification: Notification) {
         // Reset the content offset
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    
+    private func createDummyData() {
+        // Creates dummy data for testing
+        let entryCount = 10000
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let clinicNames = ["Marigot", "\"Hope for Haiti\"", "Hope, for Haiti", "\"Hope,\" for Haiti", "Marigot! \"Wow, that's cool\""]
+        let notesList = ["", "Need more meds.", "We're all good here!", "Need some more of those...\n\"meds\".", "Wow, we're doing \n\nwell!"]
+        
+        for index in 1...entryCount {
+            // Generate random values
+            let deleted = [true, false].randomElement()!
+            let creationDate = Date()
+            let clinicName = clinicNames.randomElement()!
+            let patientID = index
+            let patientSex = ["Male", "Female"].randomElement()!
+            let patientAge = Int.random(in: 0...100)
+            
+            var diagnoses = [String]()
+            let diagnosisCount = Int.random(in: 1...3)
+            for _ in 0..<diagnosisCount {
+                diagnoses.append(Options.shared.diagnosisList.randomElement()!)
+            }
+            
+            var prescriptions = [Prescription]()
+            let prescriptionCount = Int.random(in: 1...5)
+            for _ in 0..<prescriptionCount {
+                let medication = Options.shared.medicationList.randomElement()!
+                let dosage = Options.shared.dosageList.randomElement()!
+                let quantity = Int.random(in: 1...5)
+                prescriptions.append(Prescription(medicine: medication, dosage: dosage, quantity: quantity))
+            }
+            
+            let notes = notesList.randomElement()!
+            
+            // Set values
+            let entity = NSEntityDescription.entity(forEntityName: "Patient", in: context)!
+            let patient = NSManagedObject(entity: entity, insertInto: context)
+            patient.setValue(deleted, forKey: Options.PatientKeys.deleted.rawValue)
+            patient.setValue(creationDate, forKey: Options.PatientKeys.creation.rawValue)
+            patient.setValue(clinicName, forKey: Options.PatientKeys.clinic.rawValue)
+            patient.setValue(patientID, forKey: Options.PatientKeys.id.rawValue)
+            patient.setValue(patientSex, forKey: Options.PatientKeys.sex.rawValue)
+            patient.setValue(patientAge, forKey: Options.PatientKeys.age.rawValue)
+            patient.setValue(diagnoses, forKey: Options.PatientKeys.diagnoses.rawValue)
+            patient.setValue(prescriptions, forKey: Options.PatientKeys.prescriptions.rawValue)
+            patient.setValue(notes, forKey: Options.PatientKeys.notes.rawValue)
+            
+            // Store to data model
+            do {
+                try context.save()
+                print("Entry created: \(patient)")
+            } catch {
+                fatalError(error.localizedDescription)
+            }
+        }
     }
 }

@@ -12,6 +12,18 @@ import CSV
 
 class Options {
     
+    enum PatientKeys: String {
+        case deleted = "delete"
+        case creation = "creation"
+        case clinic = "clinic"
+        case id = "id"
+        case sex = "sex"
+        case age = "age"
+        case diagnoses = "diagnoses"
+        case prescriptions = "prescriptions"
+        case notes = "notes"
+    }
+    
     // MARK: - Properties
     static let shared = Options()
     

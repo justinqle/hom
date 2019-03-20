@@ -239,14 +239,10 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
         let idSort = NSSortDescriptor(key: "id", ascending: true)
         request.sortDescriptors = [idSort]
         
-        request.fetchLimit = fetchLimit
-        request.fetchOffset = fetchOffset
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
         do {
-            
             // Create the column titles
             var csvString = "Deleted,PatientID,Date,Provider Name,Clinic Name,Patient Sex,Patient Age,"
             csvString += "Diagnosis 1,Diagnosis 2,Diagnosis 3,"
@@ -259,12 +255,15 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
             
             // Fetch the entries in batches and append them together
             let count = Double(try context.count(for: request))
-            for _ in 0..<Int(ceil(count / Double(fetchLimit))) {
+            let fetchBound = Int(ceil(count / Double(fetchLimit)))
+            for _ in 0...fetchBound {
+                request.fetchLimit = fetchLimit
+                request.fetchOffset = fetchOffset
                 let entries = try context.fetch(request)
                 
                 for entry in entries {
                     // Get deletion status
-                    let wasDeleted = entry.value(forKey: "delete") as! Bool
+                    let wasDeleted = entry.value(forKey: Options.PatientKeys.deleted.rawValue) as! Bool
                     if wasDeleted {
                         csvString += "Yes,"
                     } else {
@@ -272,11 +271,11 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     // Get patient ID
-                    let patientID = String(entry.value(forKey: "id") as! Int)
+                    let patientID = String(entry.value(forKey: Options.PatientKeys.id.rawValue) as! Int)
                     csvString += patientID + ","
                     
                     // Get addition date
-                    let entryDate = entry.value(forKey: "creation") as! Date
+                    let entryDate = entry.value(forKey: Options.PatientKeys.creation.rawValue) as! Date
                     let formatter = DateFormatter()
                     formatter.dateFormat = "MM/dd/yy 'at' hh:mma"
                     formatter.amSymbol = "AM"
@@ -289,18 +288,18 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     providerName = providerName.replacingOccurrences(of: "\"", with: "\"\"")
                     csvString += "\"\(providerName)\","
                     
-                    var clinicName = entry.value(forKey: "clinic") as! String
+                    var clinicName = entry.value(forKey: Options.PatientKeys.clinic.rawValue) as! String
                     clinicName = clinicName.replacingOccurrences(of: "\"", with: "\"\"")
                     csvString += "\"\(clinicName)\","
                     
-                    let patientSex = entry.value(forKey: "sex") as! String
+                    let patientSex = entry.value(forKey: Options.PatientKeys.sex.rawValue) as! String
                     csvString += patientSex + ","
                     
-                    let patientAge = String(entry.value(forKey: "age") as! Int)
+                    let patientAge = String(entry.value(forKey: Options.PatientKeys.age.rawValue) as! Int)
                     csvString += patientAge + ","
                     
                     // Get max 3 diagnoses
-                    let diagnoses = entry.value(forKey: "diagnoses") as! [String]
+                    let diagnoses = entry.value(forKey: Options.PatientKeys.diagnoses.rawValue) as! [String]
                     for diagnosis in diagnoses {
                         let augDiagnosis = diagnosis.replacingOccurrences(of: "\"", with: "\"\"")
                         csvString += "\"\(augDiagnosis)\","
@@ -314,7 +313,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     // Get max 5 prescriptions
-                    let prescriptions = entry.value(forKey: "prescriptions") as! [Prescription]
+                    let prescriptions = entry.value(forKey: Options.PatientKeys.prescriptions.rawValue) as! [Prescription]
                     for presc in prescriptions {
                         let medicineString = "\"" + String(presc.medicine).replacingOccurrences(of: "\"", with: "\"\"") + "\","
                         let dosageString = "\"" + String(presc.dosage).replacingOccurrences(of: "\"", with: "\"\"") + "\","
@@ -330,7 +329,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     // Get any additional notes
-                    var notes = entry.value(forKey: "notes") as! String
+                    var notes = entry.value(forKey: Options.PatientKeys.notes.rawValue) as! String
                     notes = notes.replacingOccurrences(of: "\"", with: "\"\"")
                     csvString += "\"\(notes)\""
                     

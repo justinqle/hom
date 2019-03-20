@@ -665,15 +665,15 @@ class EntryAdditionController: UIViewController,
         let sex = genderTextField.text!
         
         // Set the patient to be passed to DataTableController after the unwind segue.
-        patient.setValue(age, forKeyPath: "age")
-        patient.setValue(clinicName, forKeyPath: "clinic")
-        patient.setValue(creationDate, forKeyPath: "creation")
-        patient.setValue(delete, forKeyPath: "delete")
-        patient.setValue(diagnoses, forKeyPath: "diagnoses")
-        patient.setValue(id, forKeyPath: "id")
-        patient.setValue(notes, forKeyPath: "notes")
-        patient.setValue(prescriptions, forKeyPath: "prescriptions")
-        patient.setValue(sex, forKeyPath: "sex")
+        patient.setValue(age, forKeyPath: Options.PatientKeys.age.rawValue)
+        patient.setValue(clinicName, forKeyPath: Options.PatientKeys.clinic.rawValue)
+        patient.setValue(creationDate, forKeyPath: Options.PatientKeys.creation.rawValue)
+        patient.setValue(delete, forKeyPath: Options.PatientKeys.deleted.rawValue)
+        patient.setValue(diagnoses, forKeyPath: Options.PatientKeys.diagnoses.rawValue)
+        patient.setValue(id, forKeyPath: Options.PatientKeys.id.rawValue)
+        patient.setValue(notes, forKeyPath: Options.PatientKeys.notes.rawValue)
+        patient.setValue(prescriptions, forKeyPath: Options.PatientKeys.prescriptions.rawValue)
+        patient.setValue(sex, forKeyPath: Options.PatientKeys.sex.rawValue)
         
         // Save to disk
         do {
