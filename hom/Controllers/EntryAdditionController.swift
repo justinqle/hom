@@ -107,7 +107,8 @@ class EntryAdditionController: UIViewController,
             genderTextField.text = patient.value(forKey: "sex") as? String
             ageTextField.text = String(patient.value(forKey: "age") as! Int) + " year(s) old"
             diagnoses = patient.value(forKey: "diagnoses") as! [String]
-            prescriptions = patient.value(forKey: "prescriptions") as! [Prescription]
+            // Have to make deep copy, otherwise they alias
+            prescriptions = (patient.value(forKey: "prescriptions") as! [Prescription]).map{$0.copy()} as! [Prescription]
             let notesText = patient.value(forKey: "notes") as? String
             if notesText != "" {
                 notesTextView.text = notesText
@@ -713,7 +714,7 @@ class EntryAdditionController: UIViewController,
             && !ageTextField.text!.isEmpty && validDiagnoses && validPrescriptions
         
         // Additionally, if editing a patient, only enable saving when a field is changed
-        if let patient = self.patient {
+        if validFields, let patient = self.patient {
             let clinicName = clinicTextField.text!
             let sex = genderTextField.text!
             let age = Int(ageTextField.text!.components(separatedBy: " ")[0])!
@@ -726,10 +727,8 @@ class EntryAdditionController: UIViewController,
                 || (sex != patient.value(forKey: "sex") as? String)
                 || (age != patient.value(forKey: "age") as? Int)
                 || (diagnoses != patient.value(forKey: "diagnoses") as? [String])
-                || (prescriptions.count != (patient.value(forKey: "prescriptions") as? [Prescription])?.count)
+                || (prescriptions != (patient.value(forKey: "prescriptions") as? [Prescription]))
                 || (notes != patient.value(forKey: "notes") as? String)
-            
-            // TODO: Prescriptions inequality
         }
         
         if validFields {

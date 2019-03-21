@@ -43,4 +43,8 @@ public class Prescription: NSObject, NSCoding {
             && dosage == p?.dosage
             && quantity == p?.quantity
     }
+    
+    public override func copy() -> Any {
+        return Prescription(medicine: medicine, dosage: dosage, quantity: quantity)
+    }
 }
