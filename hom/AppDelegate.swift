@@ -24,10 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window.rootViewController = rootController
             }
         }
-        
-        // By default, a newly-installed app will have patients sorted in ascending ID order
-        UserDefaults.standard.register(defaults: ["ascending" : true])
-        
         return true
     }
 

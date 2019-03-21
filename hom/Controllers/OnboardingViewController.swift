@@ -98,7 +98,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
         
         // Set defaults for other keys
         UserDefaults.standard.set(true, forKey: "GenerateCSV")
-        UserDefaults.standard.set(false, forKey: "ascending")
+        UserDefaults.standard.set(DataTableController.Sorting.mostRecent.rawValue, forKey: "sorting")
     }
     
     // MARK: - Private Methods

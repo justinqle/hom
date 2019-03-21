@@ -18,12 +18,17 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
     
     var fetchedResultsController: NSFetchedResultsController<NSManagedObject>!
     
+    enum Sorting: String {
+        case mostRecent = "recent"
+        case oldest = "oldest"
+    }
+    
     // MARK: - Lifecycle Methods
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let ascending = UserDefaults.standard.bool(forKey: "ascending")
-        initializeFetchedResultsController(ascending: ascending)
+        let sorting = Sorting(rawValue: UserDefaults.standard.string(forKey: "sorting")!)!
+        initializeFetchedResultsController(sorting: sorting)
     }
     
     // MARK: - Table View Data Source
@@ -172,30 +177,48 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
     }
     
     @IBAction func sortButton(_ sender: UIBarButtonItem) {
-        // Toggle ascending/descending ID order
-        if UserDefaults.standard.bool(forKey: "ascending") {
-            self.initializeFetchedResultsController(ascending: false)
+        let alert = UIAlertController(title: "Sort by...", message: nil, preferredStyle: .actionSheet)
+        
+        // Sort by most recent
+        alert.addAction(UIAlertAction(title: "Most Recent", style: .default, handler: { _ in
+            self.initializeFetchedResultsController(sorting: Sorting.mostRecent)
             self.tableView.reloadData()
-            UserDefaults.standard.set(false, forKey: "ascending")
-        } else {
-            self.initializeFetchedResultsController(ascending: true)
+            UserDefaults.standard.set(Sorting.mostRecent.rawValue, forKey: "sorting")
+        }))
+        // Sort by oldest
+        alert.addAction(UIAlertAction(title: "Oldest", style: .default, handler: { _ in
+            self.initializeFetchedResultsController(sorting: Sorting.oldest)
             self.tableView.reloadData()
-            UserDefaults.standard.set(true, forKey: "ascending")
-        }
+            UserDefaults.standard.set(Sorting.oldest.rawValue, forKey: "sorting")
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
     }
     
     // MARK: - Private Methods
     
-    private func initializeFetchedResultsController(ascending: Bool) {
-        let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
-        let idSort = NSSortDescriptor(key: "id", ascending: ascending)
-        request.sortDescriptors = [idSort]
-        request.predicate = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: false))
-        
+    private func initializeFetchedResultsController(sorting: Sorting) {
+        // Set up Core Data stack
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
         let moc = appDelegate.persistentContainer.viewContext
+        
+        // Create request
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
+        
+        // Customize request based on sorting preferences
+        if sorting == Sorting.mostRecent {
+            let dateSort = NSSortDescriptor(key: "creation", ascending: false)
+            request.sortDescriptors = [dateSort]
+        } else if sorting == Sorting.oldest {
+            let dateSort = NSSortDescriptor(key: "creation", ascending: true)
+            request.sortDescriptors = [dateSort]
+        }
+        request.predicate = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: false))
+        
+        // Create fetched results controller from customized fetch request
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         
