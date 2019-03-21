@@ -21,6 +21,7 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
     enum Sorting: String {
         case mostRecent = "recent"
         case oldest = "oldest"
+        case archived = "archived"
     }
     
     // MARK: - Lifecycle Methods
@@ -191,6 +192,12 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
             self.tableView.reloadData()
             UserDefaults.standard.set(Sorting.oldest.rawValue, forKey: "sorting")
         }))
+        // View archived entries
+        alert.addAction(UIAlertAction(title: "Archived", style: .default, handler: { _ in
+            self.initializeFetchedResultsController(sorting: Sorting.archived)
+            self.tableView.reloadData()
+            UserDefaults.standard.set(Sorting.archived.rawValue, forKey: "sorting")
+        }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true)
@@ -209,14 +216,18 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
         let request = NSFetchRequest<NSManagedObject>(entityName: "Patient")
         
         // Customize request based on sorting preferences
-        if sorting == Sorting.mostRecent {
+        if sorting == Sorting.mostRecent || sorting == Sorting.archived {
             let dateSort = NSSortDescriptor(key: "creation", ascending: false)
             request.sortDescriptors = [dateSort]
         } else if sorting == Sorting.oldest {
             let dateSort = NSSortDescriptor(key: "creation", ascending: true)
             request.sortDescriptors = [dateSort]
         }
-        request.predicate = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: false))
+        if sorting == Sorting.archived {
+            request.predicate = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: true))
+        } else {
+            request.predicate = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: false))
+        }
         
         // Create fetched results controller from customized fetch request
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
