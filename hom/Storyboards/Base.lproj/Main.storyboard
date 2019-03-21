@@ -13,7 +13,7 @@
         <scene sceneID="8Fa-Ka-BL5">
             <objects>
                 <tableViewController id="69c-u1-eDq" customClass="DataTableController" customModule="hom" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oKm-HE-iFZ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="180" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oKm-HE-iFZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -165,7 +165,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="Jcd-2J-Yut">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="722"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="be6-7d-u5u">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1155.6666666666667"/>
@@ -1193,7 +1193,7 @@
         <image name="Table" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oDv-sh-HEP"/>
+        <segue reference="CLR-W8-P6c"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.73725490199999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
 </document>
