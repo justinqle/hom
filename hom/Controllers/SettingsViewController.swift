@@ -42,8 +42,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         providerTextField.layer.borderColor = UIColorCollection.greyDark.cgColor
         providerTextField.layer.borderWidth = 1
         
-        itemStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 0.5)
-        devInfoStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 0.5)
+        itemStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        devInfoStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
         
         clearButton.layer.borderColor = UIColorCollection.greyDark.cgColor
         clearButton.layer.borderWidth = 1

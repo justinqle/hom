@@ -210,7 +210,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func generateCSV(atFullPath path: URL, docsDir: URL) {
-        print("generating")
+        print("Generating CSV...")
         
         // Clear any old CSVs in documents directory
         do {
