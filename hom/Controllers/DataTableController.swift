@@ -149,7 +149,7 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
                 fatalError("Unexpected top view controller: \(String(describing: destinationNavController.topViewController))")
             }
             
-            entryAdditionController.id = totalSize() + 1
+            entryAdditionController.id = UserDefaults.standard.integer(forKey: "RowCount") + 1
             
         case "EditItem":
             os_log("Editing a patient.", log: OSLog.default, type: .debug)

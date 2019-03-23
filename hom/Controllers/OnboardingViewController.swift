@@ -144,7 +144,9 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
     
     private func createDummyData() {
         // Creates dummy data for testing
-        let entryCount = 500
+        let entryCount = 10000
+        
+        UserDefaults.standard.set(entryCount, forKey: "RowCount")
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
