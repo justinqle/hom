@@ -25,6 +25,7 @@
 		7381B89E21FD520700845384 /* DataTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89D21FD520700845384 /* DataTableCell.swift */; };
 		7381B8A021FD529000845384 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B89F21FD529000845384 /* ExportViewController.swift */; };
 		7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B8A121FD52FD00845384 /* SettingsViewController.swift */; };
+		73A944202245D303006A8E6F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9441F2245D303006A8E6F /* TabBarController.swift */; };
 		73AFA353220D259C00E4CD80 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFA352220D259C00E4CD80 /* SearchTextField.swift */; };
 		73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF968C2200F13700C96354 /* BorderedStackView.swift */; };
 		73CF968F22012F5C00C96354 /* EntryAdditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF968E22012F5C00C96354 /* EntryAdditionController.swift */; };
@@ -76,6 +77,7 @@
 		7381B89D21FD520700845384 /* DataTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableCell.swift; sourceTree = "<group>"; };
 		7381B89F21FD529000845384 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		7381B8A121FD52FD00845384 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		73A9441F2245D303006A8E6F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		73AFA352220D259C00E4CD80 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		73CF968C2200F13700C96354 /* BorderedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedStackView.swift; sourceTree = "<group>"; };
 		73CF968E22012F5C00C96354 /* EntryAdditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryAdditionController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		324F535A220F547F00491CCA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				73A9441F2245D303006A8E6F /* TabBarController.swift */,
 				7381B89B21FD513900845384 /* DataTableController.swift */,
 				73CF968E22012F5C00C96354 /* EntryAdditionController.swift */,
 				7381B89F21FD529000845384 /* ExportViewController.swift */,
@@ -418,6 +421,7 @@
 				7381B89E21FD520700845384 /* DataTableCell.swift in Sources */,
 				733051FC22231A41004FD93B /* Prescription.swift in Sources */,
 				73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */,
+				73A944202245D303006A8E6F /* TabBarController.swift in Sources */,
 				7381B8A021FD529000845384 /* ExportViewController.swift in Sources */,
 				73AFA353220D259C00E4CD80 /* SearchTextField.swift in Sources */,
 				7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */,

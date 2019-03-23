@@ -138,9 +138,14 @@ class EntryAdditionController: UIViewController,
         deleteButtonView.layer.borderColor = UIColorCollection.greyDark.cgColor
         deleteButtonView.layer.borderWidth = 1
         
-        // Customize GenderTextField input options
+        // Customize GenderTextField input options and borders
         genderTextField.inputView = pickerView
         genderTextField.pickerOptions = .gender
+        let parentStackView = genderTextField.superview! as! BorderedStackView
+        parentStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        
+        // Customize TableView
+        tableView.separatorColor = UIColorCollection.greyDark
         
         // Configure UIPickerView
         pickerView.dataSource = self

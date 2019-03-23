@@ -91,7 +91,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
         })
         
         // Generate dummy data
-//        createDummyData()
+        createDummyData()
         
         // Save Provider Name during segue
         UserDefaults.standard.set(providerTextField.text!, forKey: "ProviderName")
@@ -144,7 +144,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
     
     private func createDummyData() {
         // Creates dummy data for testing
-        let entryCount = 10000
+        let entryCount = 500
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
