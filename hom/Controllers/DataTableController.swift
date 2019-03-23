@@ -26,8 +26,9 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
     
     // MARK: - Lifecycle Methods
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         let sorting = Sorting(rawValue: UserDefaults.standard.string(forKey: "sorting")!)!
         initializeFetchedResultsController(sorting: sorting)
     }
