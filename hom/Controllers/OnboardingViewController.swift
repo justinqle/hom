@@ -91,7 +91,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
         })
         
         // Generate dummy data
-        createDummyData()
+//        createDummyData()
         
         // Save Provider Name during segue
         UserDefaults.standard.set(providerTextField.text!, forKey: "ProviderName")
