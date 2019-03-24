@@ -604,7 +604,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="VLY-v7-2hK">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="VLY-v7-2hK">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3aA-FQ-Njq">
@@ -896,7 +896,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="gT9-xw-6yM">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="gT9-xw-6yM">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jI3-UI-mek">
@@ -954,6 +954,12 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NX9-lD-FgN">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                                                 <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raQ-Vv-iGQ">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                                                        <connections>
+                                                                            <segue destination="adc-f0-A1M" kind="show" identifier="DevInfo" id="pmm-Bg-5IR"/>
+                                                                        </connections>
+                                                                    </button>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SKp-C9-5k0" customClass="BorderedStackView" customModule="hom" customModuleProvider="target">
                                                                         <rect key="frame" x="20" y="0.0" width="394" height="56"/>
                                                                         <subviews>
@@ -981,16 +987,29 @@
                                                                     </stackView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <gestureRecognizers/>
                                                                 <constraints>
                                                                     <constraint firstItem="SKp-C9-5k0" firstAttribute="top" secondItem="NX9-lD-FgN" secondAttribute="top" id="1a2-47-vWy"/>
+                                                                    <constraint firstItem="raQ-Vv-iGQ" firstAttribute="top" secondItem="NX9-lD-FgN" secondAttribute="top" id="3Ck-mt-cla"/>
                                                                     <constraint firstAttribute="bottom" secondItem="SKp-C9-5k0" secondAttribute="bottom" id="Q5h-RW-5r7"/>
+                                                                    <constraint firstItem="raQ-Vv-iGQ" firstAttribute="width" secondItem="NX9-lD-FgN" secondAttribute="width" id="XW1-85-aM4"/>
+                                                                    <constraint firstItem="raQ-Vv-iGQ" firstAttribute="height" secondItem="NX9-lD-FgN" secondAttribute="height" id="a0W-Ng-MEm"/>
+                                                                    <constraint firstItem="raQ-Vv-iGQ" firstAttribute="leading" secondItem="NX9-lD-FgN" secondAttribute="leading" id="b1V-Lu-WtL"/>
                                                                     <constraint firstAttribute="trailing" secondItem="SKp-C9-5k0" secondAttribute="trailing" id="esd-AT-hl0"/>
                                                                     <constraint firstItem="SKp-C9-5k0" firstAttribute="leading" secondItem="NX9-lD-FgN" secondAttribute="leading" constant="20" id="q8N-K6-m41"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="raQ-Vv-iGQ" secondAttribute="bottom" id="rC2-CR-fgz"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="raQ-Vv-iGQ" secondAttribute="trailing" id="zLJ-KB-QYM"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJG-4h-O6Z">
                                                                 <rect key="frame" x="0.0" y="57" width="414" height="56"/>
                                                                 <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oMF-bo-4cQ">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                                                        <connections>
+                                                                            <segue destination="S3M-RT-FXD" kind="show" identifier="AttrInfo" id="Me3-vQ-Wee"/>
+                                                                        </connections>
+                                                                    </button>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JrS-fJ-X9H" customClass="BorderedStackView" customModule="hom" customModuleProvider="target">
                                                                         <rect key="frame" x="20" y="0.0" width="394" height="56"/>
                                                                         <subviews>
@@ -1013,10 +1032,16 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="oMF-bo-4cQ" secondAttribute="trailing" id="5Oq-2l-PcA"/>
                                                                     <constraint firstAttribute="bottom" secondItem="JrS-fJ-X9H" secondAttribute="bottom" id="Aas-Tv-4pp"/>
                                                                     <constraint firstAttribute="trailing" secondItem="JrS-fJ-X9H" secondAttribute="trailing" id="Qze-dA-JBF"/>
+                                                                    <constraint firstItem="oMF-bo-4cQ" firstAttribute="width" secondItem="QJG-4h-O6Z" secondAttribute="width" id="Sj7-lQ-41s"/>
+                                                                    <constraint firstItem="oMF-bo-4cQ" firstAttribute="top" secondItem="QJG-4h-O6Z" secondAttribute="top" id="WrO-K3-bwO"/>
                                                                     <constraint firstItem="JrS-fJ-X9H" firstAttribute="leading" secondItem="QJG-4h-O6Z" secondAttribute="leading" constant="20" id="YFc-Lo-LJD"/>
+                                                                    <constraint firstItem="oMF-bo-4cQ" firstAttribute="height" secondItem="QJG-4h-O6Z" secondAttribute="height" id="fYz-lA-3WZ"/>
                                                                     <constraint firstItem="JrS-fJ-X9H" firstAttribute="top" secondItem="QJG-4h-O6Z" secondAttribute="top" id="nQd-TQ-Oi8"/>
+                                                                    <constraint firstItem="oMF-bo-4cQ" firstAttribute="leading" secondItem="QJG-4h-O6Z" secondAttribute="leading" id="wx3-aQ-fhd"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="oMF-bo-4cQ" secondAttribute="bottom" id="zkH-yJ-Amr"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -1104,6 +1129,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HLb-dd-iAU" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1664.8" y="1081.7091454272863"/>
+        </scene>
+        <!--Attribution Info-->
+        <scene sceneID="CJj-or-5Vj">
+            <objects>
+                <viewController title="Attribution Info" id="S3M-RT-FXD" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="S0h-0q-lHK"/>
+                        <viewControllerLayoutGuide type="bottom" id="kts-Dr-upX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dTx-Cm-Bol">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XX1-7z-lh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2596" y="1428"/>
+        </scene>
+        <!--Developer Info-->
+        <scene sceneID="YgL-G5-WGE">
+            <objects>
+                <viewController title="Developer Info" id="adc-f0-A1M" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JlY-VQ-sJM"/>
+                        <viewControllerLayoutGuide type="bottom" id="ifw-UN-n03"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UdO-wq-fhg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ECJ-Ui-xO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2596" y="757"/>
         </scene>
         <!--Data Table Navigation-->
         <scene sceneID="Nvd-Nz-XQn">

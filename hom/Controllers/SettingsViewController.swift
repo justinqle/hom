@@ -96,8 +96,15 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
             if sender.view!.bounds.contains(sender.location(ofTouch: 0, in: sender.view!)) {
                 // Touch ended inside of view, perform action
                 if sender.view!.isDescendant(of: itemStackView) {
-                    // Move to correct view controller
-                    print("Move to new controller!")
+                    // Move to correct view controller, undo animation
+                    sender.view!.backgroundColor = UIColor.white
+                    if sender.view! == devInfoItem {
+                        performSegue(withIdentifier: "DevInfo", sender: self)
+                    } else if sender.view! == attrInfoItem {
+                        performSegue(withIdentifier: "AttrInfo", sender: self)
+                    } else {
+                        fatalError("Invalid sender!")
+                    }
                 } else if sender.view == clearButton {
                     // Undo animation
                     clearButton.backgroundColor = UIColor.white
