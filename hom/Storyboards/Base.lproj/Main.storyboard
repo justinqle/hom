@@ -605,7 +605,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="VLY-v7-2hK">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3aA-FQ-Njq">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="390"/>
@@ -732,7 +732,7 @@
                             <constraint firstItem="TNi-CL-jE6" firstAttribute="top" secondItem="VLY-v7-2hK" secondAttribute="bottom" id="kNo-6u-G4A"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Export Table" id="bPB-6x-40B"/>
+                    <navigationItem key="navigationItem" title="Export Table" largeTitleDisplayMode="never" id="bPB-6x-40B"/>
                     <connections>
                         <outlet property="contentView" destination="3aA-FQ-Njq" id="GXN-09-6d1"/>
                         <outlet property="exportButton" destination="x1T-po-kdw" id="ibo-h1-j9m"/>
@@ -897,7 +897,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="gT9-xw-6yM">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jI3-UI-mek">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="435"/>
@@ -933,7 +933,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uz3-in-bZ8">
-                                                <rect key="frame" x="20" y="121.6666666666667" width="374" height="46.666666666666671"/>
+                                                <rect key="frame" x="20" y="121.66666666666667" width="374" height="46.666666666666671"/>
                                                 <string key="text">Your Provider Name is listed with all entries made in the data table, and can be seen in the exported CSV file. Changing this field will update all entires in the table. </string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1088,7 +1088,7 @@
                             <constraint firstItem="gT9-xw-6yM" firstAttribute="top" secondItem="jez-0c-vcc" secondAttribute="bottom" id="t8G-WD-gYu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="GVs-VJ-z8m"/>
+                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="never" id="GVs-VJ-z8m"/>
                     <connections>
                         <outlet property="attrInfoItem" destination="QJG-4h-O6Z" id="CAt-jg-iiV"/>
                         <outlet property="attrInfoStackView" destination="JrS-fJ-X9H" id="nTT-DZ-sp8"/>
