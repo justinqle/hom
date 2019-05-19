@@ -12,10 +12,11 @@ import os.log
 
 private let reuseIdentifier = "PatientCell"
 
-class DataTableController: UITableViewController, NSFetchedResultsControllerDelegate {
+class DataTableController: UITableViewController, UISearchResultsUpdating, NSFetchedResultsControllerDelegate {
     
     // MARK: - Properties
     
+    let searchController = UISearchController(searchResultsController: nil)
     var fetchedResultsController: NSFetchedResultsController<NSManagedObject>!
     
     enum Sorting: String {
@@ -28,8 +29,22 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Patients"
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+        
+        // Setup default sorting
         let sorting = Sorting(rawValue: UserDefaults.standard.string(forKey: "sorting")!)!
         initializeFetchedResultsController(sorting: sorting)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     // MARK: - Table View Data Source
@@ -104,6 +119,12 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
         cell.prescriptions.text = medicines.joined(separator: ", ")
         
         return cell
+    }
+    
+    // MARK: - UISearchResultsUpdating Delegate
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
