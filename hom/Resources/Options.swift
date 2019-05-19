@@ -28,7 +28,7 @@ class Options {
     static let shared = Options()
     
     let genderList = ["Male", "Female"]
-    let diagnosisList = ["GERD", "HTN", "Arthritis", "Undernourished", "URI",
+    var diagnosisList = ["GERD", "HTN", "Arthritis", "Undernourished", "URI",
                                  "Headache", "Anemia", "Vaginitis", "Iron deficiency",
                                  "Rash", "Pain", "Diabetes", "Worried Well", "Cough", "Fever"]
     let dosageList = ["1 time", "1 week", "1 month", "3 month"]

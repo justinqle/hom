@@ -124,6 +124,8 @@ class DataTableController: UITableViewController, NSFetchedResultsControllerDele
             tableView.reloadRows(at: [indexPath!], with: .automatic)
         case .move:
             tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     
