@@ -121,6 +121,11 @@ class EntryAdditionController: UIViewController,
         }
         // Otherwise use defaults
         else {
+            // Set last clinic name used for adding
+            let clinicName = UserDefaults.standard.string(forKey: "LatestClinic")
+            if clinicName != nil {
+                clinicTextField.text = clinicName
+            }
             additionDate = Date()
         }
         
@@ -630,6 +635,8 @@ class EntryAdditionController: UIViewController,
             
             // Store latest entry date if saving new entry
             UserDefaults.standard.set(dateString, forKey: "LatestEntry")
+            // Store latest clinic name for next addition
+            UserDefaults.standard.set(clinicTextField.text, forKey: "LatestClinic")
         }
         
         // Update modification status if saving or editing new entry
