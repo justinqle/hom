@@ -699,26 +699,18 @@ class EntryAdditionController: UIViewController,
     // Enables save button if all required fields are filled out
     private func enableSaveButton() {
         var validDiagnoses = true
-        if diagnoses.isEmpty {
-            validDiagnoses = false
-        } else {
-            for diagnosis in diagnoses {
-                if diagnosis == "" {
-                    validDiagnoses = false
-                    break;
-                }
+        for diagnosis in diagnoses {
+            if diagnosis == "" {
+                validDiagnoses = false
+                break;
             }
         }
         
         var validPrescriptions = true
-        if prescriptions.isEmpty {
-            validPrescriptions = false
-        } else {
-            for prescription in prescriptions {
-                if prescription.medicine == "" || prescription.dosage == "" || prescription.quantity == 0 {
-                    validDiagnoses = false
-                    break;
-                }
+        for prescription in prescriptions {
+            if prescription.medicine == "" || prescription.dosage == "" || prescription.quantity == 0 {
+                validPrescriptions = false
+                break;
             }
         }
         
