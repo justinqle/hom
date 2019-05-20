@@ -124,7 +124,31 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
     // MARK: - UISearchResultsUpdating Delegate
     
     func updateSearchResults(for searchController: UISearchController) {
+        // Show all patients if search bar is empty
+        if searchBarIsEmpty() {
+            fetchedResultsController.fetchRequest.predicate = nil
+        }
+        // Show patients filtered by search text
+        else {
+            let searchText = searchController.searchBar.text!
+            
+            // Fields to search
+            let predicateClinic = NSPredicate(format: "clinic BEGINSWITH[c] %@", searchText)
+            let predicateSex = NSPredicate(format: "sex BEGINSWITH[c] %@", searchText)
+            let predicateAge = NSPredicate(format: "age BEGINSWITH[c] %@", searchText)
+            
+            // If any of the predicates match
+            let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [predicateClinic, predicateSex, predicateAge])
+            
+            fetchedResultsController.fetchRequest.predicate = orPredicate
+        }
         
+        do {
+            try fetchedResultsController.performFetch()
+            tableView.reloadData()
+        } catch {
+            fatalError("FetchedResultsController failed to fetch: \(error)")
+        }
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
@@ -269,4 +293,10 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
             fatalError("Failed to fetch patients: \(error)")
         }
     }
+    
+    private func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
 }
