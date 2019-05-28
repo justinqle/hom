@@ -127,7 +127,7 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
     func updateSearchResults(for searchController: UISearchController) {
         // Show all patients if search bar is empty
         if searchBarIsEmpty() {
-            fetchedResultsController.fetchRequest.predicate = nil
+            fetchedResultsController.fetchRequest.predicate = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: false))
         }
         // Show patients filtered by search text
         else {
