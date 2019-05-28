@@ -147,13 +147,13 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
             let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [predicateDelete, orPredicate])
 
             fetchedResultsController.fetchRequest.predicate = andPredicate
-
-            do {
-                try fetchedResultsController.performFetch()
-                tableView.reloadData()
-            } catch {
-                fatalError("FetchedResultsController failed to fetch: \(error)")
-            }
+        }
+        
+        do {
+            try fetchedResultsController.performFetch()
+            tableView.reloadData()
+        } catch {
+            fatalError("FetchedResultsController failed to fetch: \(error)")
         }
     }
     
