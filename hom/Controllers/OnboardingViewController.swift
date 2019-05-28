@@ -180,6 +180,8 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
             
             let notes = notesList.randomElement()!
             
+            let dpString = diagnoses.joined() + prescriptions.map{$0.medicine}.joined()
+            
             // Set values
             let entity = NSEntityDescription.entity(forEntityName: "Patient", in: context)!
             let patient = NSManagedObject(entity: entity, insertInto: context)
@@ -192,6 +194,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
             patient.setValue(diagnoses, forKey: Options.PatientKeys.diagnoses.rawValue)
             patient.setValue(prescriptions, forKey: Options.PatientKeys.prescriptions.rawValue)
             patient.setValue(notes, forKey: Options.PatientKeys.notes.rawValue)
+            patient.setValue(dpString, forKey: Options.PatientKeys.dpString.rawValue)
             
             // Store to data model
             do {

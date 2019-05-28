@@ -140,9 +140,11 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
             let predicateClinic = NSPredicate(format: "clinic BEGINSWITH[c] %@", searchText)
             let predicateSex = NSPredicate(format: "sex BEGINSWITH[c] %@", searchText)
             let predicateAge = NSPredicate(format: "age BEGINSWITH[c] %@", searchText)
+            // Searches diagnoses and prescriptions
+            let predicateDP = NSPredicate(format: "dpString CONTAINS[c] %@", searchText)
             
             // If any of search predicates match
-            let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [predicateClinic, predicateSex, predicateAge])
+            let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [predicateClinic, predicateSex, predicateAge, predicateDP])
 
             // Only non-deleted entries however
             let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [predicateDelete, orPredicate])

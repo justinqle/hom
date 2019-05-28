@@ -22,6 +22,7 @@ class Options {
         case diagnoses = "diagnoses"
         case prescriptions = "prescriptions"
         case notes = "notes"
+        case dpString = "dpString"
     }
     
     // MARK: - Properties

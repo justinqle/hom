@@ -676,6 +676,8 @@ class EntryAdditionController: UIViewController,
             notes = ""
         }
         let sex = genderTextField.text!
+        // Concatenated string of all the diagnoses and prescriptions for searching
+        let dpString = diagnoses.joined() + prescriptions.map{$0.medicine}.joined()
         
         // Set the patient to be passed to DataTableController after the unwind segue.
         patient.setValue(age, forKeyPath: Options.PatientKeys.age.rawValue)
@@ -687,6 +689,7 @@ class EntryAdditionController: UIViewController,
         patient.setValue(notes, forKeyPath: Options.PatientKeys.notes.rawValue)
         patient.setValue(prescriptions, forKeyPath: Options.PatientKeys.prescriptions.rawValue)
         patient.setValue(sex, forKeyPath: Options.PatientKeys.sex.rawValue)
+        patient.setValue(dpString, forKey: Options.PatientKeys.dpString.rawValue)
         
         // Save to disk
         do {
