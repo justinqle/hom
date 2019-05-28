@@ -33,6 +33,7 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.tintColor = UIColorCollection.accentOrange
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
