@@ -32,7 +32,7 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Patients"
+        searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
@@ -131,23 +131,29 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
         // Show patients filtered by search text
         else {
             let searchText = searchController.searchBar.text!
-            
+
+            // Only search non-deleted entries
+            let predicateDelete = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: false))
+
             // Fields to search
             let predicateClinic = NSPredicate(format: "clinic BEGINSWITH[c] %@", searchText)
             let predicateSex = NSPredicate(format: "sex BEGINSWITH[c] %@", searchText)
             let predicateAge = NSPredicate(format: "age BEGINSWITH[c] %@", searchText)
             
-            // If any of the predicates match
+            // If any of search predicates match
             let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [predicateClinic, predicateSex, predicateAge])
-            
-            fetchedResultsController.fetchRequest.predicate = orPredicate
-        }
-        
-        do {
-            try fetchedResultsController.performFetch()
-            tableView.reloadData()
-        } catch {
-            fatalError("FetchedResultsController failed to fetch: \(error)")
+
+            // Only non-deleted entries however
+            let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [predicateDelete, orPredicate])
+
+            fetchedResultsController.fetchRequest.predicate = andPredicate
+
+            do {
+                try fetchedResultsController.performFetch()
+                tableView.reloadData()
+            } catch {
+                fatalError("FetchedResultsController failed to fetch: \(error)")
+            }
         }
     }
     
