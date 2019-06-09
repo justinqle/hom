@@ -279,7 +279,7 @@ class ExportViewController: UIViewController, UITextFieldDelegate {
                     // Get addition date
                     let entryDate = entry.value(forKey: Options.PatientKeys.creation.rawValue) as! Date
                     let formatter = DateFormatter()
-                    formatter.dateFormat = "MM/dd/yy 'at' hh:mma"
+                    formatter.dateFormat = "MM/dd/yy '-' hh:mma"
                     formatter.amSymbol = "AM"
                     formatter.pmSymbol = "PM"
                     let dateString = formatter.string(from: entryDate)

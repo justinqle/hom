@@ -467,32 +467,25 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="63o-Xk-saf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="12"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q3K-bs-n3X">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                                                                <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUm-vu-rwq">
-                                                                        <rect key="frame" x="162.66666666666666" y="10" width="89" height="0.0"/>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                        <color key="tintColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <state key="normal" title="Delete Entry">
-                                                                            <color key="titleColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="deleteTouchUpInside:" destination="1qY-f6-OHt" eventType="touchUpInside" id="Dkt-2l-n9E"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                </subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUm-vu-rwq">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstItem="MUm-vu-rwq" firstAttribute="top" secondItem="Q3K-bs-n3X" secondAttribute="top" constant="10" id="FJa-hF-6Nn"/>
-                                                                    <constraint firstItem="MUm-vu-rwq" firstAttribute="centerX" secondItem="Q3K-bs-n3X" secondAttribute="centerX" id="Pdl-64-2xL"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="MUm-vu-rwq" secondAttribute="bottom" constant="10" id="jgq-bx-nXj"/>
-                                                                </constraints>
-                                                            </view>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <color key="tintColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="16"/>
+                                                                <state key="normal" title="Delete Entry">
+                                                                    <color key="titleColor" red="1" green="0.22745098039215686" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="deleteDragExit:" destination="1qY-f6-OHt" eventType="touchDragExit" id="Wid-u2-SId"/>
+                                                                    <action selector="deleteTouchDown:" destination="1qY-f6-OHt" eventType="touchDown" id="hTc-v0-V1z"/>
+                                                                    <action selector="deleteTouchUpInside:" destination="1qY-f6-OHt" eventType="touchUpInside" id="Dkt-2l-n9E"/>
+                                                                </connections>
+                                                            </button>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6W1-K0-bAS">
-                                                                <rect key="frame" x="0.0" y="28" width="414" height="4"/>
+                                                                <rect key="frame" x="0.0" y="8" width="414" height="4"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRu-Qj-t2R">
                                                                         <rect key="frame" x="18" y="4" width="378" height="0.0"/>
@@ -505,6 +498,12 @@
                                                                 <edgeInsets key="layoutMargins" top="4" left="18" bottom="0.0" right="18"/>
                                                             </stackView>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="6W1-K0-bAS" firstAttribute="top" secondItem="MUm-vu-rwq" secondAttribute="bottom" constant="8" id="IRK-4e-DhA"/>
+                                                            <constraint firstItem="MUm-vu-rwq" firstAttribute="top" secondItem="63o-Xk-saf" secondAttribute="top" id="WsK-Hq-Gbl"/>
+                                                            <constraint firstAttribute="trailing" secondItem="MUm-vu-rwq" secondAttribute="trailing" id="Y4p-CT-hXw"/>
+                                                            <constraint firstItem="MUm-vu-rwq" firstAttribute="leading" secondItem="63o-Xk-saf" secondAttribute="leading" id="qp2-bS-k0U"/>
+                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <constraints>
@@ -576,7 +575,6 @@
                         <outlet property="creationLabel" destination="4IC-aG-efh" id="7oO-ef-ER9"/>
                         <outlet property="deleteButton" destination="MUm-vu-rwq" id="3Br-pZ-z7e"/>
                         <outlet property="deleteButtonStack" destination="63o-Xk-saf" id="yZ6-Le-cVc"/>
-                        <outlet property="deleteButtonView" destination="Q3K-bs-n3X" id="1rV-0M-IcK"/>
                         <outlet property="genderTextField" destination="cED-d1-d6y" id="RZ5-Vc-W5K"/>
                         <outlet property="notesTextView" destination="dqO-Pm-Jhd" id="TLg-gV-ShW"/>
                         <outlet property="patientInfoView" destination="GgJ-vS-tVk" id="SYF-Dz-AT2"/>
@@ -900,7 +898,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jI3-UI-mek">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="435"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="474.33333333333331"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVIDER NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xru-bk-NWB">
                                                 <rect key="frame" x="20" y="40" width="374" height="15.666666666666664"/>
@@ -1070,16 +1068,26 @@
                                                     <color key="titleColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clearing the table will delete all local records from the device, and can not be undone." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VuX-tf-xMX">
+                                                <rect key="frame" x="20" y="423" width="374" height="31.333333333333314"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="A3o-am-46L" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" id="3Jg-62-lmR"/>
+                                            <constraint firstItem="VuX-tf-xMX" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="60N-G7-zbY"/>
+                                            <constraint firstAttribute="bottom" secondItem="VuX-tf-xMX" secondAttribute="bottom" constant="20" id="AU1-GB-hwe"/>
                                             <constraint firstItem="KhQ-Ii-WPK" firstAttribute="top" secondItem="Uz3-in-bZ8" secondAttribute="bottom" constant="20" id="Aem-gf-gMq"/>
                                             <constraint firstAttribute="trailing" secondItem="V9I-0I-cT8" secondAttribute="trailing" id="DS3-TI-atc"/>
                                             <constraint firstAttribute="trailing" secondItem="Xru-bk-NWB" secondAttribute="trailing" constant="20" id="EqT-PC-4JB"/>
                                             <constraint firstItem="Xru-bk-NWB" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="LSm-fP-jpg"/>
+                                            <constraint firstItem="VuX-tf-xMX" firstAttribute="top" secondItem="V9I-0I-cT8" secondAttribute="bottom" constant="8" id="PkI-Ls-BLj"/>
                                             <constraint firstItem="JMG-dB-Ce3" firstAttribute="top" secondItem="KhQ-Ii-WPK" secondAttribute="bottom" constant="8" id="Ryz-gY-tK8"/>
                                             <constraint firstAttribute="trailing" secondItem="KhQ-Ii-WPK" secondAttribute="trailing" constant="20" id="W3y-6F-ZnL"/>
+                                            <constraint firstAttribute="trailing" secondItem="VuX-tf-xMX" secondAttribute="trailing" constant="20" id="Wny-Lm-WIr"/>
                                             <constraint firstItem="Xru-bk-NWB" firstAttribute="top" secondItem="jI3-UI-mek" secondAttribute="top" constant="40" id="aVU-6O-dcV"/>
                                             <constraint firstItem="V9I-0I-cT8" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" id="fiE-gY-Jwo"/>
                                             <constraint firstItem="KhQ-Ii-WPK" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="gFu-sw-EVD"/>
@@ -1087,7 +1095,6 @@
                                             <constraint firstItem="Uz3-in-bZ8" firstAttribute="top" secondItem="A3o-am-46L" secondAttribute="bottom" constant="8" id="iIZ-NV-TNO"/>
                                             <constraint firstItem="A3o-am-46L" firstAttribute="top" secondItem="Xru-bk-NWB" secondAttribute="bottom" constant="8" id="jCU-up-hCY"/>
                                             <constraint firstAttribute="trailing" secondItem="JMG-dB-Ce3" secondAttribute="trailing" id="mhY-y8-8IR"/>
-                                            <constraint firstAttribute="bottom" secondItem="V9I-0I-cT8" secondAttribute="bottom" constant="20" id="nZp-Op-JeM"/>
                                             <constraint firstAttribute="trailing" secondItem="A3o-am-46L" secondAttribute="trailing" id="ph7-X7-6jR"/>
                                             <constraint firstItem="V9I-0I-cT8" firstAttribute="top" secondItem="JMG-dB-Ce3" secondAttribute="bottom" constant="40" id="s5A-q2-N3Q"/>
                                             <constraint firstItem="JMG-dB-Ce3" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" id="tvP-w0-PwI"/>
@@ -1259,7 +1266,7 @@
         <image name="Table" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oDv-sh-HEP"/>
+        <segue reference="CLR-W8-P6c"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.73725490199999999" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
 </document>

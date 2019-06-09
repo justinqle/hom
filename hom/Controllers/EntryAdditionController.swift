@@ -21,6 +21,10 @@ class EntryAdditionController: UIViewController,
     
     // MARK: - Properties
     
+    enum TableSection: Int {
+        case diagnosis = 0, prescription, total
+    }
+    
     weak var patient: NSManagedObject?
     var id: Int!
     
@@ -36,13 +40,8 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var notesTextView: PaddedTextView!
     @IBOutlet weak var creationLabel: PaddedLabel!
     @IBOutlet weak var deleteButtonStack: UIStackView!
-    @IBOutlet weak var deleteButtonView: UIView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIBarButtonItem!
-    
-    enum TableSection: Int {
-        case diagnosis = 0, prescription, total
-    }
     
     private let options = Options.shared
     private var activeInput: UIView?
@@ -139,9 +138,9 @@ class EntryAdditionController: UIViewController,
         patientInfoView.layer.borderColor = UIColorCollection.greyDark.cgColor
         patientInfoView.layer.borderWidth = 1
         
-        // Button view container borders
-        deleteButtonView.layer.borderColor = UIColorCollection.greyDark.cgColor
-        deleteButtonView.layer.borderWidth = 1
+        // Delete button borders
+        deleteButton.layer.borderColor = UIColorCollection.greyDark.cgColor
+        deleteButton.layer.borderWidth = 1
         
         // Customize GenderTextField input options and borders
         genderTextField.inputView = pickerView
@@ -644,6 +643,19 @@ class EntryAdditionController: UIViewController,
     }
     
     // MARK: - Actions
+    @IBAction func deleteTouchDown(_ sender: UIButton) {
+        // The touch began
+        UIView.animate(withDuration: 0.1, animations: {
+            self.deleteButton.backgroundColor = UIColorCollection.greyTap
+        })
+    }
+    
+    @IBAction func deleteDragExit(_ sender: UIButton) {
+        // The touch was dragged outside of the button
+        UIView.animate(withDuration: 0.1, animations: {
+            self.deleteButton.backgroundColor = UIColor.white
+        })
+    }
     
     @IBAction func deleteTouchUpInside(_ sender: Any) {
         // Show confirmation
@@ -660,6 +672,11 @@ class EntryAdditionController: UIViewController,
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true)
+        
+        // Undo the animation
+        UIView.animate(withDuration: 0.1, animations: {
+            self.deleteButton.backgroundColor = UIColor.white
+        })
     }
     
     // MARK: - Private Methods
@@ -806,11 +823,23 @@ class EntryAdditionController: UIViewController,
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: [IndexPath(row: self.diagnoses.count - 1, section: 0)], with: .left)
                 self.tableView.endUpdates()
+                
+                // Place focus
+                let rowCount = self.tableView.numberOfRows(inSection: 0)
+                let cell = self.tableView.cellForRow(at: IndexPath(row: rowCount - 1, section: 0))!
+                (cell.subviews[0].subviews[0].subviews[1] as! UITextField).becomeFirstResponder()
+                
             case .prescription:
                 self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: 0))
                 self.tableView.beginUpdates()
                 self.tableView.insertRows(at: [IndexPath(row: self.prescriptions.count - 1, section: 1)], with: .left)
                 self.tableView.endUpdates()
+                
+                // Place focus
+                let rowCount = self.tableView.numberOfRows(inSection: 1)
+                let cell = self.tableView.cellForRow(at: IndexPath(row: rowCount - 1, section: 1))!
+                (cell.subviews[0].subviews[0].subviews[0].subviews[0] as! UITextField).becomeFirstResponder()
+                
             case .total:
                 fatalError("Invalid table section!")
             }

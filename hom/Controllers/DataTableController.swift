@@ -16,13 +16,14 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
     
     // MARK: - Properties
     
-    let searchController = UISearchController(searchResultsController: nil)
-    var fetchedResultsController: NSFetchedResultsController<NSManagedObject>!
-    
     enum Sorting: String {
         case mostRecent = "recent"
         case oldest = "oldest"
     }
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    var fetchedResultsController: NSFetchedResultsController<NSManagedObject>!
+    var sortMode: Sorting?
     
     // MARK: - Lifecycle Methods
     
@@ -39,8 +40,8 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
         definesPresentationContext = true
         
         // Setup default sorting
-        let sorting = Sorting(rawValue: UserDefaults.standard.string(forKey: "sorting")!)!
-        initializeFetchedResultsController(sorting: sorting)
+        sortMode = Sorting(rawValue: UserDefaults.standard.string(forKey: "sorting")!)!
+        initializeFetchedResultsController(sorting: sortMode!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -234,23 +235,18 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
     }
     
     @IBAction func sortButton(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Sort by...", message: nil, preferredStyle: .actionSheet)
-        
-        // Sort by most recent
-        alert.addAction(UIAlertAction(title: "Most Recent", style: .default, handler: { _ in
-            self.initializeFetchedResultsController(sorting: Sorting.mostRecent)
-            self.tableView.reloadData()
-            UserDefaults.standard.set(Sorting.mostRecent.rawValue, forKey: "sorting")
-        }))
-        // Sort by oldest
-        alert.addAction(UIAlertAction(title: "Oldest", style: .default, handler: { _ in
+        // Toggle sort mode
+        if sortMode == Sorting.mostRecent {
+            // Switch to oldest
             self.initializeFetchedResultsController(sorting: Sorting.oldest)
-            self.tableView.reloadData()
-            UserDefaults.standard.set(Sorting.oldest.rawValue, forKey: "sorting")
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true)
+            sortMode = .oldest
+        } else {
+            // Switch to most recent
+            self.initializeFetchedResultsController(sorting: Sorting.mostRecent)
+            sortMode = .mostRecent
+        }
+        UserDefaults.standard.set(Sorting.mostRecent.rawValue, forKey: "sorting")
+        self.tableView.reloadData()
     }
     
     // MARK: - Private Methods

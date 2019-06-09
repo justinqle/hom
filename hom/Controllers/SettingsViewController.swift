@@ -91,7 +91,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     @objc private func viewTapped(_ sender: UITapGestureRecognizer) {
         if sender.state == .began {
             // Animate the touch
-            sender.view!.backgroundColor = UIColorCollection.greyTap
+            if sender.view == clearButton {
+                UIView.animate(withDuration: 0.1, animations: {
+                    sender.view!.backgroundColor = UIColorCollection.greyTap
+                })
+            } else {
+                sender.view!.backgroundColor = UIColorCollection.greyTap
+            }
         } else if sender.state == .ended {
             if sender.view!.bounds.contains(sender.location(ofTouch: 0, in: sender.view!)) {
                 // Touch ended inside of view, perform action
@@ -151,7 +157,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
                 }
             } else {
                 // Touch ended outside of view, undo animation
-                sender.view!.backgroundColor = UIColor.white
+                if sender.view == clearButton {
+                    UIView.animate(withDuration: 0.1, animations: {
+                        sender.view!.backgroundColor = UIColor.white
+                    })
+                } else {
+                    sender.view!.backgroundColor = UIColor.white
+                }
             }
         }
     }
