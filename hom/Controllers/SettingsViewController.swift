@@ -88,7 +88,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Actions
     
-    @objc private func viewTapped(_ sender: UITapGestureRecognizer) {
+    @objc private func viewTapped(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             // Animate the touch
             if sender.view == clearButton {

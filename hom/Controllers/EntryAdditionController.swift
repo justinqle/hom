@@ -578,7 +578,8 @@ class EntryAdditionController: UIViewController,
         }
 
         // Add gesture recognizer to footer
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.footerTapped(_:)))
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.footerTapped(_:)))
+        gestureRecognizer.minimumPressDuration = 0
         stackView.addGestureRecognizer(gestureRecognizer)
         
         // Add subviews
@@ -803,54 +804,60 @@ class EntryAdditionController: UIViewController,
         }
     }
     
-    @objc private func footerTapped(_ sender: UITapGestureRecognizer) {
+    @objc private func footerTapped(_ sender: UILongPressGestureRecognizer) {
         guard let sendingFooter = sender.view?.superview?.superview as? AdditionFooter else {
             fatalError("Tap did not come from a footer!")
         }
+        let footerBackgroundView = sendingFooter.contentView.subviews[0]
         
-        // Hide keyboard if needed
-        view.endEditing(true)
-
         // Animate tap
-        let footerBackground = sendingFooter.contentView.subviews[0]
-        UIView.animate(withDuration: 0.08, animations: {
-            footerBackground.backgroundColor = UIColorCollection.greyTap
-        }, completion: {_ in
-            // Append initial dummy data and insert new cell
-            switch sendingFooter.parentSection {
-            case .diagnosis:
-                self.diagnoses.append("")
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [IndexPath(row: self.diagnoses.count - 1, section: 0)], with: .left)
-                self.tableView.endUpdates()
-                
-                // Place focus
-                let rowCount = self.tableView.numberOfRows(inSection: 0)
-                let cell = self.tableView.cellForRow(at: IndexPath(row: rowCount - 1, section: 0))!
-                (cell.subviews[0].subviews[0].subviews[1] as! UITextField).becomeFirstResponder()
-                
-            case .prescription:
-                self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: 0))
-                self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [IndexPath(row: self.prescriptions.count - 1, section: 1)], with: .left)
-                self.tableView.endUpdates()
-                
-                // Place focus
-                let rowCount = self.tableView.numberOfRows(inSection: 1)
-                let cell = self.tableView.cellForRow(at: IndexPath(row: rowCount - 1, section: 1))!
-                (cell.subviews[0].subviews[0].subviews[0].subviews[0] as! UITextField).becomeFirstResponder()
-                
-            case .total:
-                fatalError("Invalid table section!")
-            }
-
-            // Undo animation
-            UIView.animate(withDuration: 0.2, animations: {
-                footerBackground.backgroundColor = UIColor.white
+        if sender.state == .began {
+            UIView.animate(withDuration: 0.1, animations: {
+                footerBackgroundView.backgroundColor = UIColorCollection.greyTap
             })
-        })
-        
-        saveButton.isEnabled = false
+        } else if sender.state == .ended {
+            if sender.view!.bounds.contains(sender.location(ofTouch: 0, in: sender.view!)) {
+                // Touch ended inside bounds, append initial dummy data and insert new cell
+                switch sendingFooter.parentSection {
+                case .diagnosis:
+                    self.diagnoses.append("")
+                    self.tableView.beginUpdates()
+                    self.tableView.insertRows(at: [IndexPath(row: self.diagnoses.count - 1, section: 0)], with: .left)
+                    self.tableView.endUpdates()
+                    
+                    // Place focus
+                    let rowCount = self.tableView.numberOfRows(inSection: 0)
+                    let cell = self.tableView.cellForRow(at: IndexPath(row: rowCount - 1, section: 0))!
+                    (cell.subviews[0].subviews[0].subviews[1] as! UITextField).becomeFirstResponder()
+                    
+                case .prescription:
+                    self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: 0))
+                    self.tableView.beginUpdates()
+                    self.tableView.insertRows(at: [IndexPath(row: self.prescriptions.count - 1, section: 1)], with: .left)
+                    self.tableView.endUpdates()
+                    
+                    // Place focus
+                    let rowCount = self.tableView.numberOfRows(inSection: 1)
+                    let cell = self.tableView.cellForRow(at: IndexPath(row: rowCount - 1, section: 1))!
+                    (cell.subviews[0].subviews[0].subviews[0].subviews[0] as! UITextField).becomeFirstResponder()
+                    
+                case .total:
+                    fatalError("Invalid table section!")
+                }
+                
+                saveButton.isEnabled = false
+                
+                // Undo animation
+                UIView.animate(withDuration: 0.2, animations: {
+                    footerBackgroundView.backgroundColor = UIColor.white
+                })
+            } else {
+                // Touch ended outside view, undo animation
+                UIView.animate(withDuration: 0.1, animations: {
+                    footerBackgroundView.backgroundColor = UIColor.white
+                })
+            }
+        }
     }
     
     private func setFooterInteractable(_ footer: UITableViewHeaderFooterView, setEnabled: Bool) {
