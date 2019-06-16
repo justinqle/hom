@@ -26,6 +26,7 @@
 		7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7381B8A121FD52FD00845384 /* SettingsViewController.swift */; };
 		73A944202245D303006A8E6F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9441F2245D303006A8E6F /* TabBarController.swift */; };
 		73AFA353220D259C00E4CD80 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFA352220D259C00E4CD80 /* SearchTextField.swift */; };
+		73CB184D22B5F6D600CE2520 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CB184C22B5F6D600CE2520 /* AboutViewController.swift */; };
 		73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF968C2200F13700C96354 /* BorderedStackView.swift */; };
 		73CF968F22012F5C00C96354 /* EntryAdditionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF968E22012F5C00C96354 /* EntryAdditionController.swift */; };
 		73D81B022206711B0010EA75 /* UIColorCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D81B012206711B0010EA75 /* UIColorCollection.swift */; };
@@ -78,6 +79,7 @@
 		7381B8A121FD52FD00845384 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		73A9441F2245D303006A8E6F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		73AFA352220D259C00E4CD80 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		73CB184C22B5F6D600CE2520 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		73CF968C2200F13700C96354 /* BorderedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedStackView.swift; sourceTree = "<group>"; };
 		73CF968E22012F5C00C96354 /* EntryAdditionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryAdditionController.swift; sourceTree = "<group>"; };
 		73D81B012206711B0010EA75 /* UIColorCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorCollection.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				7381B89F21FD529000845384 /* ExportViewController.swift */,
 				7381B8A121FD52FD00845384 /* SettingsViewController.swift */,
 				737E2D4A223037950019F2E2 /* OnboardingViewController.swift */,
+				73CB184C22B5F6D600CE2520 /* AboutViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				733051FC22231A41004FD93B /* Prescription.swift in Sources */,
 				73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */,
 				73A944202245D303006A8E6F /* TabBarController.swift in Sources */,
+				73CB184D22B5F6D600CE2520 /* AboutViewController.swift in Sources */,
 				7381B8A021FD529000845384 /* ExportViewController.swift in Sources */,
 				73AFA353220D259C00E4CD80 /* SearchTextField.swift in Sources */,
 				7381B8A221FD52FD00845384 /* SettingsViewController.swift in Sources */,
