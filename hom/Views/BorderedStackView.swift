@@ -17,7 +17,7 @@ class BorderedStackView: UIStackView {
     @IBInspectable var bottomOffset: CGFloat = 0
     override var bounds: CGRect {
         didSet {
-            updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+            updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
         }
     }
     
@@ -29,12 +29,12 @@ class BorderedStackView: UIStackView {
     // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
     }
     
     // MARK: Private Methods

@@ -131,25 +131,25 @@ class EntryAdditionController: UIViewController,
         patientLabel.text = "Patient " + String(id)
         
         // Provider TextField borders
-        providerTextField.layer.borderColor = UIColorCollection.greyDark.cgColor
+        providerTextField.layer.borderColor = UIColorCollection.greyBorder.cgColor
         providerTextField.layer.borderWidth = 1
         
         // Form view container borders
-        patientInfoView.layer.borderColor = UIColorCollection.greyDark.cgColor
+        patientInfoView.layer.borderColor = UIColorCollection.greyBorder.cgColor
         patientInfoView.layer.borderWidth = 1
         
         // Delete button borders
-        deleteButton.layer.borderColor = UIColorCollection.greyDark.cgColor
+        deleteButton.layer.borderColor = UIColorCollection.greyBorder.cgColor
         deleteButton.layer.borderWidth = 1
         
         // Customize GenderTextField input options and borders
         genderTextField.inputView = pickerView
         genderTextField.pickerOptions = .gender
         let parentStackView = genderTextField.superview! as! BorderedStackView
-        parentStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        parentStackView.updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
         
         // Customize TableView
-        tableView.separatorColor = UIColorCollection.greyDark
+        tableView.separatorColor = UIColorCollection.greyBorder
         
         // Configure UIPickerView
         pickerView.dataSource = self
@@ -539,7 +539,7 @@ class EntryAdditionController: UIViewController,
         
         stackView.top = true
         stackView.bottom = true
-        stackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        stackView.updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
         
         // Create a background view
         let stackViewBackground = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: sectionFooterHeight))

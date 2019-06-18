@@ -120,6 +120,10 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
         }
         cell.prescriptions.text = medicines.joined(separator: ", ")
         
+        // Set border color
+        cell.layer.borderWidth = 0.5
+        cell.layer.borderColor = UIColorCollection.greyBorder.cgColor
+        
         return cell
     }
     

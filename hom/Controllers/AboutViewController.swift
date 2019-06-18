@@ -34,9 +34,9 @@ class AboutViewController: UIViewController {
         super.viewDidLoad()
         
         // View border colors
-        appNameView.layer.borderColor = UIColorCollection.greyDark.cgColor
+        appNameView.layer.borderColor = UIColorCollection.greyBorder.cgColor
         appNameView.layer.borderWidth = 1
-        devView.layer.borderColor = UIColorCollection.greyDark.cgColor
+        devView.layer.borderColor = UIColorCollection.greyBorder.cgColor
         devView.layer.borderWidth = 1
         
         // TextViews

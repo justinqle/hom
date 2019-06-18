@@ -39,13 +39,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         providerTextField.delegate = self
         
         // Border colors
-        providerTextField.layer.borderColor = UIColorCollection.greyDark.cgColor
+        providerTextField.layer.borderColor = UIColorCollection.greyBorder.cgColor
         providerTextField.layer.borderWidth = 1
         
-        itemStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
-        devInfoStackView.updateBorders(color: UIColorCollection.greyDark, borderThickness: 1)
+        itemStackView.updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
+        devInfoStackView.updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
         
-        clearButton.layer.borderColor = UIColorCollection.greyDark.cgColor
+        clearButton.layer.borderColor = UIColorCollection.greyBorder.cgColor
         clearButton.layer.borderWidth = 1
         
         // Display ProviderName

@@ -12,7 +12,7 @@ import UIKit
 class BorderedTextField: InsetTextField {
     override var bounds: CGRect {
         didSet {
-            updateBottomBorder(color: UIColorCollection.greyDark, width: 1, shouldAdd: false)
+            updateBottomBorder(color: UIColorCollection.greyBorder, width: 1, shouldAdd: false)
         }
     }
     
@@ -21,12 +21,12 @@ class BorderedTextField: InsetTextField {
     // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
-        updateBottomBorder(color: UIColorCollection.greyDark, width: 1, shouldAdd: true)
+        updateBottomBorder(color: UIColorCollection.greyBorder, width: 1, shouldAdd: true)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        updateBottomBorder(color: UIColorCollection.greyDark, width: 1, shouldAdd: true)
+        updateBottomBorder(color: UIColorCollection.greyBorder, width: 1, shouldAdd: true)
     }
     
     // MARK: Private Methods
