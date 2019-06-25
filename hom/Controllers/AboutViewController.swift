@@ -58,5 +58,39 @@ class AboutViewController: UIViewController {
         justinImageView.layer.cornerRadius = deanImageView.frame.height / 2
         justinImageView.clipsToBounds = true
         
+        // Add gesture recognizers
+        let deanTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
+        deanTapRecognizer.minimumPressDuration = 0
+        deanCellView.addGestureRecognizer(deanTapRecognizer)
+        
+        let justinTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
+        justinTapRecognizer.minimumPressDuration = 0
+        justinCellView.addGestureRecognizer(justinTapRecognizer)
+    }
+    
+    //MARK: - Private Methods
+    @objc private func viewTapped(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            // Animate the touch
+            UIView.animate(withDuration: 0.1, animations: {
+                sender.view!.backgroundColor = UIColorCollection.greyTap
+            })
+        } else if sender.state == .ended {
+            if sender.view!.bounds.contains(sender.location(ofTouch: 0, in: sender.view!)) {
+                // Touch ended inside view, open link
+                if sender.view! == deanCellView {
+                    UIApplication.shared.open(URL(string: "https://www.linkedin.com/in/dean-foster/")!, options: [:], completionHandler: nil)
+                } else if sender.view! == justinCellView {
+                    UIApplication.shared.open(URL(string: "https://www.linkedin.com/in/justinle99/")!, options: [:], completionHandler: nil)
+                } else {
+                    fatalError("Invalid sender!")
+                }
+            }
+            
+            // Undo animation
+            UIView.animate(withDuration: 0.1, animations: {
+                sender.view!.backgroundColor = UIColor.white
+            })
+        }
     }
 }
