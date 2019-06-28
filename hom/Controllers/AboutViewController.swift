@@ -26,7 +26,6 @@ class AboutViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         scrollView.contentSize = contentView.frame.size
     }
     

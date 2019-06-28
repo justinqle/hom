@@ -36,6 +36,7 @@
 		73E9183A221DC77E00C6E458 /* ExpandableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E91839221DC77E00C6E458 /* ExpandableTableView.swift */; };
 		73E9183C221E5DEA00C6E458 /* AdditionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E9183B221E5DEA00C6E458 /* AdditionFooter.swift */; };
 		73EB322622AD777E00A526A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73EB322522AD777E00A526A0 /* Assets.xcassets */; };
+		73EE828122C59C9600EA7D92 /* AttributionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EE828022C59C9600EA7D92 /* AttributionViewController.swift */; };
 		9292F8304AA2CF41E9CFD6E5 /* Pods_hom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C307A7684DD1DB498AB3C0 /* Pods_hom.framework */; };
 		AF51EDD6C3EAB5DBCBBD5A37 /* Pods_homTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E12E5F827A1BCD7BF46829F8 /* Pods_homTests.framework */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		73E91839221DC77E00C6E458 /* ExpandableTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableTableView.swift; sourceTree = "<group>"; };
 		73E9183B221E5DEA00C6E458 /* AdditionFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionFooter.swift; sourceTree = "<group>"; };
 		73EB322522AD777E00A526A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		73EE828022C59C9600EA7D92 /* AttributionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionViewController.swift; sourceTree = "<group>"; };
 		E12E5F827A1BCD7BF46829F8 /* Pods_homTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_homTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -184,6 +186,7 @@
 				7381B8A121FD52FD00845384 /* SettingsViewController.swift */,
 				737E2D4A223037950019F2E2 /* OnboardingViewController.swift */,
 				73CB184C22B5F6D600CE2520 /* AboutViewController.swift */,
+				73EE828022C59C9600EA7D92 /* AttributionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				7381B89E21FD520700845384 /* DataTableCell.swift in Sources */,
 				733051FC22231A41004FD93B /* Prescription.swift in Sources */,
 				73CF968D2200F13700C96354 /* BorderedStackView.swift in Sources */,
+				73EE828122C59C9600EA7D92 /* AttributionViewController.swift in Sources */,
 				73A944202245D303006A8E6F /* TabBarController.swift in Sources */,
 				73CB184D22B5F6D600CE2520 /* AboutViewController.swift in Sources */,
 				7381B8A021FD529000845384 /* ExportViewController.swift in Sources */,
