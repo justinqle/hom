@@ -168,7 +168,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="be6-7d-u5u">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1155.6666666666667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1140"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Patient 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pcd-FS-egZ">
                                                 <rect key="frame" x="20" y="28" width="386" height="31.333333333333329"/>
@@ -176,19 +176,19 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVIDER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJE-GQ-p8W">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CLINIC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJE-GQ-p8W">
                                                 <rect key="frame" x="20" y="79.333333333333343" width="386" height="15.666666666666671"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Thomas Smolko" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u4m-0P-ptQ" customClass="InsetTextField" customModule="hom" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Clinic name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="u4m-0P-ptQ" customClass="InsetTextField" customModule="hom" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="103" width="414" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="hXJ-kP-FRv"/>
                                                 </constraints>
-                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <userDefinedRuntimeAttributes>
@@ -206,20 +206,20 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Provider Name is used in the database. You can update it in Settings." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0d-U8-AhS">
-                                                <rect key="frame" x="20" y="161" width="386" height="31.333333333333343"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clinic defaults can be changed in settings." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0d-U8-AhS">
+                                                <rect key="frame" x="20" y="161" width="386" height="15.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PATIENT INFO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s30-fn-IjN">
-                                                <rect key="frame" x="20" y="212.33333333333331" width="386" height="15.666666666666657"/>
+                                                <rect key="frame" x="20" y="196.66666666666669" width="386" height="15.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="k9F-05-EQq">
-                                                <rect key="frame" x="0.0" y="235.99999999999994" width="414" height="899.66666666666652"/>
+                                                <rect key="frame" x="0.0" y="220.33333333333331" width="414" height="899.66666666666674"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GgJ-vS-tVk">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="899.66666666666663"/>
@@ -228,33 +228,13 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="891.66666666666663"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="CHH-EL-wj9">
-                                                                        <rect key="frame" x="20" y="4" width="394" height="389"/>
+                                                                        <rect key="frame" x="20" y="4" width="394" height="390"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ssu-RR-XDO">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="394" height="109"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="394" height="110"/>
                                                                                 <subviews>
-                                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Clinic name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="l0c-M4-PJ0" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="394" height="21"/>
-                                                                                        <nil key="textColor"/>
-                                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                        <textInputTraits key="textInputTraits"/>
-                                                                                        <userDefinedRuntimeAttributes>
-                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="xInsetLeft">
-                                                                                                <real key="value" value="16"/>
-                                                                                            </userDefinedRuntimeAttribute>
-                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="xInsetRight">
-                                                                                                <real key="value" value="16"/>
-                                                                                            </userDefinedRuntimeAttribute>
-                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="yInsetTop">
-                                                                                                <real key="value" value="16"/>
-                                                                                            </userDefinedRuntimeAttribute>
-                                                                                            <userDefinedRuntimeAttribute type="number" keyPath="yInsetBottom">
-                                                                                                <real key="value" value="16"/>
-                                                                                            </userDefinedRuntimeAttribute>
-                                                                                        </userDefinedRuntimeAttributes>
-                                                                                    </textField>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="ASl-C5-fxT" customClass="BorderedStackView" customModule="hom" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="29" width="394" height="51"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="394" height="51"/>
                                                                                         <subviews>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Sex" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGn-am-yz0">
                                                                                                 <rect key="frame" x="16" y="14" width="28" height="21"/>
@@ -276,7 +256,7 @@
                                                                                         </userDefinedRuntimeAttributes>
                                                                                     </stackView>
                                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Patient age" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="L0c-La-69b" customClass="BorderedTextField" customModule="hom" customModuleProvider="target">
-                                                                                        <rect key="frame" x="0.0" y="88" width="394" height="21"/>
+                                                                                        <rect key="frame" x="0.0" y="59" width="394" height="51"/>
                                                                                         <nil key="textColor"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -298,7 +278,7 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="-1" estimatedSectionFooterHeight="35" translatesAutoresizingMaskIntoConstraints="NO" id="EQd-Cv-Ee9" customClass="ExpandableTableView" customModule="hom" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="139" width="394" height="250"/>
+                                                                                <rect key="frame" x="0.0" y="140" width="394" height="250"/>
                                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <prototypes>
                                                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiagnosisCell" rowHeight="70" id="abu-uc-6NQ" customClass="DiagnosisCell" customModule="hom" customModuleProvider="target">
@@ -418,7 +398,7 @@
                                                                         </subviews>
                                                                     </stackView>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jvh-Sx-ZCc" customClass="BorderedStackView" customModule="hom" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="401" width="394" height="463"/>
+                                                                        <rect key="frame" x="20" y="402" width="394" height="462"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Additional Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PtF-Q7-u8R" customClass="PaddedLabel" customModule="hom" customModuleProvider="target">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="394" height="20.333333333333332"/>
@@ -432,7 +412,7 @@
                                                                                 </userDefinedRuntimeAttributes>
                                                                             </label>
                                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dqO-Pm-Jhd" customClass="PaddedTextView" customModule="hom" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="20.333333333333371" width="394" height="422.66666666666669"/>
+                                                                                <rect key="frame" x="0.0" y="20.333333333333258" width="394" height="421.66666666666669"/>
                                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -570,7 +550,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="ageTextField" destination="L0c-La-69b" id="o1G-37-2K1"/>
-                        <outlet property="clinicTextField" destination="l0c-M4-PJ0" id="hWu-B6-tEf"/>
+                        <outlet property="clinicTextField" destination="u4m-0P-ptQ" id="8TU-qb-Rpd"/>
                         <outlet property="contentView" destination="be6-7d-u5u" id="vLS-5S-DSg"/>
                         <outlet property="creationLabel" destination="4IC-aG-efh" id="7oO-ef-ER9"/>
                         <outlet property="deleteButton" destination="MUm-vu-rwq" id="3Br-pZ-z7e"/>
@@ -579,7 +559,6 @@
                         <outlet property="notesTextView" destination="dqO-Pm-Jhd" id="TLg-gV-ShW"/>
                         <outlet property="patientInfoView" destination="GgJ-vS-tVk" id="SYF-Dz-AT2"/>
                         <outlet property="patientLabel" destination="Pcd-FS-egZ" id="SDC-QE-0U0"/>
-                        <outlet property="providerTextField" destination="u4m-0P-ptQ" id="8TU-qb-Rpd"/>
                         <outlet property="saveButton" destination="kTy-g0-7xw" id="YT8-hv-1xC"/>
                         <outlet property="scrollView" destination="Jcd-2J-Yut" id="e2A-jI-pyY"/>
                         <outlet property="tableView" destination="EQd-Cv-Ee9" id="XhE-Se-Ukf"/>
@@ -898,7 +877,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jI3-UI-mek">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="474.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="607.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROVIDER NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xru-bk-NWB">
                                                 <rect key="frame" x="20" y="40" width="374" height="15.666666666666664"/>
@@ -906,7 +885,7 @@
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thomas Smolko" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A3o-am-46L" customClass="InsetTextField" customModule="hom" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Thomas Smolko" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="A3o-am-46L" customClass="InsetTextField" customModule="hom" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="63.666666666666657" width="414" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -930,21 +909,50 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uz3-in-bZ8">
-                                                <rect key="frame" x="20" y="121.66666666666667" width="374" height="46.666666666666671"/>
-                                                <string key="text">Your Provider Name is listed with all entries made in the data table, and can be seen in the exported CSV file. Changing this field will update all entires in the table. </string>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Provider Name is included in every entry in the table. Changing this field will update every entry stored on device. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uz3-in-bZ8">
+                                                <rect key="frame" x="20" y="121.66666666666664" width="374" height="31.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CLINIC NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMr-Iq-zlY">
+                                                <rect key="frame" x="20" y="173" width="374" height="15.666666666666657"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Marigot" borderStyle="line" placeholder="Default clinic" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8eo-pD-bt6" customClass="InsetTextField" customModule="hom" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="196.66666666666669" width="414" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="h4b-Pi-NoM"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="xInsetLeft">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="xInsetRight">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="yInsetTop">
+                                                        <real key="value" value="16"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="yInsetBottom">
+                                                        <real key="value" value="16"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhQ-Ii-WPK">
-                                                <rect key="frame" x="20" y="188.33333333333331" width="374" height="15.666666666666657"/>
+                                                <rect key="frame" x="20" y="321.33333333333331" width="374" height="15.666666666666686"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMG-dB-Ce3">
-                                                <rect key="frame" x="0.0" y="212" width="414" height="113"/>
+                                                <rect key="frame" x="0.0" y="345" width="414" height="113"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="mAo-Vm-tqo" customClass="BorderedStackView" customModule="hom" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
@@ -1058,7 +1066,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V9I-0I-cT8">
-                                                <rect key="frame" x="0.0" y="365" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="498" width="414" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="bgb-W0-8kF"/>
@@ -1069,26 +1077,40 @@
                                                 </state>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clearing the table will delete all local records from the device, and can not be undone." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VuX-tf-xMX">
-                                                <rect key="frame" x="20" y="423" width="374" height="31.333333333333314"/>
+                                                <rect key="frame" x="20" y="556" width="374" height="31.333333333333371"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wf2-U5-J0p">
+                                                <rect key="frame" x="20" y="254.66666666666666" width="374" height="46.666666666666657"/>
+                                                <string key="text">A Clinic Name is included in every entry in the table. A default value can be set here. Updating this field will only affect subsequent entries.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="KhQ-Ii-WPK" firstAttribute="top" secondItem="Wf2-U5-J0p" secondAttribute="bottom" constant="20" id="2SP-Nf-JaN"/>
                                             <constraint firstItem="A3o-am-46L" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" id="3Jg-62-lmR"/>
                                             <constraint firstItem="VuX-tf-xMX" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="60N-G7-zbY"/>
+                                            <constraint firstItem="QMr-Iq-zlY" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="8E0-xU-Q1N"/>
+                                            <constraint firstAttribute="trailing" secondItem="Wf2-U5-J0p" secondAttribute="trailing" constant="20" id="8uk-3Y-NBi"/>
                                             <constraint firstAttribute="bottom" secondItem="VuX-tf-xMX" secondAttribute="bottom" constant="20" id="AU1-GB-hwe"/>
-                                            <constraint firstItem="KhQ-Ii-WPK" firstAttribute="top" secondItem="Uz3-in-bZ8" secondAttribute="bottom" constant="20" id="Aem-gf-gMq"/>
+                                            <constraint firstItem="Wf2-U5-J0p" firstAttribute="top" secondItem="8eo-pD-bt6" secondAttribute="bottom" constant="8" id="Acn-kF-ThT"/>
                                             <constraint firstAttribute="trailing" secondItem="V9I-0I-cT8" secondAttribute="trailing" id="DS3-TI-atc"/>
                                             <constraint firstAttribute="trailing" secondItem="Xru-bk-NWB" secondAttribute="trailing" constant="20" id="EqT-PC-4JB"/>
                                             <constraint firstItem="Xru-bk-NWB" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="LSm-fP-jpg"/>
+                                            <constraint firstItem="QMr-Iq-zlY" firstAttribute="top" secondItem="Uz3-in-bZ8" secondAttribute="bottom" constant="20" id="OQB-uM-gIt"/>
                                             <constraint firstItem="VuX-tf-xMX" firstAttribute="top" secondItem="V9I-0I-cT8" secondAttribute="bottom" constant="8" id="PkI-Ls-BLj"/>
+                                            <constraint firstItem="8eo-pD-bt6" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" id="PmP-y1-9kd"/>
                                             <constraint firstItem="JMG-dB-Ce3" firstAttribute="top" secondItem="KhQ-Ii-WPK" secondAttribute="bottom" constant="8" id="Ryz-gY-tK8"/>
                                             <constraint firstAttribute="trailing" secondItem="KhQ-Ii-WPK" secondAttribute="trailing" constant="20" id="W3y-6F-ZnL"/>
+                                            <constraint firstItem="Wf2-U5-J0p" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="WfG-lU-FWv"/>
                                             <constraint firstAttribute="trailing" secondItem="VuX-tf-xMX" secondAttribute="trailing" constant="20" id="Wny-Lm-WIr"/>
                                             <constraint firstItem="Xru-bk-NWB" firstAttribute="top" secondItem="jI3-UI-mek" secondAttribute="top" constant="40" id="aVU-6O-dcV"/>
+                                            <constraint firstItem="8eo-pD-bt6" firstAttribute="top" secondItem="QMr-Iq-zlY" secondAttribute="bottom" constant="8" id="eqg-7h-PY5"/>
                                             <constraint firstItem="V9I-0I-cT8" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" id="fiE-gY-Jwo"/>
                                             <constraint firstItem="KhQ-Ii-WPK" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="gFu-sw-EVD"/>
                                             <constraint firstItem="Uz3-in-bZ8" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" constant="20" id="hQz-51-ceo"/>
@@ -1097,8 +1119,10 @@
                                             <constraint firstAttribute="trailing" secondItem="JMG-dB-Ce3" secondAttribute="trailing" id="mhY-y8-8IR"/>
                                             <constraint firstAttribute="trailing" secondItem="A3o-am-46L" secondAttribute="trailing" id="ph7-X7-6jR"/>
                                             <constraint firstItem="V9I-0I-cT8" firstAttribute="top" secondItem="JMG-dB-Ce3" secondAttribute="bottom" constant="40" id="s5A-q2-N3Q"/>
+                                            <constraint firstAttribute="trailing" secondItem="8eo-pD-bt6" secondAttribute="trailing" id="sWc-7V-QSL"/>
                                             <constraint firstItem="JMG-dB-Ce3" firstAttribute="leading" secondItem="jI3-UI-mek" secondAttribute="leading" id="tvP-w0-PwI"/>
                                             <constraint firstAttribute="trailing" secondItem="Uz3-in-bZ8" secondAttribute="trailing" constant="20" id="xbW-o6-NtT"/>
+                                            <constraint firstAttribute="trailing" secondItem="QMr-Iq-zlY" secondAttribute="trailing" constant="20" id="xtA-Jz-wmr"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1125,6 +1149,7 @@
                         <outlet property="attrInfoItem" destination="QJG-4h-O6Z" id="CAt-jg-iiV"/>
                         <outlet property="attrInfoStackView" destination="JrS-fJ-X9H" id="nTT-DZ-sp8"/>
                         <outlet property="clearButton" destination="V9I-0I-cT8" id="umc-Wv-Mul"/>
+                        <outlet property="clinicTextField" destination="8eo-pD-bt6" id="7ht-dg-yLC"/>
                         <outlet property="contentView" destination="jI3-UI-mek" id="yu0-2r-wuh"/>
                         <outlet property="devInfoItem" destination="NX9-lD-FgN" id="d1z-wY-Uqc"/>
                         <outlet property="devInfoStackView" destination="SKp-C9-5k0" id="yY4-D8-HgF"/>
@@ -1370,7 +1395,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                                                 <edgeInsets key="layoutMargins" top="20" left="0.0" bottom="10" right="20"/>
                                                             </stackView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HOM" translatesAutoresizingMaskIntoConstraints="NO" id="JPb-3y-3VM">
-                                                                <rect key="frame" x="334" y="0.0" width="65" height="100"/>
+                                                                <rect key="frame" x="334" y="0.0" width="65" height="100.00000000000006"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="65" id="ByD-aE-TAx"/>
                                                                     <constraint firstAttribute="height" constant="100" id="e4g-wG-7it"/>

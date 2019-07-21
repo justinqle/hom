@@ -17,6 +17,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var providerTextField: InsetTextField!
+    @IBOutlet weak var clinicTextField: InsetTextField!
     @IBOutlet weak var itemStackView: BorderedStackView!
     @IBOutlet weak var devInfoItem: UIView!
     @IBOutlet weak var devInfoStackView: BorderedStackView!
@@ -37,10 +38,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         // Assign delegates
         providerTextField.delegate = self
+        clinicTextField.delegate = self
         
         // Border colors
         providerTextField.layer.borderColor = UIColorCollection.greyBorder.cgColor
         providerTextField.layer.borderWidth = 1
+        
+        clinicTextField.layer.borderColor = UIColorCollection.greyBorder.cgColor
+        clinicTextField.layer.borderWidth = 1
         
         itemStackView.updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
         devInfoStackView.updateBorders(color: UIColorCollection.greyBorder, borderThickness: 1)
@@ -50,6 +55,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
         
         // Display ProviderName
         providerTextField.text = UserDefaults.standard.string(forKey: "ProviderName")
+        
+        // Display ClinicDefault
+        clinicTextField.text = UserDefaults.standard.string(forKey: "ClinicDefault")
         
         // Add gesture recognizers
         let devTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.viewTapped(_:)))
@@ -76,13 +84,18 @@ class SettingsViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // Update the provider name
-        let prevName = UserDefaults.standard.string(forKey: "ProviderName")!
-        if textField.text != "" && textField.text != prevName {
-            UserDefaults.standard.set(textField.text!, forKey: "ProviderName")
-            UserDefaults.standard.set(true, forKey: "GenerateCSV")
+        if (textField == providerTextField) {
+            // Conditionally update ProviderName
+            let prevName = UserDefaults.standard.string(forKey: "ProviderName")!
+            if textField.text != "" && textField.text != prevName {
+                UserDefaults.standard.set(textField.text!, forKey: "ProviderName")
+                UserDefaults.standard.set(true, forKey: "GenerateCSV")
+            } else {
+                textField.text = UserDefaults.standard.string(forKey: "ProviderName")
+            }
         } else {
-            textField.text = UserDefaults.standard.string(forKey: "ProviderName")
+            // Update ClinicDefault
+            UserDefaults.standard.set(textField.text!, forKey: "ClinicDefault")
         }
     }
     

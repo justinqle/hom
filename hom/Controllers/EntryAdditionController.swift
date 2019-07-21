@@ -31,9 +31,8 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var patientLabel: UILabel!
-    @IBOutlet weak var providerTextField: InsetTextField!
+    @IBOutlet weak var clinicTextField: InsetTextField!
     @IBOutlet weak var patientInfoView: UIView!
-    @IBOutlet weak var clinicTextField: BorderedTextField!
     @IBOutlet weak var genderTextField: PickerTextField!
     @IBOutlet weak var ageTextField: BorderedTextField!
     @IBOutlet weak var tableView: UITableView!
@@ -120,8 +119,8 @@ class EntryAdditionController: UIViewController,
         }
         // Otherwise use defaults
         else {
-            // Set last clinic name used for adding
-            let clinicName = UserDefaults.standard.string(forKey: "LatestClinic")
+            // Fill with default Clinic Name
+            let clinicName = UserDefaults.standard.string(forKey: "ClinicDefault")
             if clinicName != nil {
                 clinicTextField.text = clinicName
             }
@@ -130,9 +129,9 @@ class EntryAdditionController: UIViewController,
         
         patientLabel.text = "Patient " + String(id)
         
-        // Provider TextField borders
-        providerTextField.layer.borderColor = UIColorCollection.greyBorder.cgColor
-        providerTextField.layer.borderWidth = 1
+        // Clinic Name TextField borders
+        clinicTextField.layer.borderColor = UIColorCollection.greyBorder.cgColor
+        clinicTextField.layer.borderWidth = 1
         
         // Form view container borders
         patientInfoView.layer.borderColor = UIColorCollection.greyBorder.cgColor
@@ -167,9 +166,6 @@ class EntryAdditionController: UIViewController,
             formatter.dateFormat = "MM/dd/yy 'at' hh:mma"
             dateString = formatter.string(from: additionDate)
         }
-        
-        // Display ProviderName
-        providerTextField.text = UserDefaults.standard.string(forKey: "ProviderName")
         
         // Dismiss the keyboard on tap of the content
         self.view.addGestureRecognizer(
@@ -247,14 +243,17 @@ class EntryAdditionController: UIViewController,
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeInput = nil
         
-        if textField == ageTextField {
+        if textField == clinicTextField {
+            // If the field is empty, fill with a default if one exists
+            let defaultClinic = UserDefaults.standard.string(forKey: "ClinicDefault")
+            if textField.text == "" && defaultClinic != nil{
+                textField.text = defaultClinic
+            }
+        } else if textField == ageTextField {
             if let text = textField.text {
                 // Append "years old" and trim leading 0's
                 if text != "" {
-                    let integer = Int(text)!
-                    let trimmed = String(integer)
-                    let newText = trimmed + " year(s) old"
-                    textField.text = newText
+                    textField.text = String(Int(text)!) + " year(s) old"
                 }
             }
         } else if textField is PickerTextField {
@@ -635,8 +634,6 @@ class EntryAdditionController: UIViewController,
             
             // Store latest entry date if saving new entry
             UserDefaults.standard.set(dateString, forKey: "LatestEntry")
-            // Store latest clinic name for next addition
-            UserDefaults.standard.set(clinicTextField.text, forKey: "LatestClinic")
         }
         
         // Update modification status if saving or editing new entry
