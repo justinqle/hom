@@ -52,27 +52,13 @@ class EntryAdditionController: UIViewController,
     
     private var diagnoses = [String]() {
         didSet {
-            // Enable or disable the footer
-            if let footer = tableView.footerView(forSection: 0) {
-                if diagnoses.count == 3 {
-                    setFooterInteractable(footer, setEnabled: false)
-                } else {
-                    setFooterInteractable(footer, setEnabled: true)
-                }
-            }
+            testFootersInteractable()
         }
     }
     
     private var prescriptions = [Prescription]() {
         didSet {
-            // Enable or disable the footer
-            if let footer = tableView.footerView(forSection: 1) {
-                if prescriptions.count == 5 {
-                    setFooterInteractable(footer, setEnabled: false)
-                } else {
-                    setFooterInteractable(footer, setEnabled: true)
-                }
-            }
+            testFootersInteractable()
         }
     }
     
@@ -83,6 +69,9 @@ class EntryAdditionController: UIViewController,
         
         // ScrollView content size
         scrollView.contentSize = contentView.frame.size
+        
+        // Enable/disable footers
+        testFootersInteractable()
     }
     
     override func viewDidLoad() {
@@ -853,6 +842,23 @@ class EntryAdditionController: UIViewController,
                 UIView.animate(withDuration: 0.1, animations: {
                     footerBackgroundView.backgroundColor = UIColor.white
                 })
+            }
+        }
+    }
+    
+    private func testFootersInteractable() {
+        if let diagnosesFooter = tableView.footerView(forSection: 0) {
+            if diagnoses.count == 3 {
+                setFooterInteractable(diagnosesFooter, setEnabled: false)
+            } else {
+                setFooterInteractable(diagnosesFooter, setEnabled: true)
+            }
+        }
+        if let prescriptionsFooter = tableView.footerView(forSection: 1) {
+            if prescriptions.count == 5 {
+                setFooterInteractable(prescriptionsFooter, setEnabled: false)
+            } else {
+                setFooterInteractable(prescriptionsFooter, setEnabled: true)
             }
         }
     }
