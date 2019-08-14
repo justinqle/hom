@@ -11,9 +11,9 @@ import Foundation
 public class Prescription: NSObject, NSCoding {
     var medicine: String
     var dosage: String
-    var quantity: Int
+    var quantity: String
     
-    init(medicine: String, dosage: String, quantity: Int) {
+    init(medicine: String, dosage: String, quantity: String) {
         self.medicine = medicine
         self.dosage = dosage
         self.quantity = quantity
@@ -34,7 +34,7 @@ public class Prescription: NSObject, NSCoding {
     public required init?(coder aDecoder: NSCoder) {
         self.medicine = aDecoder.decodeObject(forKey: "medicine") as! String
         self.dosage = aDecoder.decodeObject(forKey: "dosage") as! String
-        self.quantity = aDecoder.decodeInteger(forKey: "quantity")
+        self.quantity = aDecoder.decodeObject(forKey: "quantity") as! String
     }
     
     public override func isEqual(_ object: Any?) -> Bool {

@@ -225,6 +225,15 @@ class EntryAdditionController: UIViewController,
                     pickerTrigger.text = options.dosageList[0]
                     pickerView.selectRow(0, inComponent: 0, animated: true)
                 }
+            case .quantity:
+                if let text = pickerTrigger.text, text != "" {
+                    if let index = options.quantityList.firstIndex(of: text) {
+                        pickerView.selectRow(index, inComponent: 0, animated: true)
+                    }
+                } else {
+                    pickerTrigger.text = options.quantityList[0]
+                    pickerView.selectRow(0, inComponent: 0, animated: true)
+                }
             }
         }
     }
@@ -267,13 +276,18 @@ class EntryAdditionController: UIViewController,
                 case textField as? SearchTextField:
                     prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].medicine = textField.text ?? ""
                 case textField as? PickerTextField:
-                    prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].dosage = textField.text ?? ""
+                    let pickerField = textField as! PickerTextField
+                    if (pickerField.pickerOptions == PickerTextField.PickerType.dosage) {
+                        prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].dosage = textField.text ?? ""
+                    } else {
+                        prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].quantity = textField.text ?? ""
+                    }
                 case textField as? InsetTextField:
                     var text = textField.text ?? "0"
                     if text == "" {
                         text = "0"
                     }
-                    prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].quantity = Int(text)!
+                    prescriptions[tableView.indexPath(for: cellField.parentCell!)!.row].quantity = text
                 default:
                     fatalError("Invalid CellSubView!")
                 }
@@ -281,7 +295,6 @@ class EntryAdditionController: UIViewController,
                 fatalError("Invalid TableSection assigned!")
             }
         }
-        
         enableSaveButton()
     }
     
@@ -335,6 +348,8 @@ class EntryAdditionController: UIViewController,
             return options.diagnosisList.count
         case .dosage:
             return options.dosageList.count
+        case .quantity:
+            return options.quantityList.count
         }
     }
     
@@ -353,6 +368,8 @@ class EntryAdditionController: UIViewController,
             return options.diagnosisList[row]
         case .dosage:
             return options.dosageList[row]
+        case .quantity:
+            return options.quantityList[row]
         }
     }
     
@@ -370,6 +387,8 @@ class EntryAdditionController: UIViewController,
             trigger.text = options.diagnosisList[row]
         case .dosage:
             trigger.text = options.dosageList[row]
+        case .quantity:
+            trigger.text = options.quantityList[row]
         }
     }
     
@@ -442,7 +461,10 @@ class EntryAdditionController: UIViewController,
             cell.dosageTextField.delegate = self
             cell.dosageTextField.inputView = pickerView
             cell.dosageTextField.pickerOptions = .dosage
+            
             cell.quantityTextField.delegate = self
+            cell.quantityTextField.inputView = pickerView
+            cell.quantityTextField.pickerOptions = .quantity
             
             // Assign a reference to parent cell in appropriate subviews
             cell.prescriptionTextField.parentCell = cell
@@ -457,8 +479,8 @@ class EntryAdditionController: UIViewController,
             cell.dosageTextField.text = dosage
             
             let quantity = prescriptions[indexPath.row].quantity
-            if quantity != 0 {
-                cell.quantityTextField.text = String(quantity)
+            if quantity != "" {
+                cell.quantityTextField.text = quantity
             } else {
                 cell.quantityTextField.text = ""
             }
@@ -715,7 +737,7 @@ class EntryAdditionController: UIViewController,
         
         var validPrescriptions = true
         for prescription in prescriptions {
-            if prescription.medicine == "" || prescription.dosage == "" || prescription.quantity == 0 {
+            if prescription.medicine == "" || prescription.dosage == "" || prescription.quantity == "" {
                 validPrescriptions = false
                 break;
             }
@@ -817,7 +839,7 @@ class EntryAdditionController: UIViewController,
                     (cell.subviews[0].subviews[0].subviews[1] as! UITextField).becomeFirstResponder()
                     
                 case .prescription:
-                    self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: 0))
+                    self.prescriptions.append(Prescription(medicine: "", dosage: "", quantity: ""))
                     self.tableView.beginUpdates()
                     self.tableView.insertRows(at: [IndexPath(row: self.prescriptions.count - 1, section: 1)], with: .left)
                     self.tableView.endUpdates()

@@ -172,7 +172,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, UITextFi
             for _ in 0..<prescriptionCount {
                 let medication = Options.shared.medicationList.randomElement()!
                 let dosage = Options.shared.dosageList.randomElement()!
-                let quantity = Int.random(in: 1...5)
+                let quantity = Options.shared.quantityList.randomElement()!
                 prescriptions.append(Prescription(medicine: medication, dosage: dosage, quantity: quantity))
             }
             

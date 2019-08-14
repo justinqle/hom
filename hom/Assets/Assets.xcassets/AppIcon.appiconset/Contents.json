@@ -3,55 +3,109 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "heart-of-medicine-RGB-LOGO image-20@2x.png",
+      "filename" : "heart-of-medicine-filled-20@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "heart-of-medicine-RGB-LOGO image-20@3x.png",
+      "filename" : "heart-of-medicine-filled-20@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "heart-of-medicine-RGB-LOGO image-29@2x.png",
+      "filename" : "heart-of-medicine-filled-29@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "heart-of-medicine-RGB-LOGO image-29@3x.png",
+      "filename" : "heart-of-medicine-filled-29@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "heart-of-medicine-RGB-LOGO image-40@2x.png",
+      "filename" : "heart-of-medicine-filled-40@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "heart-of-medicine-RGB-LOGO image-40@3x.png",
+      "filename" : "heart-of-medicine-filled-40@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "heart-of-medicine-RGB-LOGO image-60@2x.png",
+      "filename" : "heart-of-medicine-filled-60@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "heart-of-medicine-RGB-LOGO image-60@3x.png",
+      "filename" : "heart-of-medicine-filled-60@3x.png",
       "scale" : "3x"
+    },
+    {
+      "size" : "20x20",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-20.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "20x20",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-20@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-29.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-29@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-40.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-40@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-76.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "76x76",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-76@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "83.5x83.5",
+      "idiom" : "ipad",
+      "filename" : "heart-of-medicine-filled-83.5@2x.png",
+      "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "heart-of-medicine-RGB-LOGO image-1024.png",
+      "filename" : "heart-of-medicine-filled-1024.png",
       "scale" : "1x"
     }
   ],

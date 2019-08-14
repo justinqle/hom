@@ -31,8 +31,10 @@ class Options {
     let genderList = ["Male", "Female"]
     var diagnosisList = ["GERD", "HTN", "Arthritis", "Undernourished", "URI",
                                  "Headache", "Anemia", "Vaginitis", "Iron deficiency",
-                                 "Rash", "Pain", "Diabetes", "Worried Well", "Cough", "Fever"]
-    let dosageList = ["1 time", "1 week", "1 month", "3 month"]
+                                 "Rash", "Pain", "Diabetes", "Worried Well", "Cough", "Fever", "Other"]
+    let dosageList = ["PRN - as needed", "QD - 1x daily", "BD - 3x daily", "TID - 3x daily",
+                      "QID - 4x daily", "Other"]
+    let quantityList = ["1 day", "3 days", "5 days", "7 days", "14 days", "30 days", "Other"]
     private (set) var medicationList: [String] = []
     
     // MARK: - Initializer

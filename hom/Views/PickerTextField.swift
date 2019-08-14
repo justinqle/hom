@@ -16,6 +16,7 @@ class PickerTextField: UITextField, UITableCellSubView {
         case gender = "Gender"
         case diagnosis = "Diagnosis"
         case dosage = "Dosage"
+        case quantity = "Quantity"
     }
     
     var pickerOptions: PickerType?
