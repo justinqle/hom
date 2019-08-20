@@ -109,16 +109,24 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
         // Diagnoses
         let diagnoses = patient.value(forKey: Options.PatientKeys.diagnoses.rawValue) as! [String]
         cell.diagnosesCount.text = "Diagnoses (\(diagnoses.count))"
-        cell.diagnoses.text = diagnoses.joined(separator: ", ")
+        if diagnoses.count == 0 {
+            cell.diagnoses.text = "---";
+        } else {
+            cell.diagnoses.text = diagnoses.joined(separator: ", ")
+        }
         
         // Prescriptions
         let prescriptions = patient.value(forKey: Options.PatientKeys.prescriptions.rawValue) as! [Prescription]
         cell.prescriptionCount.text = "Prescriptions (\(prescriptions.count))"
-        var medicines = [String]()
-        for prescription in prescriptions {
-            medicines.append(prescription.medicine)
+        if prescriptions.count == 0 {
+            cell.prescriptions.text = "---";
+        } else {
+            var medicines = [String]()
+            for prescription in prescriptions {
+                medicines.append(prescription.medicine)
+            }
+            cell.prescriptions.text = medicines.joined(separator: ", ")
         }
-        cell.prescriptions.text = medicines.joined(separator: ", ")
         
         // Set border color
         cell.layer.borderWidth = 0.5
