@@ -521,7 +521,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Jcd-2J-Yut" secondAttribute="trailing" id="Ztl-zx-ukW"/>
                             <constraint firstItem="Jcd-2J-Yut" firstAttribute="leading" secondItem="5DL-uW-6jD" secondAttribute="leading" id="fZV-74-bde"/>
@@ -1386,7 +1386,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                                                 <edgeInsets key="layoutMargins" top="20" left="0.0" bottom="10" right="20"/>
                                                             </stackView>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HOM" translatesAutoresizingMaskIntoConstraints="NO" id="JPb-3y-3VM">
-                                                                <rect key="frame" x="334" y="0.0" width="65" height="100.00000000000006"/>
+                                                                <rect key="frame" x="334" y="0.0" width="65" height="100"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="65" id="ByD-aE-TAx"/>
                                                                     <constraint firstAttribute="height" constant="100" id="e4g-wG-7it"/>
@@ -1425,7 +1425,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                                                 <rect key="frame" x="0.0" y="20" width="414" height="80"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dean" translatesAutoresizingMaskIntoConstraints="NO" id="CQm-eP-56r">
-                                                                        <rect key="frame" x="20" y="0.0" width="80.000000000000227" height="80"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="80" height="80"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="80" id="DJ6-Kr-VCe"/>
                                                                             <constraint firstAttribute="width" constant="80" id="Uk0-zM-3bR"/>
