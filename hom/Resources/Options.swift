@@ -47,12 +47,9 @@ class Options {
         // Read the file
         let stream = InputStream(fileAtPath: path)!
         let csv = try! CSVReader(stream: stream)
-        var count = 0
+        csv.next()
         while let row = csv.next() {
-            if count > 0 {
-                medicationList.append(row[0])
-            }
-            count += 1
+            medicationList.append(row[0])
         }
         
         // Sort diagnoses
