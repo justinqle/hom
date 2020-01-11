@@ -10,7 +10,7 @@ import UIKit
 
 open class SearchTextField: UITextField, UITableCellSubView {
     
-    var parentCell: UITableViewCell?
+    weak var parentCell: UITableViewCell?
     
     ////////////////////////////////////////////////////////////////////////
     // Public interface

@@ -451,10 +451,10 @@ class EntryAdditionController: UIViewController,
             cell.prescriptionTextField.theme.font = UIFont.systemFont(ofSize: 18)
             cell.prescriptionTextField.maxNumberOfResults = 5
             cell.prescriptionTextField.theme.bgColor = UIColor.white
-            cell.prescriptionTextField.itemSelectionHandler = { filteredResults, itemPosition in
+            cell.prescriptionTextField.itemSelectionHandler = { [weak cell] filteredResults, itemPosition in
                 let item = filteredResults[itemPosition]
-                cell.prescriptionTextField.text = item.title
-                cell.prescriptionTextField.resignFirstResponder()
+                cell!.prescriptionTextField.text = item.title
+                cell!.prescriptionTextField.resignFirstResponder()
             }
             
             // Configure TextFields

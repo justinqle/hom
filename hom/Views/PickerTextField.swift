@@ -20,7 +20,7 @@ class PickerTextField: UITextField, UITableCellSubView {
     }
     
     var pickerOptions: PickerType?
-    var parentCell: UITableViewCell?
+    weak var parentCell: UITableViewCell?
     
     // MARK: Initialization
     override init(frame: CGRect) {
