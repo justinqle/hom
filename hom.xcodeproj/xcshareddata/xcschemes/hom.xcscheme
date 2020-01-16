@@ -47,6 +47,16 @@
                ReferencedContainer = "container:hom.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "05233CDB23CF8D0000B6258F"
+               BuildableName = "homUITests.xctest"
+               BlueprintName = "homUITests"
+               ReferencedContainer = "container:hom.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

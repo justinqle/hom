@@ -43,7 +43,7 @@ class EntryAdditionController: UIViewController,
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     private let options = Options.shared
-    private var activeInput: UIView?
+    private weak var activeInput: UIView?
     private let pickerView = UIPickerView()
     private var additionDate: Date!
     private var dateString: String!
