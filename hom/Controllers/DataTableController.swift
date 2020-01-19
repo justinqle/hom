@@ -282,6 +282,7 @@ class DataTableController: UITableViewController, UISearchResultsUpdating, NSFet
             request.sortDescriptors = [dateSort]
         }
         request.predicate = NSPredicate(format: "delete == %@", NSNumber(booleanLiteral: false))
+        request.fetchBatchSize = 20
         
         // Create fetched results controller from customized fetch request
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
